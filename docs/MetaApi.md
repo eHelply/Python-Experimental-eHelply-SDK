@@ -1412,7 +1412,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_meta**
-> MetaDynamo get_meta(servicetype_strentity_uuid)
+> MetaGet get_meta(servicetype_strentity_uuid)
 
 Get Meta
 
@@ -1421,7 +1421,7 @@ Get Meta
 ```python
 import ehelply_python_experimental_sdk
 from ehelply_python_experimental_sdk.api import meta_api
-from ehelply_python_experimental_sdk.model.meta_dynamo import MetaDynamo
+from ehelply_python_experimental_sdk.model.meta_get import MetaGet
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.prod.ehelply.com
@@ -1628,7 +1628,7 @@ headers | Unset | headers were not defined |
 #### SchemaFor200ResponseBodyApplicationJson
 Type | Description  | Notes
 ------------- | ------------- | -------------
-[**MetaDynamo**](MetaDynamo.md) |  | 
+[**MetaGet**](MetaGet.md) |  | 
 
 
 #### ApiResponseFor404
@@ -1652,7 +1652,7 @@ Type | Description  | Notes
 
 
 
-[**MetaDynamo**](MetaDynamo.md)
+[**MetaGet**](MetaGet.md)
 
 ### Authorization
 
@@ -1661,7 +1661,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_meta_from_uuid**
-> MetaDynamo get_meta_from_uuid(meta_uuid)
+> MetaGet get_meta_from_uuid(meta_uuid)
 
 Get Meta From Uuid
 
@@ -1670,7 +1670,7 @@ Get Meta From Uuid
 ```python
 import ehelply_python_experimental_sdk
 from ehelply_python_experimental_sdk.api import meta_api
-from ehelply_python_experimental_sdk.model.meta_dynamo import MetaDynamo
+from ehelply_python_experimental_sdk.model.meta_get import MetaGet
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.prod.ehelply.com
@@ -1859,7 +1859,7 @@ headers | Unset | headers were not defined |
 #### SchemaFor200ResponseBodyApplicationJson
 Type | Description  | Notes
 ------------- | ------------- | -------------
-[**MetaDynamo**](MetaDynamo.md) |  | 
+[**MetaGet**](MetaGet.md) |  | 
 
 
 #### ApiResponseFor404
@@ -1883,7 +1883,7 @@ Type | Description  | Notes
 
 
 
-[**MetaDynamo**](MetaDynamo.md)
+[**MetaGet**](MetaGet.md)
 
 ### Authorization
 

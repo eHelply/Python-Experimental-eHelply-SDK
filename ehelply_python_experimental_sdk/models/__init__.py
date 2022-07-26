@@ -42,6 +42,7 @@ from ehelply_python_experimental_sdk.model.custom_list import CustomList
 from ehelply_python_experimental_sdk.model.dates_meta import DatesMeta
 from ehelply_python_experimental_sdk.model.detailed_meta import DetailedMeta
 from ehelply_python_experimental_sdk.model.detailed_meta_create import DetailedMetaCreate
+from ehelply_python_experimental_sdk.model.detailed_meta_get import DetailedMetaGet
 from ehelply_python_experimental_sdk.model.field import Field
 from ehelply_python_experimental_sdk.model.field_dynamo import FieldDynamo
 from ehelply_python_experimental_sdk.model.get_service_service_with_specs_response import GetServiceServiceWithSpecsResponse
@@ -55,6 +56,7 @@ from ehelply_python_experimental_sdk.model.meta_children import MetaChildren
 from ehelply_python_experimental_sdk.model.meta_create import MetaCreate
 from ehelply_python_experimental_sdk.model.meta_custom import MetaCustom
 from ehelply_python_experimental_sdk.model.meta_dynamo import MetaDynamo
+from ehelply_python_experimental_sdk.model.meta_get import MetaGet
 from ehelply_python_experimental_sdk.model.meta_slugger import MetaSlugger
 from ehelply_python_experimental_sdk.model.note_base import NoteBase
 from ehelply_python_experimental_sdk.model.note_dynamo_history_response import NoteDynamoHistoryResponse

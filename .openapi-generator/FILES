@@ -38,6 +38,7 @@ docs/DatesMeta.md
 docs/DefaultApi.md
 docs/DetailedMeta.md
 docs/DetailedMetaCreate.md
+docs/DetailedMetaGet.md
 docs/Field.md
 docs/FieldDynamo.md
 docs/GetServiceServiceWithSpecsResponse.md
@@ -53,6 +54,7 @@ docs/MetaChildren.md
 docs/MetaCreate.md
 docs/MetaCustom.md
 docs/MetaDynamo.md
+docs/MetaGet.md
 docs/MetaSlugger.md
 docs/MonitorApi.md
 docs/NoteBase.md
@@ -180,6 +182,7 @@ ehelply_python_experimental_sdk/model/custom_list.py
 ehelply_python_experimental_sdk/model/dates_meta.py
 ehelply_python_experimental_sdk/model/detailed_meta.py
 ehelply_python_experimental_sdk/model/detailed_meta_create.py
+ehelply_python_experimental_sdk/model/detailed_meta_get.py
 ehelply_python_experimental_sdk/model/field.py
 ehelply_python_experimental_sdk/model/field_dynamo.py
 ehelply_python_experimental_sdk/model/get_service_service_with_specs_response.py
@@ -193,6 +196,7 @@ ehelply_python_experimental_sdk/model/meta_children.py
 ehelply_python_experimental_sdk/model/meta_create.py
 ehelply_python_experimental_sdk/model/meta_custom.py
 ehelply_python_experimental_sdk/model/meta_dynamo.py
+ehelply_python_experimental_sdk/model/meta_get.py
 ehelply_python_experimental_sdk/model/meta_slugger.py
 ehelply_python_experimental_sdk/model/note_base.py
 ehelply_python_experimental_sdk/model/note_dynamo_history_response.py
@@ -302,6 +306,7 @@ test/test_dates_meta.py
 test/test_default_api.py
 test/test_detailed_meta.py
 test/test_detailed_meta_create.py
+test/test_detailed_meta_get.py
 test/test_field.py
 test/test_field_dynamo.py
 test/test_get_service_service_with_specs_response.py
@@ -317,6 +322,7 @@ test/test_meta_children.py
 test/test_meta_create.py
 test/test_meta_custom.py
 test/test_meta_dynamo.py
+test/test_meta_get.py
 test/test_meta_slugger.py
 test/test_monitor_api.py
 test/test_note_base.py
