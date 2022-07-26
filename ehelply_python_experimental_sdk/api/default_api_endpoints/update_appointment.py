@@ -188,33 +188,11 @@ _response_for_200 = api_client.OpenApiResponse(
 )
 
 
-class SchemaFor403ResponseBodyApplicationJson(
-    DictSchema
-):
-    message = StrSchema
-
-
-    def __new__(
-        cls,
-        *args: typing.Union[dict, frozendict, ],
-        message: typing.Union[message, Unset] = unset,
-        _configuration: typing.Optional[Configuration] = None,
-        **kwargs: typing.Type[Schema],
-    ) -> 'SchemaFor403ResponseBodyApplicationJson':
-        return super().__new__(
-            cls,
-            *args,
-            message=message,
-            _configuration=_configuration,
-            **kwargs,
-        )
-
-
 @dataclass
 class ApiResponseFor403(api_client.ApiResponse):
     response: urllib3.HTTPResponse
     body: typing.Union[
-        SchemaFor403ResponseBodyApplicationJson,
+        Unset,
     ]
     headers: Unset = unset
 
@@ -222,39 +200,16 @@ class ApiResponseFor403(api_client.ApiResponse):
 _response_for_403 = api_client.OpenApiResponse(
     response_cls=ApiResponseFor403,
     content={
-        'application/json': api_client.MediaType(
-            schema=SchemaFor403ResponseBodyApplicationJson),
+        'application/json': api_client.MediaType(),
     },
 )
-
-
-class SchemaFor404ResponseBodyApplicationJson(
-    DictSchema
-):
-    message = StrSchema
-
-
-    def __new__(
-        cls,
-        *args: typing.Union[dict, frozendict, ],
-        message: typing.Union[message, Unset] = unset,
-        _configuration: typing.Optional[Configuration] = None,
-        **kwargs: typing.Type[Schema],
-    ) -> 'SchemaFor404ResponseBodyApplicationJson':
-        return super().__new__(
-            cls,
-            *args,
-            message=message,
-            _configuration=_configuration,
-            **kwargs,
-        )
 
 
 @dataclass
 class ApiResponseFor404(api_client.ApiResponse):
     response: urllib3.HTTPResponse
     body: typing.Union[
-        SchemaFor404ResponseBodyApplicationJson,
+        Unset,
     ]
     headers: Unset = unset
 
@@ -262,8 +217,7 @@ class ApiResponseFor404(api_client.ApiResponse):
 _response_for_404 = api_client.OpenApiResponse(
     response_cls=ApiResponseFor404,
     content={
-        'application/json': api_client.MediaType(
-            schema=SchemaFor404ResponseBodyApplicationJson),
+        'application/json': api_client.MediaType(),
     },
 )
 SchemaFor422ResponseBodyApplicationJson = HTTPValidationError

@@ -76,6 +76,8 @@ PageSchema = IntSchema
 PageSizeSchema = IntSchema
 SortOnSchema = StrSchema
 SortDescSchema = BoolSchema
+SearchSchema = StrSchema
+SearchOnSchema = StrSchema
 RequestRequiredQueryParams = typing.TypedDict(
     'RequestRequiredQueryParams',
     {
@@ -93,6 +95,8 @@ RequestOptionalQueryParams = typing.TypedDict(
         'page_size': PageSizeSchema,
         'sort_on': SortOnSchema,
         'sort_desc': SortDescSchema,
+        'search': SearchSchema,
+        'search_on': SearchOnSchema,
     },
     total=False
 )
@@ -154,6 +158,18 @@ request_query_sort_desc = api_client.QueryParameter(
     name="sort_desc",
     style=api_client.ParameterStyle.FORM,
     schema=SortDescSchema,
+    explode=True,
+)
+request_query_search = api_client.QueryParameter(
+    name="search",
+    style=api_client.ParameterStyle.FORM,
+    schema=SearchSchema,
+    explode=True,
+)
+request_query_search_on = api_client.QueryParameter(
+    name="search_on",
+    style=api_client.ParameterStyle.FORM,
+    schema=SearchOnSchema,
     explode=True,
 )
 # header params
@@ -313,6 +329,8 @@ class SearchAppointment(api_client.Api):
             request_query_page_size,
             request_query_sort_on,
             request_query_sort_desc,
+            request_query_search,
+            request_query_search_on,
         ):
             parameter_data = query_params.get(parameter.name, unset)
             if parameter_data is unset:
