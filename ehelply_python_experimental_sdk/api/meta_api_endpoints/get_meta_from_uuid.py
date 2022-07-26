@@ -64,7 +64,7 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
-from ehelply_python_experimental_sdk.model.meta_dynamo import MetaDynamo
+from ehelply_python_experimental_sdk.model.meta_get import MetaGet
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 
 # query params
@@ -205,7 +205,7 @@ request_path_meta_uuid = api_client.PathParameter(
 )
 _path = '/meta/meta/{meta_uuid}'
 _method = 'GET'
-SchemaFor200ResponseBodyApplicationJson = MetaDynamo
+SchemaFor200ResponseBodyApplicationJson = MetaGet
 
 
 @dataclass
