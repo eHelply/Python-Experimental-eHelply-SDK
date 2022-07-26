@@ -64,43 +64,8 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
-from ehelply_python_experimental_sdk.model.product_return import ProductReturn
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 
-# query params
-WithAddonsSchema = BoolSchema
-WithMetaSchema = BoolSchema
-RequestRequiredQueryParams = typing.TypedDict(
-    'RequestRequiredQueryParams',
-    {
-    }
-)
-RequestOptionalQueryParams = typing.TypedDict(
-    'RequestOptionalQueryParams',
-    {
-        'with_addons': WithAddonsSchema,
-        'with_meta': WithMetaSchema,
-    },
-    total=False
-)
-
-
-class RequestQueryParams(RequestRequiredQueryParams, RequestOptionalQueryParams):
-    pass
-
-
-request_query_with_addons = api_client.QueryParameter(
-    name="with_addons",
-    style=api_client.ParameterStyle.FORM,
-    schema=WithAddonsSchema,
-    explode=True,
-)
-request_query_with_meta = api_client.QueryParameter(
-    name="with_meta",
-    style=api_client.ParameterStyle.FORM,
-    schema=WithMetaSchema,
-    explode=True,
-)
 # header params
 XAccessTokenSchema = StrSchema
 XSecretTokenSchema = StrSchema
@@ -162,10 +127,12 @@ request_header_ehelply_data = api_client.HeaderParameter(
     schema=EhelplyDataSchema,
 )
 # path params
+CatalogUuidSchema = StrSchema
 ProductUuidSchema = StrSchema
 RequestRequiredPathParams = typing.TypedDict(
     'RequestRequiredPathParams',
     {
+        'catalog_uuid': CatalogUuidSchema,
         'product_uuid': ProductUuidSchema,
     }
 )
@@ -181,15 +148,21 @@ class RequestPathParams(RequestRequiredPathParams, RequestOptionalPathParams):
     pass
 
 
+request_path_catalog_uuid = api_client.PathParameter(
+    name="catalog_uuid",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=CatalogUuidSchema,
+    required=True,
+)
 request_path_product_uuid = api_client.PathParameter(
     name="product_uuid",
     style=api_client.ParameterStyle.SIMPLE,
     schema=ProductUuidSchema,
     required=True,
 )
-_path = '/products/products/{product_uuid}'
-_method = 'GET'
-SchemaFor200ResponseBodyApplicationJson = ProductReturn
+_path = '/products/catalogs/{catalog_uuid}/products/{product_uuid}'
+_method = 'POST'
+SchemaFor200ResponseBodyApplicationJson = BoolSchema
 
 
 @dataclass
@@ -249,11 +222,10 @@ _all_accept_content_types = (
 )
 
 
-class GetProduct(api_client.Api):
+class AttachProductToCatalog(api_client.Api):
 
-    def get_product(
+    def attach_product_to_catalog(
         self: api_client.Api,
-        query_params: RequestQueryParams = frozendict(),
         header_params: RequestHeaderParams = frozendict(),
         path_params: RequestPathParams = frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
@@ -265,18 +237,18 @@ class GetProduct(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Get Product
+        Addproducttocatalog
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
         """
-        self._verify_typed_dict_inputs(RequestQueryParams, query_params)
         self._verify_typed_dict_inputs(RequestHeaderParams, header_params)
         self._verify_typed_dict_inputs(RequestPathParams, path_params)
         used_path = _path
 
         _path_params = {}
         for parameter in (
+            request_path_catalog_uuid,
             request_path_product_uuid,
         ):
             parameter_data = path_params.get(parameter.name, unset)
@@ -287,20 +259,6 @@ class GetProduct(api_client.Api):
 
         for k, v in _path_params.items():
             used_path = used_path.replace('{%s}' % k, v)
-
-        prefix_separator_iterator = None
-        for parameter in (
-            request_query_with_addons,
-            request_query_with_meta,
-        ):
-            parameter_data = query_params.get(parameter.name, unset)
-            if parameter_data is unset:
-                continue
-            if prefix_separator_iterator is None:
-                prefix_separator_iterator = parameter.get_prefix_separator_iterator()
-            serialized_data = parameter.serialize(parameter_data, prefix_separator_iterator)
-            for serialized_value in serialized_data.values():
-                used_path += serialized_value
 
         _headers = HTTPHeaderDict()
         for parameter in (

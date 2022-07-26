@@ -65,7 +65,8 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
 )
 
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
-from ehelply_python_experimental_sdk.model.update_review import UpdateReview
+from ehelply_python_experimental_sdk.model.catalog_base import CatalogBase
+from ehelply_python_experimental_sdk.model.catalog_return import CatalogReturn
 
 # header params
 XAccessTokenSchema = StrSchema
@@ -128,15 +129,11 @@ request_header_ehelply_data = api_client.HeaderParameter(
     schema=EhelplyDataSchema,
 )
 # path params
-EntityTypeSchema = StrSchema
-EntityUuidSchema = StrSchema
-ReviewUuidSchema = StrSchema
+CatalogUuidSchema = StrSchema
 RequestRequiredPathParams = typing.TypedDict(
     'RequestRequiredPathParams',
     {
-        'entity_type': EntityTypeSchema,
-        'entity_uuid': EntityUuidSchema,
-        'review_uuid': ReviewUuidSchema,
+        'catalog_uuid': CatalogUuidSchema,
     }
 )
 RequestOptionalPathParams = typing.TypedDict(
@@ -151,38 +148,26 @@ class RequestPathParams(RequestRequiredPathParams, RequestOptionalPathParams):
     pass
 
 
-request_path_entity_type = api_client.PathParameter(
-    name="entity_type",
+request_path_catalog_uuid = api_client.PathParameter(
+    name="catalog_uuid",
     style=api_client.ParameterStyle.SIMPLE,
-    schema=EntityTypeSchema,
-    required=True,
-)
-request_path_entity_uuid = api_client.PathParameter(
-    name="entity_uuid",
-    style=api_client.ParameterStyle.SIMPLE,
-    schema=EntityUuidSchema,
-    required=True,
-)
-request_path_review_uuid = api_client.PathParameter(
-    name="review_uuid",
-    style=api_client.ParameterStyle.SIMPLE,
-    schema=ReviewUuidSchema,
+    schema=CatalogUuidSchema,
     required=True,
 )
 # body param
-SchemaForRequestBodyApplicationJson = UpdateReview
+SchemaForRequestBodyApplicationJson = CatalogBase
 
 
-request_body_update_review = api_client.RequestBody(
+request_body_catalog_base = api_client.RequestBody(
     content={
         'application/json': api_client.MediaType(
             schema=SchemaForRequestBodyApplicationJson),
     },
     required=True,
 )
-_path = '/products/reviews/types/{entity_type}/entities/{entity_uuid}/reviews/{review_uuid}'
+_path = '/products/catalogs/{catalog_uuid}'
 _method = 'PUT'
-SchemaFor200ResponseBodyApplicationJson = AnyTypeSchema
+SchemaFor200ResponseBodyApplicationJson = CatalogReturn
 
 
 @dataclass
@@ -242,9 +227,9 @@ _all_accept_content_types = (
 )
 
 
-class UpdateReview(api_client.Api):
+class UpdateCatalog(api_client.Api):
 
-    def update_review(
+    def update_catalog(
         self: api_client.Api,
         body: typing.Union[SchemaForRequestBodyApplicationJson],
         header_params: RequestHeaderParams = frozendict(),
@@ -259,7 +244,7 @@ class UpdateReview(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Update Review
+        Updatecatalog
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
@@ -270,9 +255,7 @@ class UpdateReview(api_client.Api):
 
         _path_params = {}
         for parameter in (
-            request_path_entity_type,
-            request_path_entity_uuid,
-            request_path_review_uuid,
+            request_path_catalog_uuid,
         ):
             parameter_data = path_params.get(parameter.name, unset)
             if parameter_data is unset:
@@ -307,7 +290,7 @@ class UpdateReview(api_client.Api):
                 'The required body parameter has an invalid value of: unset. Set a valid value instead')
         _fields = None
         _body = None
-        serialized_data = request_body_update_review.serialize(body, content_type)
+        serialized_data = request_body_catalog_base.serialize(body, content_type)
         _headers.add('Content-Type', content_type)
         if 'fields' in serialized_data:
             _fields = serialized_data['fields']

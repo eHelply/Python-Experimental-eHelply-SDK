@@ -65,9 +65,42 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
 )
 
 from ehelply_python_experimental_sdk.model.product_return import ProductReturn
-from ehelply_python_experimental_sdk.model.product_base import ProductBase
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 
+# query params
+WithAddonsSchema = BoolSchema
+WithMetaSchema = BoolSchema
+RequestRequiredQueryParams = typing.TypedDict(
+    'RequestRequiredQueryParams',
+    {
+    }
+)
+RequestOptionalQueryParams = typing.TypedDict(
+    'RequestOptionalQueryParams',
+    {
+        'with_addons': WithAddonsSchema,
+        'with_meta': WithMetaSchema,
+    },
+    total=False
+)
+
+
+class RequestQueryParams(RequestRequiredQueryParams, RequestOptionalQueryParams):
+    pass
+
+
+request_query_with_addons = api_client.QueryParameter(
+    name="with_addons",
+    style=api_client.ParameterStyle.FORM,
+    schema=WithAddonsSchema,
+    explode=True,
+)
+request_query_with_meta = api_client.QueryParameter(
+    name="with_meta",
+    style=api_client.ParameterStyle.FORM,
+    schema=WithMetaSchema,
+    explode=True,
+)
 # header params
 XAccessTokenSchema = StrSchema
 XSecretTokenSchema = StrSchema
@@ -128,19 +161,34 @@ request_header_ehelply_data = api_client.HeaderParameter(
     style=api_client.ParameterStyle.SIMPLE,
     schema=EhelplyDataSchema,
 )
-# body param
-SchemaForRequestBodyApplicationJson = ProductBase
-
-
-request_body_product_base = api_client.RequestBody(
-    content={
-        'application/json': api_client.MediaType(
-            schema=SchemaForRequestBodyApplicationJson),
+# path params
+ProductUuidSchema = StrSchema
+RequestRequiredPathParams = typing.TypedDict(
+    'RequestRequiredPathParams',
+    {
+        'product_uuid': ProductUuidSchema,
+    }
+)
+RequestOptionalPathParams = typing.TypedDict(
+    'RequestOptionalPathParams',
+    {
     },
+    total=False
+)
+
+
+class RequestPathParams(RequestRequiredPathParams, RequestOptionalPathParams):
+    pass
+
+
+request_path_product_uuid = api_client.PathParameter(
+    name="product_uuid",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=ProductUuidSchema,
     required=True,
 )
-_path = '/products/products'
-_method = 'POST'
+_path = '/products/products/{product_uuid}'
+_method = 'GET'
 SchemaFor200ResponseBodyApplicationJson = ProductReturn
 
 
@@ -201,13 +249,13 @@ _all_accept_content_types = (
 )
 
 
-class CreateProduct(api_client.Api):
+class GetProduct(api_client.Api):
 
-    def create_product(
+    def get_product(
         self: api_client.Api,
-        body: typing.Union[SchemaForRequestBodyApplicationJson],
+        query_params: RequestQueryParams = frozendict(),
         header_params: RequestHeaderParams = frozendict(),
-        content_type: str = 'application/json',
+        path_params: RequestPathParams = frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
@@ -217,13 +265,42 @@ class CreateProduct(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Create Product
+        Getproduct
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
         """
+        self._verify_typed_dict_inputs(RequestQueryParams, query_params)
         self._verify_typed_dict_inputs(RequestHeaderParams, header_params)
+        self._verify_typed_dict_inputs(RequestPathParams, path_params)
         used_path = _path
+
+        _path_params = {}
+        for parameter in (
+            request_path_product_uuid,
+        ):
+            parameter_data = path_params.get(parameter.name, unset)
+            if parameter_data is unset:
+                continue
+            serialized_data = parameter.serialize(parameter_data)
+            _path_params.update(serialized_data)
+
+        for k, v in _path_params.items():
+            used_path = used_path.replace('{%s}' % k, v)
+
+        prefix_separator_iterator = None
+        for parameter in (
+            request_query_with_addons,
+            request_query_with_meta,
+        ):
+            parameter_data = query_params.get(parameter.name, unset)
+            if parameter_data is unset:
+                continue
+            if prefix_separator_iterator is None:
+                prefix_separator_iterator = parameter.get_prefix_separator_iterator()
+            serialized_data = parameter.serialize(parameter_data, prefix_separator_iterator)
+            for serialized_value in serialized_data.values():
+                used_path += serialized_value
 
         _headers = HTTPHeaderDict()
         for parameter in (
@@ -244,23 +321,10 @@ class CreateProduct(api_client.Api):
             for accept_content_type in accept_content_types:
                 _headers.add('Accept', accept_content_type)
 
-        if body is unset:
-            raise exceptions.ApiValueError(
-                'The required body parameter has an invalid value of: unset. Set a valid value instead')
-        _fields = None
-        _body = None
-        serialized_data = request_body_product_base.serialize(body, content_type)
-        _headers.add('Content-Type', content_type)
-        if 'fields' in serialized_data:
-            _fields = serialized_data['fields']
-        elif 'body' in serialized_data:
-            _body = serialized_data['body']
         response = self.api_client.call_api(
             resource_path=used_path,
             method=_method,
             headers=_headers,
-            fields=_fields,
-            body=_body,
             stream=stream,
             timeout=timeout,
         )
