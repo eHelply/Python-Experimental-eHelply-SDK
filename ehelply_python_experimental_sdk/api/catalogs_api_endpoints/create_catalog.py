@@ -64,8 +64,9 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
-from ehelply_python_experimental_sdk.model.create_review import CreateReview
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
+from ehelply_python_experimental_sdk.model.catalog_base import CatalogBase
+from ehelply_python_experimental_sdk.model.catalog_return import CatalogReturn
 
 # header params
 XAccessTokenSchema = StrSchema
@@ -127,54 +128,20 @@ request_header_ehelply_data = api_client.HeaderParameter(
     style=api_client.ParameterStyle.SIMPLE,
     schema=EhelplyDataSchema,
 )
-# path params
-EntityTypeSchema = StrSchema
-EntityUuidSchema = StrSchema
-RequestRequiredPathParams = typing.TypedDict(
-    'RequestRequiredPathParams',
-    {
-        'entity_type': EntityTypeSchema,
-        'entity_uuid': EntityUuidSchema,
-    }
-)
-RequestOptionalPathParams = typing.TypedDict(
-    'RequestOptionalPathParams',
-    {
-    },
-    total=False
-)
-
-
-class RequestPathParams(RequestRequiredPathParams, RequestOptionalPathParams):
-    pass
-
-
-request_path_entity_type = api_client.PathParameter(
-    name="entity_type",
-    style=api_client.ParameterStyle.SIMPLE,
-    schema=EntityTypeSchema,
-    required=True,
-)
-request_path_entity_uuid = api_client.PathParameter(
-    name="entity_uuid",
-    style=api_client.ParameterStyle.SIMPLE,
-    schema=EntityUuidSchema,
-    required=True,
-)
 # body param
-SchemaForRequestBodyApplicationJson = CreateReview
+SchemaForRequestBodyApplicationJson = CatalogBase
 
 
-request_body_create_review = api_client.RequestBody(
+request_body_catalog_base = api_client.RequestBody(
     content={
         'application/json': api_client.MediaType(
             schema=SchemaForRequestBodyApplicationJson),
     },
     required=True,
 )
-_path = '/products/reviews/types/{entity_type}/entities/{entity_uuid}'
+_path = '/products/catalogs'
 _method = 'POST'
-SchemaFor200ResponseBodyApplicationJson = AnyTypeSchema
+SchemaFor200ResponseBodyApplicationJson = CatalogReturn
 
 
 @dataclass
@@ -234,13 +201,12 @@ _all_accept_content_types = (
 )
 
 
-class CreateReview(api_client.Api):
+class CreateCatalog(api_client.Api):
 
-    def create_review(
+    def create_catalog(
         self: api_client.Api,
         body: typing.Union[SchemaForRequestBodyApplicationJson],
         header_params: RequestHeaderParams = frozendict(),
-        path_params: RequestPathParams = frozendict(),
         content_type: str = 'application/json',
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
@@ -251,28 +217,13 @@ class CreateReview(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Create Review
+        Createcatalog
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
         """
         self._verify_typed_dict_inputs(RequestHeaderParams, header_params)
-        self._verify_typed_dict_inputs(RequestPathParams, path_params)
         used_path = _path
-
-        _path_params = {}
-        for parameter in (
-            request_path_entity_type,
-            request_path_entity_uuid,
-        ):
-            parameter_data = path_params.get(parameter.name, unset)
-            if parameter_data is unset:
-                continue
-            serialized_data = parameter.serialize(parameter_data)
-            _path_params.update(serialized_data)
-
-        for k, v in _path_params.items():
-            used_path = used_path.replace('{%s}' % k, v)
 
         _headers = HTTPHeaderDict()
         for parameter in (
@@ -298,7 +249,7 @@ class CreateReview(api_client.Api):
                 'The required body parameter has an invalid value of: unset. Set a valid value instead')
         _fields = None
         _body = None
-        serialized_data = request_body_create_review.serialize(body, content_type)
+        serialized_data = request_body_catalog_base.serialize(body, content_type)
         _headers.add('Content-Type', content_type)
         if 'fields' in serialized_data:
             _fields = serialized_data['fields']

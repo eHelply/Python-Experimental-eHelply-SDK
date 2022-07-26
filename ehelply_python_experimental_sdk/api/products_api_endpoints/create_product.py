@@ -64,9 +64,9 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
+from ehelply_python_experimental_sdk.model.product_return import ProductReturn
+from ehelply_python_experimental_sdk.model.product_base import ProductBase
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
-from ehelply_python_experimental_sdk.model.catalog_base import CatalogBase
-from ehelply_python_experimental_sdk.model.catalog_return import CatalogReturn
 
 # header params
 XAccessTokenSchema = StrSchema
@@ -129,19 +129,19 @@ request_header_ehelply_data = api_client.HeaderParameter(
     schema=EhelplyDataSchema,
 )
 # body param
-SchemaForRequestBodyApplicationJson = CatalogBase
+SchemaForRequestBodyApplicationJson = ProductBase
 
 
-request_body_catalog_base = api_client.RequestBody(
+request_body_product_base = api_client.RequestBody(
     content={
         'application/json': api_client.MediaType(
             schema=SchemaForRequestBodyApplicationJson),
     },
     required=True,
 )
-_path = '/products/catalogs'
+_path = '/products/products'
 _method = 'POST'
-SchemaFor200ResponseBodyApplicationJson = CatalogReturn
+SchemaFor200ResponseBodyApplicationJson = ProductReturn
 
 
 @dataclass
@@ -201,9 +201,9 @@ _all_accept_content_types = (
 )
 
 
-class CreateCatalog(api_client.Api):
+class CreateProduct(api_client.Api):
 
-    def create_catalog(
+    def create_product(
         self: api_client.Api,
         body: typing.Union[SchemaForRequestBodyApplicationJson],
         header_params: RequestHeaderParams = frozendict(),
@@ -217,7 +217,7 @@ class CreateCatalog(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Create Catalog
+        Createproduct
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
@@ -249,7 +249,7 @@ class CreateCatalog(api_client.Api):
                 'The required body parameter has an invalid value of: unset. Set a valid value instead')
         _fields = None
         _body = None
-        serialized_data = request_body_catalog_base.serialize(body, content_type)
+        serialized_data = request_body_product_base.serialize(body, content_type)
         _headers.add('Content-Type', content_type)
         if 'fields' in serialized_data:
             _fields = serialized_data['fields']

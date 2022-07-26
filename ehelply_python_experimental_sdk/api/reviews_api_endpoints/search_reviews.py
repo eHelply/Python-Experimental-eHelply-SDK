@@ -64,75 +64,8 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
-from ehelply_python_experimental_sdk.model.page import Page
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 
-# query params
-WithMetaSchema = BoolSchema
-NameSchema = StrSchema
-PageSchema = IntSchema
-PageSizeSchema = IntSchema
-SortOnSchema = StrSchema
-SortDescSchema = BoolSchema
-RequestRequiredQueryParams = typing.TypedDict(
-    'RequestRequiredQueryParams',
-    {
-    }
-)
-RequestOptionalQueryParams = typing.TypedDict(
-    'RequestOptionalQueryParams',
-    {
-        'with_meta': WithMetaSchema,
-        'name': NameSchema,
-        'page': PageSchema,
-        'page_size': PageSizeSchema,
-        'sort_on': SortOnSchema,
-        'sort_desc': SortDescSchema,
-    },
-    total=False
-)
-
-
-class RequestQueryParams(RequestRequiredQueryParams, RequestOptionalQueryParams):
-    pass
-
-
-request_query_with_meta = api_client.QueryParameter(
-    name="with_meta",
-    style=api_client.ParameterStyle.FORM,
-    schema=WithMetaSchema,
-    explode=True,
-)
-request_query_name = api_client.QueryParameter(
-    name="name",
-    style=api_client.ParameterStyle.FORM,
-    schema=NameSchema,
-    explode=True,
-)
-request_query_page = api_client.QueryParameter(
-    name="page",
-    style=api_client.ParameterStyle.FORM,
-    schema=PageSchema,
-    explode=True,
-)
-request_query_page_size = api_client.QueryParameter(
-    name="page_size",
-    style=api_client.ParameterStyle.FORM,
-    schema=PageSizeSchema,
-    explode=True,
-)
-request_query_sort_on = api_client.QueryParameter(
-    name="sort_on",
-    style=api_client.ParameterStyle.FORM,
-    schema=SortOnSchema,
-    explode=True,
-)
-request_query_sort_desc = api_client.QueryParameter(
-    name="sort_desc",
-    style=api_client.ParameterStyle.FORM,
-    schema=SortDescSchema,
-    explode=True,
-)
 # header params
 XAccessTokenSchema = StrSchema
 XSecretTokenSchema = StrSchema
@@ -193,9 +126,43 @@ request_header_ehelply_data = api_client.HeaderParameter(
     style=api_client.ParameterStyle.SIMPLE,
     schema=EhelplyDataSchema,
 )
-_path = '/products/catalogs'
+# path params
+EntityTypeSchema = StrSchema
+EntityUuidSchema = StrSchema
+RequestRequiredPathParams = typing.TypedDict(
+    'RequestRequiredPathParams',
+    {
+        'entity_type': EntityTypeSchema,
+        'entity_uuid': EntityUuidSchema,
+    }
+)
+RequestOptionalPathParams = typing.TypedDict(
+    'RequestOptionalPathParams',
+    {
+    },
+    total=False
+)
+
+
+class RequestPathParams(RequestRequiredPathParams, RequestOptionalPathParams):
+    pass
+
+
+request_path_entity_type = api_client.PathParameter(
+    name="entity_type",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=EntityTypeSchema,
+    required=True,
+)
+request_path_entity_uuid = api_client.PathParameter(
+    name="entity_uuid",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=EntityUuidSchema,
+    required=True,
+)
+_path = '/products/reviews/types/{entity_type}/entities/{entity_uuid}'
 _method = 'GET'
-SchemaFor200ResponseBodyApplicationJson = Page
+SchemaFor200ResponseBodyApplicationJson = AnyTypeSchema
 
 
 @dataclass
@@ -255,12 +222,12 @@ _all_accept_content_types = (
 )
 
 
-class SearchCatalogs(api_client.Api):
+class SearchReviews(api_client.Api):
 
-    def search_catalogs(
+    def search_reviews(
         self: api_client.Api,
-        query_params: RequestQueryParams = frozendict(),
         header_params: RequestHeaderParams = frozendict(),
+        path_params: RequestPathParams = frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
@@ -270,32 +237,28 @@ class SearchCatalogs(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Search Catalogs
+        Searchreview
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
         """
-        self._verify_typed_dict_inputs(RequestQueryParams, query_params)
         self._verify_typed_dict_inputs(RequestHeaderParams, header_params)
+        self._verify_typed_dict_inputs(RequestPathParams, path_params)
         used_path = _path
 
-        prefix_separator_iterator = None
+        _path_params = {}
         for parameter in (
-            request_query_with_meta,
-            request_query_name,
-            request_query_page,
-            request_query_page_size,
-            request_query_sort_on,
-            request_query_sort_desc,
+            request_path_entity_type,
+            request_path_entity_uuid,
         ):
-            parameter_data = query_params.get(parameter.name, unset)
+            parameter_data = path_params.get(parameter.name, unset)
             if parameter_data is unset:
                 continue
-            if prefix_separator_iterator is None:
-                prefix_separator_iterator = parameter.get_prefix_separator_iterator()
-            serialized_data = parameter.serialize(parameter_data, prefix_separator_iterator)
-            for serialized_value in serialized_data.values():
-                used_path += serialized_value
+            serialized_data = parameter.serialize(parameter_data)
+            _path_params.update(serialized_data)
+
+        for k, v in _path_params.items():
+            used_path = used_path.replace('{%s}' % k, v)
 
         _headers = HTTPHeaderDict()
         for parameter in (

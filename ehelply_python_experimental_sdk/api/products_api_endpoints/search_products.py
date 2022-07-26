@@ -64,10 +64,120 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
+from ehelply_python_experimental_sdk.model.page import Page
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
-from ehelply_python_experimental_sdk.model.catalog_base import CatalogBase
-from ehelply_python_experimental_sdk.model.catalog_return import CatalogReturn
 
+# query params
+WithMetaSchema = BoolSchema
+NameSchema = StrSchema
+
+
+class AddonsSchema(
+    ListSchema
+):
+    _items = StrSchema
+PriceMaxSchema = IntSchema
+PriceMinSchema = IntSchema
+QuantityAvailableSchema = BoolSchema
+IsDeletedSchema = BoolSchema
+PageSchema = IntSchema
+PageSizeSchema = IntSchema
+SortOnSchema = StrSchema
+SortDescSchema = BoolSchema
+RequestRequiredQueryParams = typing.TypedDict(
+    'RequestRequiredQueryParams',
+    {
+    }
+)
+RequestOptionalQueryParams = typing.TypedDict(
+    'RequestOptionalQueryParams',
+    {
+        'with_meta': WithMetaSchema,
+        'name': NameSchema,
+        'addons': AddonsSchema,
+        'price_max': PriceMaxSchema,
+        'price_min': PriceMinSchema,
+        'quantity_available': QuantityAvailableSchema,
+        'is_deleted': IsDeletedSchema,
+        'page': PageSchema,
+        'page_size': PageSizeSchema,
+        'sort_on': SortOnSchema,
+        'sort_desc': SortDescSchema,
+    },
+    total=False
+)
+
+
+class RequestQueryParams(RequestRequiredQueryParams, RequestOptionalQueryParams):
+    pass
+
+
+request_query_with_meta = api_client.QueryParameter(
+    name="with_meta",
+    style=api_client.ParameterStyle.FORM,
+    schema=WithMetaSchema,
+    explode=True,
+)
+request_query_name = api_client.QueryParameter(
+    name="name",
+    style=api_client.ParameterStyle.FORM,
+    schema=NameSchema,
+    explode=True,
+)
+request_query_addons = api_client.QueryParameter(
+    name="addons",
+    style=api_client.ParameterStyle.FORM,
+    schema=AddonsSchema,
+    explode=True,
+)
+request_query_price_max = api_client.QueryParameter(
+    name="price_max",
+    style=api_client.ParameterStyle.FORM,
+    schema=PriceMaxSchema,
+    explode=True,
+)
+request_query_price_min = api_client.QueryParameter(
+    name="price_min",
+    style=api_client.ParameterStyle.FORM,
+    schema=PriceMinSchema,
+    explode=True,
+)
+request_query_quantity_available = api_client.QueryParameter(
+    name="quantity_available",
+    style=api_client.ParameterStyle.FORM,
+    schema=QuantityAvailableSchema,
+    explode=True,
+)
+request_query_is_deleted = api_client.QueryParameter(
+    name="is_deleted",
+    style=api_client.ParameterStyle.FORM,
+    schema=IsDeletedSchema,
+    explode=True,
+)
+request_query_page = api_client.QueryParameter(
+    name="page",
+    style=api_client.ParameterStyle.FORM,
+    schema=PageSchema,
+    explode=True,
+)
+request_query_page_size = api_client.QueryParameter(
+    name="page_size",
+    style=api_client.ParameterStyle.FORM,
+    schema=PageSizeSchema,
+    explode=True,
+)
+request_query_sort_on = api_client.QueryParameter(
+    name="sort_on",
+    style=api_client.ParameterStyle.FORM,
+    schema=SortOnSchema,
+    explode=True,
+)
+request_query_sort_desc = api_client.QueryParameter(
+    name="sort_desc",
+    style=api_client.ParameterStyle.FORM,
+    schema=SortDescSchema,
+    explode=True,
+)
 # header params
 XAccessTokenSchema = StrSchema
 XSecretTokenSchema = StrSchema
@@ -128,46 +238,9 @@ request_header_ehelply_data = api_client.HeaderParameter(
     style=api_client.ParameterStyle.SIMPLE,
     schema=EhelplyDataSchema,
 )
-# path params
-CatalogUuidSchema = StrSchema
-RequestRequiredPathParams = typing.TypedDict(
-    'RequestRequiredPathParams',
-    {
-        'catalog_uuid': CatalogUuidSchema,
-    }
-)
-RequestOptionalPathParams = typing.TypedDict(
-    'RequestOptionalPathParams',
-    {
-    },
-    total=False
-)
-
-
-class RequestPathParams(RequestRequiredPathParams, RequestOptionalPathParams):
-    pass
-
-
-request_path_catalog_uuid = api_client.PathParameter(
-    name="catalog_uuid",
-    style=api_client.ParameterStyle.SIMPLE,
-    schema=CatalogUuidSchema,
-    required=True,
-)
-# body param
-SchemaForRequestBodyApplicationJson = CatalogBase
-
-
-request_body_catalog_base = api_client.RequestBody(
-    content={
-        'application/json': api_client.MediaType(
-            schema=SchemaForRequestBodyApplicationJson),
-    },
-    required=True,
-)
-_path = '/products/catalogs/{catalog_uuid}'
-_method = 'PUT'
-SchemaFor200ResponseBodyApplicationJson = CatalogReturn
+_path = '/products/products'
+_method = 'GET'
+SchemaFor200ResponseBodyApplicationJson = Page
 
 
 @dataclass
@@ -227,14 +300,12 @@ _all_accept_content_types = (
 )
 
 
-class UpdateCatalog(api_client.Api):
+class SearchProducts(api_client.Api):
 
-    def update_catalog(
+    def search_products(
         self: api_client.Api,
-        body: typing.Union[SchemaForRequestBodyApplicationJson],
+        query_params: RequestQueryParams = frozendict(),
         header_params: RequestHeaderParams = frozendict(),
-        path_params: RequestPathParams = frozendict(),
-        content_type: str = 'application/json',
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
@@ -244,27 +315,37 @@ class UpdateCatalog(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Update Catalog
+        Searchproducts
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
         """
+        self._verify_typed_dict_inputs(RequestQueryParams, query_params)
         self._verify_typed_dict_inputs(RequestHeaderParams, header_params)
-        self._verify_typed_dict_inputs(RequestPathParams, path_params)
         used_path = _path
 
-        _path_params = {}
+        prefix_separator_iterator = None
         for parameter in (
-            request_path_catalog_uuid,
+            request_query_with_meta,
+            request_query_name,
+            request_query_addons,
+            request_query_price_max,
+            request_query_price_min,
+            request_query_quantity_available,
+            request_query_is_deleted,
+            request_query_page,
+            request_query_page_size,
+            request_query_sort_on,
+            request_query_sort_desc,
         ):
-            parameter_data = path_params.get(parameter.name, unset)
+            parameter_data = query_params.get(parameter.name, unset)
             if parameter_data is unset:
                 continue
-            serialized_data = parameter.serialize(parameter_data)
-            _path_params.update(serialized_data)
-
-        for k, v in _path_params.items():
-            used_path = used_path.replace('{%s}' % k, v)
+            if prefix_separator_iterator is None:
+                prefix_separator_iterator = parameter.get_prefix_separator_iterator()
+            serialized_data = parameter.serialize(parameter_data, prefix_separator_iterator)
+            for serialized_value in serialized_data.values():
+                used_path += serialized_value
 
         _headers = HTTPHeaderDict()
         for parameter in (
@@ -285,23 +366,10 @@ class UpdateCatalog(api_client.Api):
             for accept_content_type in accept_content_types:
                 _headers.add('Accept', accept_content_type)
 
-        if body is unset:
-            raise exceptions.ApiValueError(
-                'The required body parameter has an invalid value of: unset. Set a valid value instead')
-        _fields = None
-        _body = None
-        serialized_data = request_body_catalog_base.serialize(body, content_type)
-        _headers.add('Content-Type', content_type)
-        if 'fields' in serialized_data:
-            _fields = serialized_data['fields']
-        elif 'body' in serialized_data:
-            _body = serialized_data['body']
         response = self.api_client.call_api(
             resource_path=used_path,
             method=_method,
             headers=_headers,
-            fields=_fields,
-            body=_body,
             stream=stream,
             timeout=timeout,
         )

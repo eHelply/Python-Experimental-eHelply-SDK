@@ -127,11 +127,15 @@ request_header_ehelply_data = api_client.HeaderParameter(
     schema=EhelplyDataSchema,
 )
 # path params
-ProductUuidSchema = StrSchema
+EntityTypeSchema = StrSchema
+EntityUuidSchema = StrSchema
+ReviewUuidSchema = StrSchema
 RequestRequiredPathParams = typing.TypedDict(
     'RequestRequiredPathParams',
     {
-        'product_uuid': ProductUuidSchema,
+        'entity_type': EntityTypeSchema,
+        'entity_uuid': EntityUuidSchema,
+        'review_uuid': ReviewUuidSchema,
     }
 )
 RequestOptionalPathParams = typing.TypedDict(
@@ -146,15 +150,27 @@ class RequestPathParams(RequestRequiredPathParams, RequestOptionalPathParams):
     pass
 
 
-request_path_product_uuid = api_client.PathParameter(
-    name="product_uuid",
+request_path_entity_type = api_client.PathParameter(
+    name="entity_type",
     style=api_client.ParameterStyle.SIMPLE,
-    schema=ProductUuidSchema,
+    schema=EntityTypeSchema,
     required=True,
 )
-_path = '/products/products/{product_uuid}'
-_method = 'DELETE'
-SchemaFor200ResponseBodyApplicationJson = BoolSchema
+request_path_entity_uuid = api_client.PathParameter(
+    name="entity_uuid",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=EntityUuidSchema,
+    required=True,
+)
+request_path_review_uuid = api_client.PathParameter(
+    name="review_uuid",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=ReviewUuidSchema,
+    required=True,
+)
+_path = '/products/reviews/types/{entity_type}/entities/{entity_uuid}/reviews/{review_uuid}'
+_method = 'GET'
+SchemaFor200ResponseBodyApplicationJson = AnyTypeSchema
 
 
 @dataclass
@@ -214,9 +230,9 @@ _all_accept_content_types = (
 )
 
 
-class DeleteProduct(api_client.Api):
+class GetReview(api_client.Api):
 
-    def delete_product(
+    def get_review(
         self: api_client.Api,
         header_params: RequestHeaderParams = frozendict(),
         path_params: RequestPathParams = frozendict(),
@@ -229,7 +245,7 @@ class DeleteProduct(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Delete Product
+        Getreview
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
@@ -240,7 +256,9 @@ class DeleteProduct(api_client.Api):
 
         _path_params = {}
         for parameter in (
-            request_path_product_uuid,
+            request_path_entity_type,
+            request_path_entity_uuid,
+            request_path_review_uuid,
         ):
             parameter_data = path_params.get(parameter.name, unset)
             if parameter_data is unset:

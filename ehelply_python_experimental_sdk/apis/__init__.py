@@ -16,6 +16,7 @@
 
 # Import APIs into API package:
 from ehelply_python_experimental_sdk.api.billing_api import BillingApi
+from ehelply_python_experimental_sdk.api.catalogs_api import CatalogsApi
 from ehelply_python_experimental_sdk.api.category_api import CategoryApi
 from ehelply_python_experimental_sdk.api.companies_api import CompaniesApi
 from ehelply_python_experimental_sdk.api.default_api import DefaultApi
@@ -24,7 +25,9 @@ from ehelply_python_experimental_sdk.api.meta_api import MetaApi
 from ehelply_python_experimental_sdk.api.monitor_api import MonitorApi
 from ehelply_python_experimental_sdk.api.notes_api import NotesApi
 from ehelply_python_experimental_sdk.api.places_api import PlacesApi
+from ehelply_python_experimental_sdk.api.products_api import ProductsApi
 from ehelply_python_experimental_sdk.api.projects_api import ProjectsApi
+from ehelply_python_experimental_sdk.api.reviews_api import ReviewsApi
 from ehelply_python_experimental_sdk.api.security_api import SecurityApi
 from ehelply_python_experimental_sdk.api.staff_api import StaffApi
 from ehelply_python_experimental_sdk.api.support_api import SupportApi

@@ -20,6 +20,7 @@ docs/BasicMetaCreate.md
 docs/BillingApi.md
 docs/CatalogBase.md
 docs/CatalogReturn.md
+docs/CatalogsApi.md
 docs/CategoryApi.md
 docs/CategoryBase.md
 docs/CategoryDb.md
@@ -80,6 +81,7 @@ docs/PlaceResponse.md
 docs/PlacesApi.md
 docs/ProductBase.md
 docs/ProductReturn.md
+docs/ProductsApi.md
 docs/ProjectDB.md
 docs/ProjectsApi.md
 docs/ProjectsProjectCreate.md
@@ -92,6 +94,7 @@ docs/ProjectsUsageTypeDB.md
 docs/ProjectsUsageTypeGet.md
 docs/ProjectsUsageTypeUnitPrice.md
 docs/ProjectsUsageTypeUpdate.md
+docs/ReviewsApi.md
 docs/SecurityApi.md
 docs/SecurityCreateToken.md
 docs/SecurityEncryptionKeyGet.md
@@ -137,6 +140,7 @@ docs/Validations.md
 ehelply_python_experimental_sdk/__init__.py
 ehelply_python_experimental_sdk/api/__init__.py
 ehelply_python_experimental_sdk/api/billing_api.py
+ehelply_python_experimental_sdk/api/catalogs_api.py
 ehelply_python_experimental_sdk/api/category_api.py
 ehelply_python_experimental_sdk/api/companies_api.py
 ehelply_python_experimental_sdk/api/default_api.py
@@ -145,7 +149,9 @@ ehelply_python_experimental_sdk/api/meta_api.py
 ehelply_python_experimental_sdk/api/monitor_api.py
 ehelply_python_experimental_sdk/api/notes_api.py
 ehelply_python_experimental_sdk/api/places_api.py
+ehelply_python_experimental_sdk/api/products_api.py
 ehelply_python_experimental_sdk/api/projects_api.py
+ehelply_python_experimental_sdk/api/reviews_api.py
 ehelply_python_experimental_sdk/api/security_api.py
 ehelply_python_experimental_sdk/api/staff_api.py
 ehelply_python_experimental_sdk/api/support_api.py
@@ -298,6 +304,7 @@ test/test_basic_meta_create.py
 test/test_billing_api.py
 test/test_catalog_base.py
 test/test_catalog_return.py
+test/test_catalogs_api.py
 test/test_category_api.py
 test/test_category_base.py
 test/test_category_db.py
@@ -358,6 +365,7 @@ test/test_place_response.py
 test/test_places_api.py
 test/test_product_base.py
 test/test_product_return.py
+test/test_products_api.py
 test/test_project_db.py
 test/test_projects_api.py
 test/test_projects_project_create.py
@@ -370,6 +378,7 @@ test/test_projects_usage_type_db.py
 test/test_projects_usage_type_get.py
 test/test_projects_usage_type_unit_price.py
 test/test_projects_usage_type_update.py
+test/test_reviews_api.py
 test/test_security_api.py
 test/test_security_create_token.py
 test/test_security_encryption_key_get.py

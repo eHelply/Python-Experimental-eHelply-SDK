@@ -64,6 +64,7 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
+from ehelply_python_experimental_sdk.model.create_review import CreateReview
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 
 # header params
@@ -127,11 +128,13 @@ request_header_ehelply_data = api_client.HeaderParameter(
     schema=EhelplyDataSchema,
 )
 # path params
-CatalogUuidSchema = StrSchema
+EntityTypeSchema = StrSchema
+EntityUuidSchema = StrSchema
 RequestRequiredPathParams = typing.TypedDict(
     'RequestRequiredPathParams',
     {
-        'catalog_uuid': CatalogUuidSchema,
+        'entity_type': EntityTypeSchema,
+        'entity_uuid': EntityUuidSchema,
     }
 )
 RequestOptionalPathParams = typing.TypedDict(
@@ -146,15 +149,32 @@ class RequestPathParams(RequestRequiredPathParams, RequestOptionalPathParams):
     pass
 
 
-request_path_catalog_uuid = api_client.PathParameter(
-    name="catalog_uuid",
+request_path_entity_type = api_client.PathParameter(
+    name="entity_type",
     style=api_client.ParameterStyle.SIMPLE,
-    schema=CatalogUuidSchema,
+    schema=EntityTypeSchema,
     required=True,
 )
-_path = '/products/catalogs/{catalog_uuid}'
-_method = 'DELETE'
-SchemaFor200ResponseBodyApplicationJson = BoolSchema
+request_path_entity_uuid = api_client.PathParameter(
+    name="entity_uuid",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=EntityUuidSchema,
+    required=True,
+)
+# body param
+SchemaForRequestBodyApplicationJson = CreateReview
+
+
+request_body_create_review = api_client.RequestBody(
+    content={
+        'application/json': api_client.MediaType(
+            schema=SchemaForRequestBodyApplicationJson),
+    },
+    required=True,
+)
+_path = '/products/reviews/types/{entity_type}/entities/{entity_uuid}'
+_method = 'POST'
+SchemaFor200ResponseBodyApplicationJson = AnyTypeSchema
 
 
 @dataclass
@@ -214,12 +234,14 @@ _all_accept_content_types = (
 )
 
 
-class DeleteCatalog(api_client.Api):
+class CreateReview(api_client.Api):
 
-    def delete_catalog(
+    def create_review(
         self: api_client.Api,
+        body: typing.Union[SchemaForRequestBodyApplicationJson],
         header_params: RequestHeaderParams = frozendict(),
         path_params: RequestPathParams = frozendict(),
+        content_type: str = 'application/json',
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
@@ -229,7 +251,7 @@ class DeleteCatalog(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Delete Catalog
+        Create
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
@@ -240,7 +262,8 @@ class DeleteCatalog(api_client.Api):
 
         _path_params = {}
         for parameter in (
-            request_path_catalog_uuid,
+            request_path_entity_type,
+            request_path_entity_uuid,
         ):
             parameter_data = path_params.get(parameter.name, unset)
             if parameter_data is unset:
@@ -270,10 +293,23 @@ class DeleteCatalog(api_client.Api):
             for accept_content_type in accept_content_types:
                 _headers.add('Accept', accept_content_type)
 
+        if body is unset:
+            raise exceptions.ApiValueError(
+                'The required body parameter has an invalid value of: unset. Set a valid value instead')
+        _fields = None
+        _body = None
+        serialized_data = request_body_create_review.serialize(body, content_type)
+        _headers.add('Content-Type', content_type)
+        if 'fields' in serialized_data:
+            _fields = serialized_data['fields']
+        elif 'body' in serialized_data:
+            _body = serialized_data['body']
         response = self.api_client.call_api(
             resource_path=used_path,
             method=_method,
             headers=_headers,
+            fields=_fields,
+            body=_body,
             stream=stream,
             timeout=timeout,
         )

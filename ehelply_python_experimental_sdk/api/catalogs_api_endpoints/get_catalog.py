@@ -64,15 +64,11 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
-from ehelply_python_experimental_sdk.model.page import Page
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
+from ehelply_python_experimental_sdk.model.catalog_return import CatalogReturn
 
 # query params
 WithMetaSchema = BoolSchema
-PageSchema = IntSchema
-PageSizeSchema = IntSchema
-SortOnSchema = StrSchema
-SortDescSchema = BoolSchema
 RequestRequiredQueryParams = typing.TypedDict(
     'RequestRequiredQueryParams',
     {
@@ -82,10 +78,6 @@ RequestOptionalQueryParams = typing.TypedDict(
     'RequestOptionalQueryParams',
     {
         'with_meta': WithMetaSchema,
-        'page': PageSchema,
-        'page_size': PageSizeSchema,
-        'sort_on': SortOnSchema,
-        'sort_desc': SortDescSchema,
     },
     total=False
 )
@@ -99,30 +91,6 @@ request_query_with_meta = api_client.QueryParameter(
     name="with_meta",
     style=api_client.ParameterStyle.FORM,
     schema=WithMetaSchema,
-    explode=True,
-)
-request_query_page = api_client.QueryParameter(
-    name="page",
-    style=api_client.ParameterStyle.FORM,
-    schema=PageSchema,
-    explode=True,
-)
-request_query_page_size = api_client.QueryParameter(
-    name="page_size",
-    style=api_client.ParameterStyle.FORM,
-    schema=PageSizeSchema,
-    explode=True,
-)
-request_query_sort_on = api_client.QueryParameter(
-    name="sort_on",
-    style=api_client.ParameterStyle.FORM,
-    schema=SortOnSchema,
-    explode=True,
-)
-request_query_sort_desc = api_client.QueryParameter(
-    name="sort_desc",
-    style=api_client.ParameterStyle.FORM,
-    schema=SortDescSchema,
     explode=True,
 )
 # header params
@@ -211,9 +179,9 @@ request_path_catalog_uuid = api_client.PathParameter(
     schema=CatalogUuidSchema,
     required=True,
 )
-_path = '/products/catalogs/{catalog_uuid}/products'
+_path = '/products/catalogs/{catalog_uuid}'
 _method = 'GET'
-SchemaFor200ResponseBodyApplicationJson = Page
+SchemaFor200ResponseBodyApplicationJson = CatalogReturn
 
 
 @dataclass
@@ -273,9 +241,9 @@ _all_accept_content_types = (
 )
 
 
-class SearchCatalogProducts(api_client.Api):
+class GetCatalog(api_client.Api):
 
-    def search_catalog_products(
+    def get_catalog(
         self: api_client.Api,
         query_params: RequestQueryParams = frozendict(),
         header_params: RequestHeaderParams = frozendict(),
@@ -289,7 +257,7 @@ class SearchCatalogProducts(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Search Catalog Products
+        Getcatalog
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
@@ -315,10 +283,6 @@ class SearchCatalogProducts(api_client.Api):
         prefix_separator_iterator = None
         for parameter in (
             request_query_with_meta,
-            request_query_page,
-            request_query_page_size,
-            request_query_sort_on,
-            request_query_sort_desc,
         ):
             parameter_data = query_params.get(parameter.name, unset)
             if parameter_data is unset:
