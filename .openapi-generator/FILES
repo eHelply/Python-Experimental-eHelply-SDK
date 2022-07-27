@@ -113,6 +113,7 @@ docs/SupportApi.md
 docs/TagApi.md
 docs/TagBase.md
 docs/TagDb.md
+docs/TagsApi.md
 docs/TicketResponse.md
 docs/TicketsResponse.md
 docs/UpdateReview.md
@@ -151,6 +152,7 @@ ehelply_python_experimental_sdk/api/security_api.py
 ehelply_python_experimental_sdk/api/staff_api.py
 ehelply_python_experimental_sdk/api/support_api.py
 ehelply_python_experimental_sdk/api/tag_api.py
+ehelply_python_experimental_sdk/api/tags_api.py
 ehelply_python_experimental_sdk/api/users_api.py
 ehelply_python_experimental_sdk/api_client.py
 ehelply_python_experimental_sdk/apis/__init__.py
@@ -387,6 +389,7 @@ test/test_support_api.py
 test/test_tag_api.py
 test/test_tag_base.py
 test/test_tag_db.py
+test/test_tags_api.py
 test/test_ticket_response.py
 test/test_tickets_response.py
 test/test_update_review.py

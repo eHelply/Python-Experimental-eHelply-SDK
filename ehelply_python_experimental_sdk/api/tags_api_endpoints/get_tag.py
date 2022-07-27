@@ -215,9 +215,9 @@ _all_accept_content_types = (
 )
 
 
-class GetTagPlacesTagsTagUuidGet(api_client.Api):
+class GetTag(api_client.Api):
 
-    def get_tag_places_tags_tag_uuid_get(
+    def get_tag(
         self: api_client.Api,
         header_params: RequestHeaderParams = frozendict(),
         path_params: RequestPathParams = frozendict(),
@@ -230,7 +230,7 @@ class GetTagPlacesTagsTagUuidGet(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Get Tag
+        Gettag
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances

@@ -64,8 +64,99 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
+from ehelply_python_experimental_sdk.model.place_response import PlaceResponse
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 
+# query params
+WithMetaSchema = BoolSchema
+WithCatalogSchema = BoolSchema
+WithReviewsSchema = BoolSchema
+WithScheduleSchema = BoolSchema
+WithCollectionSchema = BoolSchema
+WithBlogSchema = BoolSchema
+WithTagsSchema = BoolSchema
+WithCategoriesSchema = BoolSchema
+WithCompanySchema = BoolSchema
+RequestRequiredQueryParams = typing.TypedDict(
+    'RequestRequiredQueryParams',
+    {
+    }
+)
+RequestOptionalQueryParams = typing.TypedDict(
+    'RequestOptionalQueryParams',
+    {
+        'with_meta': WithMetaSchema,
+        'with_catalog': WithCatalogSchema,
+        'with_reviews': WithReviewsSchema,
+        'with_schedule': WithScheduleSchema,
+        'with_collection': WithCollectionSchema,
+        'with_blog': WithBlogSchema,
+        'with_tags': WithTagsSchema,
+        'with_categories': WithCategoriesSchema,
+        'with_company': WithCompanySchema,
+    },
+    total=False
+)
+
+
+class RequestQueryParams(RequestRequiredQueryParams, RequestOptionalQueryParams):
+    pass
+
+
+request_query_with_meta = api_client.QueryParameter(
+    name="with_meta",
+    style=api_client.ParameterStyle.FORM,
+    schema=WithMetaSchema,
+    explode=True,
+)
+request_query_with_catalog = api_client.QueryParameter(
+    name="with_catalog",
+    style=api_client.ParameterStyle.FORM,
+    schema=WithCatalogSchema,
+    explode=True,
+)
+request_query_with_reviews = api_client.QueryParameter(
+    name="with_reviews",
+    style=api_client.ParameterStyle.FORM,
+    schema=WithReviewsSchema,
+    explode=True,
+)
+request_query_with_schedule = api_client.QueryParameter(
+    name="with_schedule",
+    style=api_client.ParameterStyle.FORM,
+    schema=WithScheduleSchema,
+    explode=True,
+)
+request_query_with_collection = api_client.QueryParameter(
+    name="with_collection",
+    style=api_client.ParameterStyle.FORM,
+    schema=WithCollectionSchema,
+    explode=True,
+)
+request_query_with_blog = api_client.QueryParameter(
+    name="with_blog",
+    style=api_client.ParameterStyle.FORM,
+    schema=WithBlogSchema,
+    explode=True,
+)
+request_query_with_tags = api_client.QueryParameter(
+    name="with_tags",
+    style=api_client.ParameterStyle.FORM,
+    schema=WithTagsSchema,
+    explode=True,
+)
+request_query_with_categories = api_client.QueryParameter(
+    name="with_categories",
+    style=api_client.ParameterStyle.FORM,
+    schema=WithCategoriesSchema,
+    explode=True,
+)
+request_query_with_company = api_client.QueryParameter(
+    name="with_company",
+    style=api_client.ParameterStyle.FORM,
+    schema=WithCompanySchema,
+    explode=True,
+)
 # header params
 XAccessTokenSchema = StrSchema
 XSecretTokenSchema = StrSchema
@@ -127,11 +218,11 @@ request_header_ehelply_data = api_client.HeaderParameter(
     schema=EhelplyDataSchema,
 )
 # path params
-TagUuidSchema = StrSchema
+PlaceUuidSchema = StrSchema
 RequestRequiredPathParams = typing.TypedDict(
     'RequestRequiredPathParams',
     {
-        'tag_uuid': TagUuidSchema,
+        'place_uuid': PlaceUuidSchema,
     }
 )
 RequestOptionalPathParams = typing.TypedDict(
@@ -146,15 +237,15 @@ class RequestPathParams(RequestRequiredPathParams, RequestOptionalPathParams):
     pass
 
 
-request_path_tag_uuid = api_client.PathParameter(
-    name="tag_uuid",
+request_path_place_uuid = api_client.PathParameter(
+    name="place_uuid",
     style=api_client.ParameterStyle.SIMPLE,
-    schema=TagUuidSchema,
+    schema=PlaceUuidSchema,
     required=True,
 )
-_path = '/places/tags/{tag_uuid}'
-_method = 'DELETE'
-SchemaFor200ResponseBodyApplicationJson = AnyTypeSchema
+_path = '/places/places/{place_uuid}'
+_method = 'GET'
+SchemaFor200ResponseBodyApplicationJson = PlaceResponse
 
 
 @dataclass
@@ -214,10 +305,11 @@ _all_accept_content_types = (
 )
 
 
-class DeleteTagPlacesTagsTagUuidDelete(api_client.Api):
+class GetPlace(api_client.Api):
 
-    def delete_tag_places_tags_tag_uuid_delete(
+    def get_place(
         self: api_client.Api,
+        query_params: RequestQueryParams = frozendict(),
         header_params: RequestHeaderParams = frozendict(),
         path_params: RequestPathParams = frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
@@ -229,18 +321,19 @@ class DeleteTagPlacesTagsTagUuidDelete(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Delete Tag
+        Getplace
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
         """
+        self._verify_typed_dict_inputs(RequestQueryParams, query_params)
         self._verify_typed_dict_inputs(RequestHeaderParams, header_params)
         self._verify_typed_dict_inputs(RequestPathParams, path_params)
         used_path = _path
 
         _path_params = {}
         for parameter in (
-            request_path_tag_uuid,
+            request_path_place_uuid,
         ):
             parameter_data = path_params.get(parameter.name, unset)
             if parameter_data is unset:
@@ -250,6 +343,27 @@ class DeleteTagPlacesTagsTagUuidDelete(api_client.Api):
 
         for k, v in _path_params.items():
             used_path = used_path.replace('{%s}' % k, v)
+
+        prefix_separator_iterator = None
+        for parameter in (
+            request_query_with_meta,
+            request_query_with_catalog,
+            request_query_with_reviews,
+            request_query_with_schedule,
+            request_query_with_collection,
+            request_query_with_blog,
+            request_query_with_tags,
+            request_query_with_categories,
+            request_query_with_company,
+        ):
+            parameter_data = query_params.get(parameter.name, unset)
+            if parameter_data is unset:
+                continue
+            if prefix_separator_iterator is None:
+                prefix_separator_iterator = parameter.get_prefix_separator_iterator()
+            serialized_data = parameter.serialize(parameter_data, prefix_separator_iterator)
+            for serialized_value in serialized_data.values():
+                used_path += serialized_value
 
         _headers = HTTPHeaderDict()
         for parameter in (

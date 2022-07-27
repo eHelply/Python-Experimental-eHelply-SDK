@@ -64,67 +64,10 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
-from ehelply_python_experimental_sdk.model.staff_response import StaffResponse
+from ehelply_python_experimental_sdk.model.staff_db import StaffDb
+from ehelply_python_experimental_sdk.model.staff_create import StaffCreate
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 
-# query params
-WithPlacesSchema = BoolSchema
-WithCompaniesSchema = BoolSchema
-WithCatalogSchema = BoolSchema
-WithScheduleSchema = BoolSchema
-WithRolesSchema = BoolSchema
-RequestRequiredQueryParams = typing.TypedDict(
-    'RequestRequiredQueryParams',
-    {
-    }
-)
-RequestOptionalQueryParams = typing.TypedDict(
-    'RequestOptionalQueryParams',
-    {
-        'with_places': WithPlacesSchema,
-        'with_companies': WithCompaniesSchema,
-        'with_catalog': WithCatalogSchema,
-        'with_schedule': WithScheduleSchema,
-        'with_roles': WithRolesSchema,
-    },
-    total=False
-)
-
-
-class RequestQueryParams(RequestRequiredQueryParams, RequestOptionalQueryParams):
-    pass
-
-
-request_query_with_places = api_client.QueryParameter(
-    name="with_places",
-    style=api_client.ParameterStyle.FORM,
-    schema=WithPlacesSchema,
-    explode=True,
-)
-request_query_with_companies = api_client.QueryParameter(
-    name="with_companies",
-    style=api_client.ParameterStyle.FORM,
-    schema=WithCompaniesSchema,
-    explode=True,
-)
-request_query_with_catalog = api_client.QueryParameter(
-    name="with_catalog",
-    style=api_client.ParameterStyle.FORM,
-    schema=WithCatalogSchema,
-    explode=True,
-)
-request_query_with_schedule = api_client.QueryParameter(
-    name="with_schedule",
-    style=api_client.ParameterStyle.FORM,
-    schema=WithScheduleSchema,
-    explode=True,
-)
-request_query_with_roles = api_client.QueryParameter(
-    name="with_roles",
-    style=api_client.ParameterStyle.FORM,
-    schema=WithRolesSchema,
-    explode=True,
-)
 # header params
 XAccessTokenSchema = StrSchema
 XSecretTokenSchema = StrSchema
@@ -185,35 +128,20 @@ request_header_ehelply_data = api_client.HeaderParameter(
     style=api_client.ParameterStyle.SIMPLE,
     schema=EhelplyDataSchema,
 )
-# path params
-StaffUuidSchema = StrSchema
-RequestRequiredPathParams = typing.TypedDict(
-    'RequestRequiredPathParams',
-    {
-        'staff_uuid': StaffUuidSchema,
-    }
-)
-RequestOptionalPathParams = typing.TypedDict(
-    'RequestOptionalPathParams',
-    {
+# body param
+SchemaForRequestBodyApplicationJson = StaffCreate
+
+
+request_body_staff_create = api_client.RequestBody(
+    content={
+        'application/json': api_client.MediaType(
+            schema=SchemaForRequestBodyApplicationJson),
     },
-    total=False
-)
-
-
-class RequestPathParams(RequestRequiredPathParams, RequestOptionalPathParams):
-    pass
-
-
-request_path_staff_uuid = api_client.PathParameter(
-    name="staff_uuid",
-    style=api_client.ParameterStyle.SIMPLE,
-    schema=StaffUuidSchema,
     required=True,
 )
-_path = '/places/staff/{staff_uuid}'
-_method = 'GET'
-SchemaFor200ResponseBodyApplicationJson = StaffResponse
+_path = '/places/staff'
+_method = 'POST'
+SchemaFor200ResponseBodyApplicationJson = StaffDb
 
 
 @dataclass
@@ -273,13 +201,13 @@ _all_accept_content_types = (
 )
 
 
-class GetStaffPlacesStaffStaffUuidGet(api_client.Api):
+class CreateStaff(api_client.Api):
 
-    def get_staff_places_staff_staff_uuid_get(
+    def create_staff(
         self: api_client.Api,
-        query_params: RequestQueryParams = frozendict(),
+        body: typing.Union[SchemaForRequestBodyApplicationJson],
         header_params: RequestHeaderParams = frozendict(),
-        path_params: RequestPathParams = frozendict(),
+        content_type: str = 'application/json',
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
@@ -289,45 +217,13 @@ class GetStaffPlacesStaffStaffUuidGet(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Get Staff
+        Createstaff
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
         """
-        self._verify_typed_dict_inputs(RequestQueryParams, query_params)
         self._verify_typed_dict_inputs(RequestHeaderParams, header_params)
-        self._verify_typed_dict_inputs(RequestPathParams, path_params)
         used_path = _path
-
-        _path_params = {}
-        for parameter in (
-            request_path_staff_uuid,
-        ):
-            parameter_data = path_params.get(parameter.name, unset)
-            if parameter_data is unset:
-                continue
-            serialized_data = parameter.serialize(parameter_data)
-            _path_params.update(serialized_data)
-
-        for k, v in _path_params.items():
-            used_path = used_path.replace('{%s}' % k, v)
-
-        prefix_separator_iterator = None
-        for parameter in (
-            request_query_with_places,
-            request_query_with_companies,
-            request_query_with_catalog,
-            request_query_with_schedule,
-            request_query_with_roles,
-        ):
-            parameter_data = query_params.get(parameter.name, unset)
-            if parameter_data is unset:
-                continue
-            if prefix_separator_iterator is None:
-                prefix_separator_iterator = parameter.get_prefix_separator_iterator()
-            serialized_data = parameter.serialize(parameter_data, prefix_separator_iterator)
-            for serialized_value in serialized_data.values():
-                used_path += serialized_value
 
         _headers = HTTPHeaderDict()
         for parameter in (
@@ -348,10 +244,23 @@ class GetStaffPlacesStaffStaffUuidGet(api_client.Api):
             for accept_content_type in accept_content_types:
                 _headers.add('Accept', accept_content_type)
 
+        if body is unset:
+            raise exceptions.ApiValueError(
+                'The required body parameter has an invalid value of: unset. Set a valid value instead')
+        _fields = None
+        _body = None
+        serialized_data = request_body_staff_create.serialize(body, content_type)
+        _headers.add('Content-Type', content_type)
+        if 'fields' in serialized_data:
+            _fields = serialized_data['fields']
+        elif 'body' in serialized_data:
+            _body = serialized_data['body']
         response = self.api_client.call_api(
             resource_path=used_path,
             method=_method,
             headers=_headers,
+            fields=_fields,
+            body=_body,
             stream=stream,
             timeout=timeout,
         )

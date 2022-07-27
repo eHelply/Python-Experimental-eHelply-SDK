@@ -32,4 +32,5 @@ from ehelply_python_experimental_sdk.api.security_api import SecurityApi
 from ehelply_python_experimental_sdk.api.staff_api import StaffApi
 from ehelply_python_experimental_sdk.api.support_api import SupportApi
 from ehelply_python_experimental_sdk.api.tag_api import TagApi
+from ehelply_python_experimental_sdk.api.tags_api import TagsApi
 from ehelply_python_experimental_sdk.api.users_api import UsersApi

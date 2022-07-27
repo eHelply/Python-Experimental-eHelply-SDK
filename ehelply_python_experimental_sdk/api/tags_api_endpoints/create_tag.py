@@ -64,9 +64,9 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
-from ehelply_python_experimental_sdk.model.staff_db import StaffDb
-from ehelply_python_experimental_sdk.model.staff_create import StaffCreate
+from ehelply_python_experimental_sdk.model.tag_db import TagDb
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
+from ehelply_python_experimental_sdk.model.tag_base import TagBase
 
 # header params
 XAccessTokenSchema = StrSchema
@@ -129,19 +129,19 @@ request_header_ehelply_data = api_client.HeaderParameter(
     schema=EhelplyDataSchema,
 )
 # body param
-SchemaForRequestBodyApplicationJson = StaffCreate
+SchemaForRequestBodyApplicationJson = TagBase
 
 
-request_body_staff_create = api_client.RequestBody(
+request_body_tag_base = api_client.RequestBody(
     content={
         'application/json': api_client.MediaType(
             schema=SchemaForRequestBodyApplicationJson),
     },
     required=True,
 )
-_path = '/places/staff'
+_path = '/places/tags'
 _method = 'POST'
-SchemaFor200ResponseBodyApplicationJson = StaffDb
+SchemaFor200ResponseBodyApplicationJson = TagDb
 
 
 @dataclass
@@ -201,9 +201,9 @@ _all_accept_content_types = (
 )
 
 
-class CreateStaffPlacesStaffPost(api_client.Api):
+class CreateTag(api_client.Api):
 
-    def create_staff_places_staff_post(
+    def create_tag(
         self: api_client.Api,
         body: typing.Union[SchemaForRequestBodyApplicationJson],
         header_params: RequestHeaderParams = frozendict(),
@@ -217,7 +217,7 @@ class CreateStaffPlacesStaffPost(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Create Staff
+        Createtag
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
@@ -249,7 +249,7 @@ class CreateStaffPlacesStaffPost(api_client.Api):
                 'The required body parameter has an invalid value of: unset. Set a valid value instead')
         _fields = None
         _body = None
-        serialized_data = request_body_staff_create.serialize(body, content_type)
+        serialized_data = request_body_tag_base.serialize(body, content_type)
         _headers.add('Content-Type', content_type)
         if 'fields' in serialized_data:
             _fields = serialized_data['fields']
