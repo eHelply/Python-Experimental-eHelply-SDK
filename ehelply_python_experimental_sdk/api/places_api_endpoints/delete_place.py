@@ -153,11 +153,11 @@ request_header_ehelply_data = api_client.HeaderParameter(
     schema=EhelplyDataSchema,
 )
 # path params
-StaffUuidSchema = StrSchema
+PlaceUuidSchema = StrSchema
 RequestRequiredPathParams = typing.TypedDict(
     'RequestRequiredPathParams',
     {
-        'staff_uuid': StaffUuidSchema,
+        'place_uuid': PlaceUuidSchema,
     }
 )
 RequestOptionalPathParams = typing.TypedDict(
@@ -172,13 +172,13 @@ class RequestPathParams(RequestRequiredPathParams, RequestOptionalPathParams):
     pass
 
 
-request_path_staff_uuid = api_client.PathParameter(
-    name="staff_uuid",
+request_path_place_uuid = api_client.PathParameter(
+    name="place_uuid",
     style=api_client.ParameterStyle.SIMPLE,
-    schema=StaffUuidSchema,
+    schema=PlaceUuidSchema,
     required=True,
 )
-_path = '/places/staff/{staff_uuid}'
+_path = '/places/places/{place_uuid}'
 _method = 'DELETE'
 SchemaFor200ResponseBodyApplicationJson = AnyTypeSchema
 
@@ -240,9 +240,9 @@ _all_accept_content_types = (
 )
 
 
-class DeleteStaffPlacesStaffStaffUuidDelete(api_client.Api):
+class DeletePlace(api_client.Api):
 
-    def delete_staff_places_staff_staff_uuid_delete(
+    def delete_place(
         self: api_client.Api,
         query_params: RequestQueryParams = frozendict(),
         header_params: RequestHeaderParams = frozendict(),
@@ -256,7 +256,7 @@ class DeleteStaffPlacesStaffStaffUuidDelete(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Delete Staff
+        Deleteplace
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
@@ -268,7 +268,7 @@ class DeleteStaffPlacesStaffStaffUuidDelete(api_client.Api):
 
         _path_params = {}
         for parameter in (
-            request_path_staff_uuid,
+            request_path_place_uuid,
         ):
             parameter_data = path_params.get(parameter.name, unset)
             if parameter_data is unset:

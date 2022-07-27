@@ -64,10 +64,36 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
+from ehelply_python_experimental_sdk.model.page import Page
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 
 # query params
-SoftDeleteSchema = BoolSchema
+ProjectUuidSchema = StrSchema
+NameSchema = StrSchema
+AddressLine1Schema = StrSchema
+AddressLine2Schema = StrSchema
+CitySchema = StrSchema
+ProvinceStateSchema = StrSchema
+CountrySchema = StrSchema
+PostalZipCodeSchema = StrSchema
+LatSchema = StrSchema
+LngSchema = StrSchema
+EmailSchema = StrSchema
+IsPublicSchema = BoolSchema
+IsDeletedSchema = BoolSchema
+WithCompanySchema = BoolSchema
+WithMetaSchema = BoolSchema
+WithCatalogSchema = BoolSchema
+WithReviewsSchema = BoolSchema
+WithScheduleSchema = BoolSchema
+WithCollectionSchema = BoolSchema
+WithBlogSchema = BoolSchema
+WithTagsSchema = BoolSchema
+WithCategoriesSchema = BoolSchema
+PageSchema = IntSchema
+PageSizeSchema = IntSchema
+SortOnSchema = StrSchema
+SortDescSchema = BoolSchema
 RequestRequiredQueryParams = typing.TypedDict(
     'RequestRequiredQueryParams',
     {
@@ -76,7 +102,32 @@ RequestRequiredQueryParams = typing.TypedDict(
 RequestOptionalQueryParams = typing.TypedDict(
     'RequestOptionalQueryParams',
     {
-        'soft_delete': SoftDeleteSchema,
+        'project_uuid': ProjectUuidSchema,
+        'name': NameSchema,
+        'address_line_1': AddressLine1Schema,
+        'address_line_2': AddressLine2Schema,
+        'city': CitySchema,
+        'province_state': ProvinceStateSchema,
+        'country': CountrySchema,
+        'postal_zip_code': PostalZipCodeSchema,
+        'lat': LatSchema,
+        'lng': LngSchema,
+        'email': EmailSchema,
+        'is_public': IsPublicSchema,
+        'is_deleted': IsDeletedSchema,
+        'with_company': WithCompanySchema,
+        'with_meta': WithMetaSchema,
+        'with_catalog': WithCatalogSchema,
+        'with_reviews': WithReviewsSchema,
+        'with_schedule': WithScheduleSchema,
+        'with_collection': WithCollectionSchema,
+        'with_blog': WithBlogSchema,
+        'with_tags': WithTagsSchema,
+        'with_categories': WithCategoriesSchema,
+        'page': PageSchema,
+        'page_size': PageSizeSchema,
+        'sort_on': SortOnSchema,
+        'sort_desc': SortDescSchema,
     },
     total=False
 )
@@ -86,10 +137,160 @@ class RequestQueryParams(RequestRequiredQueryParams, RequestOptionalQueryParams)
     pass
 
 
-request_query_soft_delete = api_client.QueryParameter(
-    name="soft_delete",
+request_query_project_uuid = api_client.QueryParameter(
+    name="project_uuid",
     style=api_client.ParameterStyle.FORM,
-    schema=SoftDeleteSchema,
+    schema=ProjectUuidSchema,
+    explode=True,
+)
+request_query_name = api_client.QueryParameter(
+    name="name",
+    style=api_client.ParameterStyle.FORM,
+    schema=NameSchema,
+    explode=True,
+)
+request_query_address_line_1 = api_client.QueryParameter(
+    name="address_line_1",
+    style=api_client.ParameterStyle.FORM,
+    schema=AddressLine1Schema,
+    explode=True,
+)
+request_query_address_line_2 = api_client.QueryParameter(
+    name="address_line_2",
+    style=api_client.ParameterStyle.FORM,
+    schema=AddressLine2Schema,
+    explode=True,
+)
+request_query_city = api_client.QueryParameter(
+    name="city",
+    style=api_client.ParameterStyle.FORM,
+    schema=CitySchema,
+    explode=True,
+)
+request_query_province_state = api_client.QueryParameter(
+    name="province_state",
+    style=api_client.ParameterStyle.FORM,
+    schema=ProvinceStateSchema,
+    explode=True,
+)
+request_query_country = api_client.QueryParameter(
+    name="country",
+    style=api_client.ParameterStyle.FORM,
+    schema=CountrySchema,
+    explode=True,
+)
+request_query_postal_zip_code = api_client.QueryParameter(
+    name="postal_zip_code",
+    style=api_client.ParameterStyle.FORM,
+    schema=PostalZipCodeSchema,
+    explode=True,
+)
+request_query_lat = api_client.QueryParameter(
+    name="lat",
+    style=api_client.ParameterStyle.FORM,
+    schema=LatSchema,
+    explode=True,
+)
+request_query_lng = api_client.QueryParameter(
+    name="lng",
+    style=api_client.ParameterStyle.FORM,
+    schema=LngSchema,
+    explode=True,
+)
+request_query_email = api_client.QueryParameter(
+    name="email",
+    style=api_client.ParameterStyle.FORM,
+    schema=EmailSchema,
+    explode=True,
+)
+request_query_is_public = api_client.QueryParameter(
+    name="is_public",
+    style=api_client.ParameterStyle.FORM,
+    schema=IsPublicSchema,
+    explode=True,
+)
+request_query_is_deleted = api_client.QueryParameter(
+    name="is_deleted",
+    style=api_client.ParameterStyle.FORM,
+    schema=IsDeletedSchema,
+    explode=True,
+)
+request_query_with_company = api_client.QueryParameter(
+    name="with_company",
+    style=api_client.ParameterStyle.FORM,
+    schema=WithCompanySchema,
+    explode=True,
+)
+request_query_with_meta = api_client.QueryParameter(
+    name="with_meta",
+    style=api_client.ParameterStyle.FORM,
+    schema=WithMetaSchema,
+    explode=True,
+)
+request_query_with_catalog = api_client.QueryParameter(
+    name="with_catalog",
+    style=api_client.ParameterStyle.FORM,
+    schema=WithCatalogSchema,
+    explode=True,
+)
+request_query_with_reviews = api_client.QueryParameter(
+    name="with_reviews",
+    style=api_client.ParameterStyle.FORM,
+    schema=WithReviewsSchema,
+    explode=True,
+)
+request_query_with_schedule = api_client.QueryParameter(
+    name="with_schedule",
+    style=api_client.ParameterStyle.FORM,
+    schema=WithScheduleSchema,
+    explode=True,
+)
+request_query_with_collection = api_client.QueryParameter(
+    name="with_collection",
+    style=api_client.ParameterStyle.FORM,
+    schema=WithCollectionSchema,
+    explode=True,
+)
+request_query_with_blog = api_client.QueryParameter(
+    name="with_blog",
+    style=api_client.ParameterStyle.FORM,
+    schema=WithBlogSchema,
+    explode=True,
+)
+request_query_with_tags = api_client.QueryParameter(
+    name="with_tags",
+    style=api_client.ParameterStyle.FORM,
+    schema=WithTagsSchema,
+    explode=True,
+)
+request_query_with_categories = api_client.QueryParameter(
+    name="with_categories",
+    style=api_client.ParameterStyle.FORM,
+    schema=WithCategoriesSchema,
+    explode=True,
+)
+request_query_page = api_client.QueryParameter(
+    name="page",
+    style=api_client.ParameterStyle.FORM,
+    schema=PageSchema,
+    explode=True,
+)
+request_query_page_size = api_client.QueryParameter(
+    name="page_size",
+    style=api_client.ParameterStyle.FORM,
+    schema=PageSizeSchema,
+    explode=True,
+)
+request_query_sort_on = api_client.QueryParameter(
+    name="sort_on",
+    style=api_client.ParameterStyle.FORM,
+    schema=SortOnSchema,
+    explode=True,
+)
+request_query_sort_desc = api_client.QueryParameter(
+    name="sort_desc",
+    style=api_client.ParameterStyle.FORM,
+    schema=SortDescSchema,
     explode=True,
 )
 # header params
@@ -152,35 +353,9 @@ request_header_ehelply_data = api_client.HeaderParameter(
     style=api_client.ParameterStyle.SIMPLE,
     schema=EhelplyDataSchema,
 )
-# path params
-PlaceUuidSchema = StrSchema
-RequestRequiredPathParams = typing.TypedDict(
-    'RequestRequiredPathParams',
-    {
-        'place_uuid': PlaceUuidSchema,
-    }
-)
-RequestOptionalPathParams = typing.TypedDict(
-    'RequestOptionalPathParams',
-    {
-    },
-    total=False
-)
-
-
-class RequestPathParams(RequestRequiredPathParams, RequestOptionalPathParams):
-    pass
-
-
-request_path_place_uuid = api_client.PathParameter(
-    name="place_uuid",
-    style=api_client.ParameterStyle.SIMPLE,
-    schema=PlaceUuidSchema,
-    required=True,
-)
-_path = '/places/places/{place_uuid}'
-_method = 'DELETE'
-SchemaFor200ResponseBodyApplicationJson = AnyTypeSchema
+_path = '/places/places'
+_method = 'GET'
+SchemaFor200ResponseBodyApplicationJson = Page
 
 
 @dataclass
@@ -240,13 +415,12 @@ _all_accept_content_types = (
 )
 
 
-class DeletePlacePlacesPlacesPlaceUuidDelete(api_client.Api):
+class SearchPlaces(api_client.Api):
 
-    def delete_place_places_places_place_uuid_delete(
+    def search_places(
         self: api_client.Api,
         query_params: RequestQueryParams = frozendict(),
         header_params: RequestHeaderParams = frozendict(),
-        path_params: RequestPathParams = frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
@@ -256,32 +430,43 @@ class DeletePlacePlacesPlacesPlaceUuidDelete(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Delete Place
+        Searchplaces
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
         """
         self._verify_typed_dict_inputs(RequestQueryParams, query_params)
         self._verify_typed_dict_inputs(RequestHeaderParams, header_params)
-        self._verify_typed_dict_inputs(RequestPathParams, path_params)
         used_path = _path
-
-        _path_params = {}
-        for parameter in (
-            request_path_place_uuid,
-        ):
-            parameter_data = path_params.get(parameter.name, unset)
-            if parameter_data is unset:
-                continue
-            serialized_data = parameter.serialize(parameter_data)
-            _path_params.update(serialized_data)
-
-        for k, v in _path_params.items():
-            used_path = used_path.replace('{%s}' % k, v)
 
         prefix_separator_iterator = None
         for parameter in (
-            request_query_soft_delete,
+            request_query_project_uuid,
+            request_query_name,
+            request_query_address_line_1,
+            request_query_address_line_2,
+            request_query_city,
+            request_query_province_state,
+            request_query_country,
+            request_query_postal_zip_code,
+            request_query_lat,
+            request_query_lng,
+            request_query_email,
+            request_query_is_public,
+            request_query_is_deleted,
+            request_query_with_company,
+            request_query_with_meta,
+            request_query_with_catalog,
+            request_query_with_reviews,
+            request_query_with_schedule,
+            request_query_with_collection,
+            request_query_with_blog,
+            request_query_with_tags,
+            request_query_with_categories,
+            request_query_page,
+            request_query_page_size,
+            request_query_sort_on,
+            request_query_sort_desc,
         ):
             parameter_data = query_params.get(parameter.name, unset)
             if parameter_data is unset:

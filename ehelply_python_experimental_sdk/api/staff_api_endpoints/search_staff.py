@@ -69,7 +69,15 @@ from ehelply_python_experimental_sdk.model.http_validation_error import HTTPVali
 
 # query params
 ProjectUuidSchema = StrSchema
-NameSchema = StrSchema
+FirstNameSchema = StrSchema
+LastNameSchema = StrSchema
+IsDeletedSchema = BoolSchema
+WithCompaniesSchema = BoolSchema
+WithPlacesSchema = BoolSchema
+WithScheduleSchema = BoolSchema
+WithCatalogSchema = BoolSchema
+WithReviewsSchema = BoolSchema
+WithRolesSchema = BoolSchema
 PageSchema = IntSchema
 PageSizeSchema = IntSchema
 SortOnSchema = StrSchema
@@ -83,7 +91,15 @@ RequestOptionalQueryParams = typing.TypedDict(
     'RequestOptionalQueryParams',
     {
         'project_uuid': ProjectUuidSchema,
-        'name': NameSchema,
+        'first_name': FirstNameSchema,
+        'last_name': LastNameSchema,
+        'is_deleted': IsDeletedSchema,
+        'with_companies': WithCompaniesSchema,
+        'with_places': WithPlacesSchema,
+        'with_schedule': WithScheduleSchema,
+        'with_catalog': WithCatalogSchema,
+        'with_reviews': WithReviewsSchema,
+        'with_roles': WithRolesSchema,
         'page': PageSchema,
         'page_size': PageSizeSchema,
         'sort_on': SortOnSchema,
@@ -103,10 +119,58 @@ request_query_project_uuid = api_client.QueryParameter(
     schema=ProjectUuidSchema,
     explode=True,
 )
-request_query_name = api_client.QueryParameter(
-    name="name",
+request_query_first_name = api_client.QueryParameter(
+    name="first_name",
     style=api_client.ParameterStyle.FORM,
-    schema=NameSchema,
+    schema=FirstNameSchema,
+    explode=True,
+)
+request_query_last_name = api_client.QueryParameter(
+    name="last_name",
+    style=api_client.ParameterStyle.FORM,
+    schema=LastNameSchema,
+    explode=True,
+)
+request_query_is_deleted = api_client.QueryParameter(
+    name="is_deleted",
+    style=api_client.ParameterStyle.FORM,
+    schema=IsDeletedSchema,
+    explode=True,
+)
+request_query_with_companies = api_client.QueryParameter(
+    name="with_companies",
+    style=api_client.ParameterStyle.FORM,
+    schema=WithCompaniesSchema,
+    explode=True,
+)
+request_query_with_places = api_client.QueryParameter(
+    name="with_places",
+    style=api_client.ParameterStyle.FORM,
+    schema=WithPlacesSchema,
+    explode=True,
+)
+request_query_with_schedule = api_client.QueryParameter(
+    name="with_schedule",
+    style=api_client.ParameterStyle.FORM,
+    schema=WithScheduleSchema,
+    explode=True,
+)
+request_query_with_catalog = api_client.QueryParameter(
+    name="with_catalog",
+    style=api_client.ParameterStyle.FORM,
+    schema=WithCatalogSchema,
+    explode=True,
+)
+request_query_with_reviews = api_client.QueryParameter(
+    name="with_reviews",
+    style=api_client.ParameterStyle.FORM,
+    schema=WithReviewsSchema,
+    explode=True,
+)
+request_query_with_roles = api_client.QueryParameter(
+    name="with_roles",
+    style=api_client.ParameterStyle.FORM,
+    schema=WithRolesSchema,
     explode=True,
 )
 request_query_page = api_client.QueryParameter(
@@ -193,7 +257,7 @@ request_header_ehelply_data = api_client.HeaderParameter(
     style=api_client.ParameterStyle.SIMPLE,
     schema=EhelplyDataSchema,
 )
-_path = '/places/tags'
+_path = '/places/staff'
 _method = 'GET'
 SchemaFor200ResponseBodyApplicationJson = Page
 
@@ -255,9 +319,9 @@ _all_accept_content_types = (
 )
 
 
-class SearchTagsPlacesTagsGet(api_client.Api):
+class SearchStaff(api_client.Api):
 
-    def search_tags_places_tags_get(
+    def search_staff(
         self: api_client.Api,
         query_params: RequestQueryParams = frozendict(),
         header_params: RequestHeaderParams = frozendict(),
@@ -270,7 +334,7 @@ class SearchTagsPlacesTagsGet(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Search Tags
+        Searchstaff
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
@@ -282,7 +346,15 @@ class SearchTagsPlacesTagsGet(api_client.Api):
         prefix_separator_iterator = None
         for parameter in (
             request_query_project_uuid,
-            request_query_name,
+            request_query_first_name,
+            request_query_last_name,
+            request_query_is_deleted,
+            request_query_with_companies,
+            request_query_with_places,
+            request_query_with_schedule,
+            request_query_with_catalog,
+            request_query_with_reviews,
+            request_query_with_roles,
             request_query_page,
             request_query_page_size,
             request_query_sort_on,

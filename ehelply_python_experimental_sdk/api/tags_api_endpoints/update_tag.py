@@ -64,9 +64,8 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
-from ehelply_python_experimental_sdk.model.staff_create import StaffCreate
-from ehelply_python_experimental_sdk.model.staff_response import StaffResponse
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
+from ehelply_python_experimental_sdk.model.tag_base import TagBase
 
 # header params
 XAccessTokenSchema = StrSchema
@@ -129,11 +128,11 @@ request_header_ehelply_data = api_client.HeaderParameter(
     schema=EhelplyDataSchema,
 )
 # path params
-StaffUuidSchema = StrSchema
+TagUuidSchema = StrSchema
 RequestRequiredPathParams = typing.TypedDict(
     'RequestRequiredPathParams',
     {
-        'staff_uuid': StaffUuidSchema,
+        'tag_uuid': TagUuidSchema,
     }
 )
 RequestOptionalPathParams = typing.TypedDict(
@@ -148,26 +147,26 @@ class RequestPathParams(RequestRequiredPathParams, RequestOptionalPathParams):
     pass
 
 
-request_path_staff_uuid = api_client.PathParameter(
-    name="staff_uuid",
+request_path_tag_uuid = api_client.PathParameter(
+    name="tag_uuid",
     style=api_client.ParameterStyle.SIMPLE,
-    schema=StaffUuidSchema,
+    schema=TagUuidSchema,
     required=True,
 )
 # body param
-SchemaForRequestBodyApplicationJson = StaffCreate
+SchemaForRequestBodyApplicationJson = TagBase
 
 
-request_body_staff_create = api_client.RequestBody(
+request_body_tag_base = api_client.RequestBody(
     content={
         'application/json': api_client.MediaType(
             schema=SchemaForRequestBodyApplicationJson),
     },
     required=True,
 )
-_path = '/places/staff/{staff_uuid}'
+_path = '/places/tags/{tag_uuid}'
 _method = 'PUT'
-SchemaFor200ResponseBodyApplicationJson = StaffResponse
+SchemaFor200ResponseBodyApplicationJson = TagBase
 
 
 @dataclass
@@ -227,9 +226,9 @@ _all_accept_content_types = (
 )
 
 
-class UpdateStaffPlacesStaffStaffUuidPut(api_client.Api):
+class UpdateTag(api_client.Api):
 
-    def update_staff_places_staff_staff_uuid_put(
+    def update_tag(
         self: api_client.Api,
         body: typing.Union[SchemaForRequestBodyApplicationJson],
         header_params: RequestHeaderParams = frozendict(),
@@ -244,7 +243,7 @@ class UpdateStaffPlacesStaffStaffUuidPut(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Update Staff
+        Updatetag
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
@@ -255,7 +254,7 @@ class UpdateStaffPlacesStaffStaffUuidPut(api_client.Api):
 
         _path_params = {}
         for parameter in (
-            request_path_staff_uuid,
+            request_path_tag_uuid,
         ):
             parameter_data = path_params.get(parameter.name, unset)
             if parameter_data is unset:
@@ -290,7 +289,7 @@ class UpdateStaffPlacesStaffStaffUuidPut(api_client.Api):
                 'The required body parameter has an invalid value of: unset. Set a valid value instead')
         _fields = None
         _body = None
-        serialized_data = request_body_staff_create.serialize(body, content_type)
+        serialized_data = request_body_tag_base.serialize(body, content_type)
         _headers.add('Content-Type', content_type)
         if 'fields' in serialized_data:
             _fields = serialized_data['fields']

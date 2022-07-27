@@ -65,98 +65,9 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
 )
 
 from ehelply_python_experimental_sdk.model.place_response import PlaceResponse
+from ehelply_python_experimental_sdk.model.place_base import PlaceBase
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 
-# query params
-WithMetaSchema = BoolSchema
-WithCatalogSchema = BoolSchema
-WithReviewsSchema = BoolSchema
-WithScheduleSchema = BoolSchema
-WithCollectionSchema = BoolSchema
-WithBlogSchema = BoolSchema
-WithTagsSchema = BoolSchema
-WithCategoriesSchema = BoolSchema
-WithCompanySchema = BoolSchema
-RequestRequiredQueryParams = typing.TypedDict(
-    'RequestRequiredQueryParams',
-    {
-    }
-)
-RequestOptionalQueryParams = typing.TypedDict(
-    'RequestOptionalQueryParams',
-    {
-        'with_meta': WithMetaSchema,
-        'with_catalog': WithCatalogSchema,
-        'with_reviews': WithReviewsSchema,
-        'with_schedule': WithScheduleSchema,
-        'with_collection': WithCollectionSchema,
-        'with_blog': WithBlogSchema,
-        'with_tags': WithTagsSchema,
-        'with_categories': WithCategoriesSchema,
-        'with_company': WithCompanySchema,
-    },
-    total=False
-)
-
-
-class RequestQueryParams(RequestRequiredQueryParams, RequestOptionalQueryParams):
-    pass
-
-
-request_query_with_meta = api_client.QueryParameter(
-    name="with_meta",
-    style=api_client.ParameterStyle.FORM,
-    schema=WithMetaSchema,
-    explode=True,
-)
-request_query_with_catalog = api_client.QueryParameter(
-    name="with_catalog",
-    style=api_client.ParameterStyle.FORM,
-    schema=WithCatalogSchema,
-    explode=True,
-)
-request_query_with_reviews = api_client.QueryParameter(
-    name="with_reviews",
-    style=api_client.ParameterStyle.FORM,
-    schema=WithReviewsSchema,
-    explode=True,
-)
-request_query_with_schedule = api_client.QueryParameter(
-    name="with_schedule",
-    style=api_client.ParameterStyle.FORM,
-    schema=WithScheduleSchema,
-    explode=True,
-)
-request_query_with_collection = api_client.QueryParameter(
-    name="with_collection",
-    style=api_client.ParameterStyle.FORM,
-    schema=WithCollectionSchema,
-    explode=True,
-)
-request_query_with_blog = api_client.QueryParameter(
-    name="with_blog",
-    style=api_client.ParameterStyle.FORM,
-    schema=WithBlogSchema,
-    explode=True,
-)
-request_query_with_tags = api_client.QueryParameter(
-    name="with_tags",
-    style=api_client.ParameterStyle.FORM,
-    schema=WithTagsSchema,
-    explode=True,
-)
-request_query_with_categories = api_client.QueryParameter(
-    name="with_categories",
-    style=api_client.ParameterStyle.FORM,
-    schema=WithCategoriesSchema,
-    explode=True,
-)
-request_query_with_company = api_client.QueryParameter(
-    name="with_company",
-    style=api_client.ParameterStyle.FORM,
-    schema=WithCompanySchema,
-    explode=True,
-)
 # header params
 XAccessTokenSchema = StrSchema
 XSecretTokenSchema = StrSchema
@@ -243,8 +154,19 @@ request_path_place_uuid = api_client.PathParameter(
     schema=PlaceUuidSchema,
     required=True,
 )
+# body param
+SchemaForRequestBodyApplicationJson = PlaceBase
+
+
+request_body_place_base = api_client.RequestBody(
+    content={
+        'application/json': api_client.MediaType(
+            schema=SchemaForRequestBodyApplicationJson),
+    },
+    required=True,
+)
 _path = '/places/places/{place_uuid}'
-_method = 'GET'
+_method = 'PUT'
 SchemaFor200ResponseBodyApplicationJson = PlaceResponse
 
 
@@ -305,13 +227,14 @@ _all_accept_content_types = (
 )
 
 
-class GetPlacePlacesPlacesPlaceUuidGet(api_client.Api):
+class UpdatePlace(api_client.Api):
 
-    def get_place_places_places_place_uuid_get(
+    def update_place(
         self: api_client.Api,
-        query_params: RequestQueryParams = frozendict(),
+        body: typing.Union[SchemaForRequestBodyApplicationJson],
         header_params: RequestHeaderParams = frozendict(),
         path_params: RequestPathParams = frozendict(),
+        content_type: str = 'application/json',
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
@@ -321,12 +244,11 @@ class GetPlacePlacesPlacesPlaceUuidGet(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Get Place
+        Updateplace
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
         """
-        self._verify_typed_dict_inputs(RequestQueryParams, query_params)
         self._verify_typed_dict_inputs(RequestHeaderParams, header_params)
         self._verify_typed_dict_inputs(RequestPathParams, path_params)
         used_path = _path
@@ -343,27 +265,6 @@ class GetPlacePlacesPlacesPlaceUuidGet(api_client.Api):
 
         for k, v in _path_params.items():
             used_path = used_path.replace('{%s}' % k, v)
-
-        prefix_separator_iterator = None
-        for parameter in (
-            request_query_with_meta,
-            request_query_with_catalog,
-            request_query_with_reviews,
-            request_query_with_schedule,
-            request_query_with_collection,
-            request_query_with_blog,
-            request_query_with_tags,
-            request_query_with_categories,
-            request_query_with_company,
-        ):
-            parameter_data = query_params.get(parameter.name, unset)
-            if parameter_data is unset:
-                continue
-            if prefix_separator_iterator is None:
-                prefix_separator_iterator = parameter.get_prefix_separator_iterator()
-            serialized_data = parameter.serialize(parameter_data, prefix_separator_iterator)
-            for serialized_value in serialized_data.values():
-                used_path += serialized_value
 
         _headers = HTTPHeaderDict()
         for parameter in (
@@ -384,10 +285,23 @@ class GetPlacePlacesPlacesPlaceUuidGet(api_client.Api):
             for accept_content_type in accept_content_types:
                 _headers.add('Accept', accept_content_type)
 
+        if body is unset:
+            raise exceptions.ApiValueError(
+                'The required body parameter has an invalid value of: unset. Set a valid value instead')
+        _fields = None
+        _body = None
+        serialized_data = request_body_place_base.serialize(body, content_type)
+        _headers.add('Content-Type', content_type)
+        if 'fields' in serialized_data:
+            _fields = serialized_data['fields']
+        elif 'body' in serialized_data:
+            _body = serialized_data['body']
         response = self.api_client.call_api(
             resource_path=used_path,
             method=_method,
             headers=_headers,
+            fields=_fields,
+            body=_body,
             stream=stream,
             timeout=timeout,
         )

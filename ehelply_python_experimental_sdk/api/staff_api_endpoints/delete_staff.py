@@ -64,10 +64,34 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
-from ehelply_python_experimental_sdk.model.tag_db import TagDb
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
-from ehelply_python_experimental_sdk.model.tag_base import TagBase
 
+# query params
+SoftDeleteSchema = BoolSchema
+RequestRequiredQueryParams = typing.TypedDict(
+    'RequestRequiredQueryParams',
+    {
+    }
+)
+RequestOptionalQueryParams = typing.TypedDict(
+    'RequestOptionalQueryParams',
+    {
+        'soft_delete': SoftDeleteSchema,
+    },
+    total=False
+)
+
+
+class RequestQueryParams(RequestRequiredQueryParams, RequestOptionalQueryParams):
+    pass
+
+
+request_query_soft_delete = api_client.QueryParameter(
+    name="soft_delete",
+    style=api_client.ParameterStyle.FORM,
+    schema=SoftDeleteSchema,
+    explode=True,
+)
 # header params
 XAccessTokenSchema = StrSchema
 XSecretTokenSchema = StrSchema
@@ -128,20 +152,35 @@ request_header_ehelply_data = api_client.HeaderParameter(
     style=api_client.ParameterStyle.SIMPLE,
     schema=EhelplyDataSchema,
 )
-# body param
-SchemaForRequestBodyApplicationJson = TagBase
-
-
-request_body_tag_base = api_client.RequestBody(
-    content={
-        'application/json': api_client.MediaType(
-            schema=SchemaForRequestBodyApplicationJson),
+# path params
+StaffUuidSchema = StrSchema
+RequestRequiredPathParams = typing.TypedDict(
+    'RequestRequiredPathParams',
+    {
+        'staff_uuid': StaffUuidSchema,
+    }
+)
+RequestOptionalPathParams = typing.TypedDict(
+    'RequestOptionalPathParams',
+    {
     },
+    total=False
+)
+
+
+class RequestPathParams(RequestRequiredPathParams, RequestOptionalPathParams):
+    pass
+
+
+request_path_staff_uuid = api_client.PathParameter(
+    name="staff_uuid",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=StaffUuidSchema,
     required=True,
 )
-_path = '/places/tags'
-_method = 'POST'
-SchemaFor200ResponseBodyApplicationJson = TagDb
+_path = '/places/staff/{staff_uuid}'
+_method = 'DELETE'
+SchemaFor200ResponseBodyApplicationJson = AnyTypeSchema
 
 
 @dataclass
@@ -201,13 +240,13 @@ _all_accept_content_types = (
 )
 
 
-class CreateTagPlacesTagsPost(api_client.Api):
+class DeleteStaff(api_client.Api):
 
-    def create_tag_places_tags_post(
+    def delete_staff(
         self: api_client.Api,
-        body: typing.Union[SchemaForRequestBodyApplicationJson],
+        query_params: RequestQueryParams = frozendict(),
         header_params: RequestHeaderParams = frozendict(),
-        content_type: str = 'application/json',
+        path_params: RequestPathParams = frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
@@ -217,13 +256,41 @@ class CreateTagPlacesTagsPost(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Create Tag
+        Deletestaff
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
         """
+        self._verify_typed_dict_inputs(RequestQueryParams, query_params)
         self._verify_typed_dict_inputs(RequestHeaderParams, header_params)
+        self._verify_typed_dict_inputs(RequestPathParams, path_params)
         used_path = _path
+
+        _path_params = {}
+        for parameter in (
+            request_path_staff_uuid,
+        ):
+            parameter_data = path_params.get(parameter.name, unset)
+            if parameter_data is unset:
+                continue
+            serialized_data = parameter.serialize(parameter_data)
+            _path_params.update(serialized_data)
+
+        for k, v in _path_params.items():
+            used_path = used_path.replace('{%s}' % k, v)
+
+        prefix_separator_iterator = None
+        for parameter in (
+            request_query_soft_delete,
+        ):
+            parameter_data = query_params.get(parameter.name, unset)
+            if parameter_data is unset:
+                continue
+            if prefix_separator_iterator is None:
+                prefix_separator_iterator = parameter.get_prefix_separator_iterator()
+            serialized_data = parameter.serialize(parameter_data, prefix_separator_iterator)
+            for serialized_value in serialized_data.values():
+                used_path += serialized_value
 
         _headers = HTTPHeaderDict()
         for parameter in (
@@ -244,23 +311,10 @@ class CreateTagPlacesTagsPost(api_client.Api):
             for accept_content_type in accept_content_types:
                 _headers.add('Accept', accept_content_type)
 
-        if body is unset:
-            raise exceptions.ApiValueError(
-                'The required body parameter has an invalid value of: unset. Set a valid value instead')
-        _fields = None
-        _body = None
-        serialized_data = request_body_tag_base.serialize(body, content_type)
-        _headers.add('Content-Type', content_type)
-        if 'fields' in serialized_data:
-            _fields = serialized_data['fields']
-        elif 'body' in serialized_data:
-            _body = serialized_data['body']
         response = self.api_client.call_api(
             resource_path=used_path,
             method=_method,
             headers=_headers,
-            fields=_fields,
-            body=_body,
             stream=stream,
             timeout=timeout,
         )
