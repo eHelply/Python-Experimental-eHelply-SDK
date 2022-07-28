@@ -32,8 +32,10 @@ docs/ContactBase.md
 docs/ContactMethod.md
 docs/ContactResponse.md
 docs/CreateKeyResponse.md
+docs/CreateProjectCredential.md
 docs/CreateReview.md
 docs/CreateTicket.md
+docs/Credential.md
 docs/CustomList.md
 docs/DatesMeta.md
 docs/DefaultApi.md
@@ -42,6 +44,8 @@ docs/DetailedMetaCreate.md
 docs/DetailedMetaGet.md
 docs/Field.md
 docs/FieldDynamo.md
+docs/GetProjectCredential.md
+docs/GetSecret.md
 docs/GetServiceServiceWithSpecsResponse.md
 docs/GetServiceSpecResponse.md
 docs/GetServiceSpecsResponse.md
@@ -116,6 +120,7 @@ docs/TagDb.md
 docs/TagsApi.md
 docs/TicketResponse.md
 docs/TicketsResponse.md
+docs/UpdateProjectCredentialRequest.md
 docs/UpdateReview.md
 docs/User.md
 docs/UserConfirmation.md
@@ -184,8 +189,10 @@ ehelply_python_experimental_sdk/model/contact_base.py
 ehelply_python_experimental_sdk/model/contact_method.py
 ehelply_python_experimental_sdk/model/contact_response.py
 ehelply_python_experimental_sdk/model/create_key_response.py
+ehelply_python_experimental_sdk/model/create_project_credential.py
 ehelply_python_experimental_sdk/model/create_review.py
 ehelply_python_experimental_sdk/model/create_ticket.py
+ehelply_python_experimental_sdk/model/credential.py
 ehelply_python_experimental_sdk/model/custom_list.py
 ehelply_python_experimental_sdk/model/dates_meta.py
 ehelply_python_experimental_sdk/model/detailed_meta.py
@@ -193,6 +200,8 @@ ehelply_python_experimental_sdk/model/detailed_meta_create.py
 ehelply_python_experimental_sdk/model/detailed_meta_get.py
 ehelply_python_experimental_sdk/model/field.py
 ehelply_python_experimental_sdk/model/field_dynamo.py
+ehelply_python_experimental_sdk/model/get_project_credential.py
+ehelply_python_experimental_sdk/model/get_secret.py
 ehelply_python_experimental_sdk/model/get_service_service_with_specs_response.py
 ehelply_python_experimental_sdk/model/get_service_spec_response.py
 ehelply_python_experimental_sdk/model/get_service_specs_response.py
@@ -254,6 +263,7 @@ ehelply_python_experimental_sdk/model/tag_base.py
 ehelply_python_experimental_sdk/model/tag_db.py
 ehelply_python_experimental_sdk/model/ticket_response.py
 ehelply_python_experimental_sdk/model/tickets_response.py
+ehelply_python_experimental_sdk/model/update_project_credential_request.py
 ehelply_python_experimental_sdk/model/update_review.py
 ehelply_python_experimental_sdk/model/user.py
 ehelply_python_experimental_sdk/model/user_confirmation.py
@@ -308,8 +318,10 @@ test/test_contact_base.py
 test/test_contact_method.py
 test/test_contact_response.py
 test/test_create_key_response.py
+test/test_create_project_credential.py
 test/test_create_review.py
 test/test_create_ticket.py
+test/test_credential.py
 test/test_custom_list.py
 test/test_dates_meta.py
 test/test_default_api.py
@@ -318,6 +330,8 @@ test/test_detailed_meta_create.py
 test/test_detailed_meta_get.py
 test/test_field.py
 test/test_field_dynamo.py
+test/test_get_project_credential.py
+test/test_get_secret.py
 test/test_get_service_service_with_specs_response.py
 test/test_get_service_spec_response.py
 test/test_get_service_specs_response.py
@@ -392,6 +406,7 @@ test/test_tag_db.py
 test/test_tags_api.py
 test/test_ticket_response.py
 test/test_tickets_response.py
+test/test_update_project_credential_request.py
 test/test_update_review.py
 test/test_user.py
 test/test_user_confirmation.py
