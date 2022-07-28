@@ -69,7 +69,7 @@ from ehelply_python_experimental_sdk.model.http_validation_error import HTTPVali
 # query params
 StartDateSchema = StrSchema
 EndDateSchema = StrSchema
-IncludeCancelledSchema = BoolSchema
+ExcludeCancelledSchema = BoolSchema
 RequestRequiredQueryParams = typing.TypedDict(
     'RequestRequiredQueryParams',
     {
@@ -80,7 +80,7 @@ RequestOptionalQueryParams = typing.TypedDict(
     {
         'start_date': StartDateSchema,
         'end_date': EndDateSchema,
-        'include_cancelled': IncludeCancelledSchema,
+        'exclude_cancelled': ExcludeCancelledSchema,
     },
     total=False
 )
@@ -102,10 +102,10 @@ request_query_end_date = api_client.QueryParameter(
     schema=EndDateSchema,
     explode=True,
 )
-request_query_include_cancelled = api_client.QueryParameter(
-    name="include_cancelled",
+request_query_exclude_cancelled = api_client.QueryParameter(
+    name="exclude_cancelled",
     style=api_client.ParameterStyle.FORM,
-    schema=IncludeCancelledSchema,
+    schema=ExcludeCancelledSchema,
     explode=True,
 )
 # header params
@@ -299,7 +299,7 @@ class SearchEntityAppointments(api_client.Api):
         for parameter in (
             request_query_start_date,
             request_query_end_date,
-            request_query_include_cancelled,
+            request_query_exclude_cancelled,
         ):
             parameter_data = query_params.get(parameter.name, unset)
             if parameter_data is unset:

@@ -951,15 +951,31 @@ Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[Unset, ] |  |
+body | typing.Union[SchemaFor403ResponseBodyApplicationJson, ] |  |
 headers | Unset | headers were not defined |
+
+#### SchemaFor403ResponseBodyApplicationJson
+
+#### Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**message** | **str** |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 #### ApiResponseFor404
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[Unset, ] |  |
+body | typing.Union[SchemaFor404ResponseBodyApplicationJson, ] |  |
 headers | Unset | headers were not defined |
+
+#### SchemaFor404ResponseBodyApplicationJson
+
+#### Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**message** | **str** |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 #### ApiResponseFor422
 Name | Type | Description  | Notes
@@ -1017,8 +1033,6 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         'page_size': 25,
         'sort_on': "sort_on_example",
         'sort_desc': False,
-        'search': "search_example",
-        'search_on': "search_on_example",
     }
     header_params = {
         'x-access-token': "x-access-token_example",
@@ -1063,8 +1077,6 @@ page | PageSchema | | optional
 page_size | PageSizeSchema | | optional
 sort_on | SortOnSchema | | optional
 sort_desc | SortDescSchema | | optional
-search | SearchSchema | | optional
-search_on | SearchOnSchema | | optional
 
 
 #### PlaceUuidSchema
@@ -1120,18 +1132,6 @@ Type | Description | Notes
 Type | Description | Notes
 ------------- | ------------- | -------------
 **bool** |  | defaults to False
-
-#### SearchSchema
-
-Type | Description | Notes
-------------- | ------------- | -------------
-**str** |  | 
-
-#### SearchOnSchema
-
-Type | Description | Notes
-------------- | ------------- | -------------
-**str** |  | 
 
 ### header_params
 #### RequestHeaderParams
@@ -1527,7 +1527,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     query_params = {
         'start_date': "start_date_example",
         'end_date': "end_date_example",
-        'include_cancelled': False,
+        'exclude_cancelled': False,
     }
     header_params = {
         'x-access-token': "x-access-token_example",
@@ -1567,7 +1567,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 start_date | StartDateSchema | | optional
 end_date | EndDateSchema | | optional
-include_cancelled | IncludeCancelledSchema | | optional
+exclude_cancelled | ExcludeCancelledSchema | | optional
 
 
 #### StartDateSchema
@@ -1582,7 +1582,7 @@ Type | Description | Notes
 ------------- | ------------- | -------------
 **str** |  | 
 
-#### IncludeCancelledSchema
+#### ExcludeCancelledSchema
 
 Type | Description | Notes
 ------------- | ------------- | -------------
@@ -1904,15 +1904,31 @@ Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[Unset, ] |  |
+body | typing.Union[SchemaFor403ResponseBodyApplicationJson, ] |  |
 headers | Unset | headers were not defined |
+
+#### SchemaFor403ResponseBodyApplicationJson
+
+#### Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**message** | **str** |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 #### ApiResponseFor404
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[Unset, ] |  |
+body | typing.Union[SchemaFor404ResponseBodyApplicationJson, ] |  |
 headers | Unset | headers were not defined |
+
+#### SchemaFor404ResponseBodyApplicationJson
+
+#### Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**message** | **str** |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 #### ApiResponseFor422
 Name | Type | Description  | Notes
