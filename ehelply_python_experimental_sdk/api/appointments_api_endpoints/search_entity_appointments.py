@@ -67,12 +67,9 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 
 # query params
-PageSchema = IntSchema
-PageSizeSchema = IntSchema
-SortOnSchema = StrSchema
-SortDescSchema = BoolSchema
-SearchSchema = StrSchema
-SearchOnSchema = StrSchema
+StartDateSchema = StrSchema
+EndDateSchema = StrSchema
+ExcludeCancelledSchema = BoolSchema
 RequestRequiredQueryParams = typing.TypedDict(
     'RequestRequiredQueryParams',
     {
@@ -81,12 +78,9 @@ RequestRequiredQueryParams = typing.TypedDict(
 RequestOptionalQueryParams = typing.TypedDict(
     'RequestOptionalQueryParams',
     {
-        'page': PageSchema,
-        'page_size': PageSizeSchema,
-        'sort_on': SortOnSchema,
-        'sort_desc': SortDescSchema,
-        'search': SearchSchema,
-        'search_on': SearchOnSchema,
+        'start_date': StartDateSchema,
+        'end_date': EndDateSchema,
+        'exclude_cancelled': ExcludeCancelledSchema,
     },
     total=False
 )
@@ -96,40 +90,22 @@ class RequestQueryParams(RequestRequiredQueryParams, RequestOptionalQueryParams)
     pass
 
 
-request_query_page = api_client.QueryParameter(
-    name="page",
+request_query_start_date = api_client.QueryParameter(
+    name="start_date",
     style=api_client.ParameterStyle.FORM,
-    schema=PageSchema,
+    schema=StartDateSchema,
     explode=True,
 )
-request_query_page_size = api_client.QueryParameter(
-    name="page_size",
+request_query_end_date = api_client.QueryParameter(
+    name="end_date",
     style=api_client.ParameterStyle.FORM,
-    schema=PageSizeSchema,
+    schema=EndDateSchema,
     explode=True,
 )
-request_query_sort_on = api_client.QueryParameter(
-    name="sort_on",
+request_query_exclude_cancelled = api_client.QueryParameter(
+    name="exclude_cancelled",
     style=api_client.ParameterStyle.FORM,
-    schema=SortOnSchema,
-    explode=True,
-)
-request_query_sort_desc = api_client.QueryParameter(
-    name="sort_desc",
-    style=api_client.ParameterStyle.FORM,
-    schema=SortDescSchema,
-    explode=True,
-)
-request_query_search = api_client.QueryParameter(
-    name="search",
-    style=api_client.ParameterStyle.FORM,
-    schema=SearchSchema,
-    explode=True,
-)
-request_query_search_on = api_client.QueryParameter(
-    name="search_on",
-    style=api_client.ParameterStyle.FORM,
-    schema=SearchOnSchema,
+    schema=ExcludeCancelledSchema,
     explode=True,
 )
 # header params
@@ -193,11 +169,11 @@ request_header_ehelply_data = api_client.HeaderParameter(
     schema=EhelplyDataSchema,
 )
 # path params
-AppointmentUuidSchema = StrSchema
+EntityUuidSchema = StrSchema
 RequestRequiredPathParams = typing.TypedDict(
     'RequestRequiredPathParams',
     {
-        'appointment_uuid': AppointmentUuidSchema,
+        'entity_uuid': EntityUuidSchema,
     }
 )
 RequestOptionalPathParams = typing.TypedDict(
@@ -212,13 +188,13 @@ class RequestPathParams(RequestRequiredPathParams, RequestOptionalPathParams):
     pass
 
 
-request_path_appointment_uuid = api_client.PathParameter(
-    name="appointment_uuid",
+request_path_entity_uuid = api_client.PathParameter(
+    name="entity_uuid",
     style=api_client.ParameterStyle.SIMPLE,
-    schema=AppointmentUuidSchema,
+    schema=EntityUuidSchema,
     required=True,
 )
-_path = '/appointments/appointments/{appointment_uuid}/entities'
+_path = '/appointments/appointments/entities/{entity_uuid}/appointments'
 _method = 'GET'
 SchemaFor200ResponseBodyApplicationJson = AnyTypeSchema
 
@@ -280,9 +256,9 @@ _all_accept_content_types = (
 )
 
 
-class SearchAppointmentEntities(api_client.Api):
+class SearchEntityAppointments(api_client.Api):
 
-    def search_appointment_entities(
+    def search_entity_appointments(
         self: api_client.Api,
         query_params: RequestQueryParams = frozendict(),
         header_params: RequestHeaderParams = frozendict(),
@@ -296,7 +272,7 @@ class SearchAppointmentEntities(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Search Appointment Entities
+        Getentityappointments
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
@@ -308,7 +284,7 @@ class SearchAppointmentEntities(api_client.Api):
 
         _path_params = {}
         for parameter in (
-            request_path_appointment_uuid,
+            request_path_entity_uuid,
         ):
             parameter_data = path_params.get(parameter.name, unset)
             if parameter_data is unset:
@@ -321,12 +297,9 @@ class SearchAppointmentEntities(api_client.Api):
 
         prefix_separator_iterator = None
         for parameter in (
-            request_query_page,
-            request_query_page_size,
-            request_query_sort_on,
-            request_query_sort_desc,
-            request_query_search,
-            request_query_search_on,
+            request_query_start_date,
+            request_query_end_date,
+            request_query_exclude_cancelled,
         ):
             parameter_data = query_params.get(parameter.name, unset)
             if parameter_data is unset:

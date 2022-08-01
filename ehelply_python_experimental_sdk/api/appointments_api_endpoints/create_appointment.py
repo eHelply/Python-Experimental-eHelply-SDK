@@ -64,98 +64,10 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
+from ehelply_python_experimental_sdk.model.appointment_response import AppointmentResponse
+from ehelply_python_experimental_sdk.model.appointment_base import AppointmentBase
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 
-# query params
-PlaceUuidSchema = StrSchema
-ExcludeCancelledSchema = BoolSchema
-IsDeletedSchema = BoolSchema
-StartRangeSchema = StrSchema
-EndRangeSchema = StrSchema
-PageSchema = IntSchema
-PageSizeSchema = IntSchema
-SortOnSchema = StrSchema
-SortDescSchema = BoolSchema
-RequestRequiredQueryParams = typing.TypedDict(
-    'RequestRequiredQueryParams',
-    {
-    }
-)
-RequestOptionalQueryParams = typing.TypedDict(
-    'RequestOptionalQueryParams',
-    {
-        'place_uuid': PlaceUuidSchema,
-        'exclude_cancelled': ExcludeCancelledSchema,
-        'is_deleted': IsDeletedSchema,
-        'start_range': StartRangeSchema,
-        'end_range': EndRangeSchema,
-        'page': PageSchema,
-        'page_size': PageSizeSchema,
-        'sort_on': SortOnSchema,
-        'sort_desc': SortDescSchema,
-    },
-    total=False
-)
-
-
-class RequestQueryParams(RequestRequiredQueryParams, RequestOptionalQueryParams):
-    pass
-
-
-request_query_place_uuid = api_client.QueryParameter(
-    name="place_uuid",
-    style=api_client.ParameterStyle.FORM,
-    schema=PlaceUuidSchema,
-    explode=True,
-)
-request_query_exclude_cancelled = api_client.QueryParameter(
-    name="exclude_cancelled",
-    style=api_client.ParameterStyle.FORM,
-    schema=ExcludeCancelledSchema,
-    explode=True,
-)
-request_query_is_deleted = api_client.QueryParameter(
-    name="is_deleted",
-    style=api_client.ParameterStyle.FORM,
-    schema=IsDeletedSchema,
-    explode=True,
-)
-request_query_start_range = api_client.QueryParameter(
-    name="start_range",
-    style=api_client.ParameterStyle.FORM,
-    schema=StartRangeSchema,
-    explode=True,
-)
-request_query_end_range = api_client.QueryParameter(
-    name="end_range",
-    style=api_client.ParameterStyle.FORM,
-    schema=EndRangeSchema,
-    explode=True,
-)
-request_query_page = api_client.QueryParameter(
-    name="page",
-    style=api_client.ParameterStyle.FORM,
-    schema=PageSchema,
-    explode=True,
-)
-request_query_page_size = api_client.QueryParameter(
-    name="page_size",
-    style=api_client.ParameterStyle.FORM,
-    schema=PageSizeSchema,
-    explode=True,
-)
-request_query_sort_on = api_client.QueryParameter(
-    name="sort_on",
-    style=api_client.ParameterStyle.FORM,
-    schema=SortOnSchema,
-    explode=True,
-)
-request_query_sort_desc = api_client.QueryParameter(
-    name="sort_desc",
-    style=api_client.ParameterStyle.FORM,
-    schema=SortDescSchema,
-    explode=True,
-)
 # header params
 XAccessTokenSchema = StrSchema
 XSecretTokenSchema = StrSchema
@@ -216,9 +128,20 @@ request_header_ehelply_data = api_client.HeaderParameter(
     style=api_client.ParameterStyle.SIMPLE,
     schema=EhelplyDataSchema,
 )
+# body param
+SchemaForRequestBodyApplicationJson = AppointmentBase
+
+
+request_body_appointment_base = api_client.RequestBody(
+    content={
+        'application/json': api_client.MediaType(
+            schema=SchemaForRequestBodyApplicationJson),
+    },
+    required=True,
+)
 _path = '/appointments/appointments'
-_method = 'GET'
-SchemaFor200ResponseBodyApplicationJson = AnyTypeSchema
+_method = 'POST'
+SchemaFor200ResponseBodyApplicationJson = AppointmentResponse
 
 
 @dataclass
@@ -278,12 +201,13 @@ _all_accept_content_types = (
 )
 
 
-class SearchAppointment(api_client.Api):
+class CreateAppointment(api_client.Api):
 
-    def search_appointment(
+    def create_appointment(
         self: api_client.Api,
-        query_params: RequestQueryParams = frozendict(),
+        body: typing.Union[SchemaForRequestBodyApplicationJson],
         header_params: RequestHeaderParams = frozendict(),
+        content_type: str = 'application/json',
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
@@ -293,35 +217,13 @@ class SearchAppointment(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Search Appointment
+        Createappointment
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
         """
-        self._verify_typed_dict_inputs(RequestQueryParams, query_params)
         self._verify_typed_dict_inputs(RequestHeaderParams, header_params)
         used_path = _path
-
-        prefix_separator_iterator = None
-        for parameter in (
-            request_query_place_uuid,
-            request_query_exclude_cancelled,
-            request_query_is_deleted,
-            request_query_start_range,
-            request_query_end_range,
-            request_query_page,
-            request_query_page_size,
-            request_query_sort_on,
-            request_query_sort_desc,
-        ):
-            parameter_data = query_params.get(parameter.name, unset)
-            if parameter_data is unset:
-                continue
-            if prefix_separator_iterator is None:
-                prefix_separator_iterator = parameter.get_prefix_separator_iterator()
-            serialized_data = parameter.serialize(parameter_data, prefix_separator_iterator)
-            for serialized_value in serialized_data.values():
-                used_path += serialized_value
 
         _headers = HTTPHeaderDict()
         for parameter in (
@@ -342,10 +244,23 @@ class SearchAppointment(api_client.Api):
             for accept_content_type in accept_content_types:
                 _headers.add('Accept', accept_content_type)
 
+        if body is unset:
+            raise exceptions.ApiValueError(
+                'The required body parameter has an invalid value of: unset. Set a valid value instead')
+        _fields = None
+        _body = None
+        serialized_data = request_body_appointment_base.serialize(body, content_type)
+        _headers.add('Content-Type', content_type)
+        if 'fields' in serialized_data:
+            _fields = serialized_data['fields']
+        elif 'body' in serialized_data:
+            _body = serialized_data['body']
         response = self.api_client.call_api(
             resource_path=used_path,
             method=_method,
             headers=_headers,
+            fields=_fields,
+            body=_body,
             stream=stream,
             timeout=timeout,
         )

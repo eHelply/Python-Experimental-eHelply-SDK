@@ -161,7 +161,7 @@ request_path_entity_uuid = api_client.PathParameter(
     required=True,
 )
 _path = '/appointments/appointments/{appointment_uuid}/entities/{entity_uuid}'
-_method = 'POST'
+_method = 'DELETE'
 SchemaFor200ResponseBodyApplicationJson = BoolSchema
 
 
@@ -222,9 +222,9 @@ _all_accept_content_types = (
 )
 
 
-class AttachEntityToAppointment(api_client.Api):
+class DetachEntityFromAppointment(api_client.Api):
 
-    def attach_entity_to_appointment(
+    def detach_entity_from_appointment(
         self: api_client.Api,
         header_params: RequestHeaderParams = frozendict(),
         path_params: RequestPathParams = frozendict(),
@@ -237,7 +237,7 @@ class AttachEntityToAppointment(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Attach Entity To Appointment
+        Removeentityfromappointment
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
