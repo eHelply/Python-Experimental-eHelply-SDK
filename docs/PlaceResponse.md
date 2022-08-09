@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **meta** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** |  | [optional] 
 **addresses** | **[AddressBase]** |  | [optional] 
 **contact** | [**ContactBase**](ContactBase.md) |  | [optional] 
+**picture** | **str** |  | [optional] 
 **uuid** | **str** |  | 
 **project_uuid** | **str** |  | [optional] 
 **meta_uuid** | **str** |  | [optional] 
