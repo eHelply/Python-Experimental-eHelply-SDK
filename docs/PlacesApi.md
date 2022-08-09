@@ -259,6 +259,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
             website="www.ehelply.com",
             socials=[{"name":"Twitter","value":"twitter.com"}],
         ),
+        picture="url here",
     )
     try:
         # Create Place
@@ -291,6 +292,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
             website="www.ehelply.com",
             socials=[{"name":"Twitter","value":"twitter.com"}],
         ),
+        picture="url here",
     )
     try:
         # Create Place
@@ -1698,6 +1700,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
             website="www.ehelply.com",
             socials=[{"name":"Twitter","value":"twitter.com"}],
         ),
+        picture="url here",
     )
     try:
         # Updateplace
@@ -1734,6 +1737,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
             website="www.ehelply.com",
             socials=[{"name":"Twitter","value":"twitter.com"}],
         ),
+        picture="url here",
     )
     try:
         # Updateplace
