@@ -68,6 +68,7 @@ from ehelply_python_experimental_sdk.model.page import Page
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 
 # query params
+IsActiveSchema = BoolSchema
 PageSchema = IntSchema
 PageSizeSchema = IntSchema
 SearchSchema = StrSchema
@@ -82,6 +83,7 @@ RequestRequiredQueryParams = typing.TypedDict(
 RequestOptionalQueryParams = typing.TypedDict(
     'RequestOptionalQueryParams',
     {
+        'is_active': IsActiveSchema,
         'page': PageSchema,
         'page_size': PageSizeSchema,
         'search': SearchSchema,
@@ -97,6 +99,12 @@ class RequestQueryParams(RequestRequiredQueryParams, RequestOptionalQueryParams)
     pass
 
 
+request_query_is_active = api_client.QueryParameter(
+    name="is_active",
+    style=api_client.ParameterStyle.FORM,
+    schema=IsActiveSchema,
+    explode=True,
+)
 request_query_page = api_client.QueryParameter(
     name="page",
     style=api_client.ParameterStyle.FORM,
@@ -322,6 +330,7 @@ class SearchProjects(api_client.Api):
 
         prefix_separator_iterator = None
         for parameter in (
+            request_query_is_active,
             request_query_page,
             request_query_page_size,
             request_query_search,
