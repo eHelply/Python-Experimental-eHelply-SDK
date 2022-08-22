@@ -34,6 +34,7 @@ docs/ContactMethod.md
 docs/ContactResponse.md
 docs/CreateKeyResponse.md
 docs/CreateProjectCredential.md
+docs/CreateProjectCredit.md
 docs/CreateProjectInvoice.md
 docs/CreateReview.md
 docs/CreateTicket.md
@@ -91,6 +92,7 @@ docs/PlacesApi.md
 docs/ProductBase.md
 docs/ProductReturn.md
 docs/ProductsApi.md
+docs/ProjectCreditResponse.md
 docs/ProjectDB.md
 docs/ProjectsApi.md
 docs/ProjectsProjectCreate.md
@@ -200,6 +202,7 @@ ehelply_python_experimental_sdk/model/contact_method.py
 ehelply_python_experimental_sdk/model/contact_response.py
 ehelply_python_experimental_sdk/model/create_key_response.py
 ehelply_python_experimental_sdk/model/create_project_credential.py
+ehelply_python_experimental_sdk/model/create_project_credit.py
 ehelply_python_experimental_sdk/model/create_project_invoice.py
 ehelply_python_experimental_sdk/model/create_review.py
 ehelply_python_experimental_sdk/model/create_ticket.py
@@ -251,6 +254,7 @@ ehelply_python_experimental_sdk/model/place_base.py
 ehelply_python_experimental_sdk/model/place_response.py
 ehelply_python_experimental_sdk/model/product_base.py
 ehelply_python_experimental_sdk/model/product_return.py
+ehelply_python_experimental_sdk/model/project_credit_response.py
 ehelply_python_experimental_sdk/model/project_db.py
 ehelply_python_experimental_sdk/model/projects_project_create.py
 ehelply_python_experimental_sdk/model/projects_project_get.py
@@ -340,6 +344,7 @@ test/test_contact_method.py
 test/test_contact_response.py
 test/test_create_key_response.py
 test/test_create_project_credential.py
+test/test_create_project_credit.py
 test/test_create_project_invoice.py
 test/test_create_review.py
 test/test_create_ticket.py
@@ -397,6 +402,7 @@ test/test_places_api.py
 test/test_product_base.py
 test/test_product_return.py
 test/test_products_api.py
+test/test_project_credit_response.py
 test/test_project_db.py
 test/test_projects_api.py
 test/test_projects_project_create.py
