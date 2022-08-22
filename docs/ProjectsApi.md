@@ -15,9 +15,11 @@ Method | HTTP request | Description
 [**delete_project_key**](ProjectsApi.md#delete_project_key) | **DELETE** /sam/projects/projects/{project_uuid}/keys | Deleteprojectkey
 [**delete_usage_type**](ProjectsApi.md#delete_usage_type) | **DELETE** /sam/projects/usage/types/{usage_type_key} | Deleteusagetype
 [**get_all_project_credentials**](ProjectsApi.md#get_all_project_credentials) | **GET** /sam/projects/projects/{project_uuid}/credentials | Getallprojectcredentials
+[**get_all_project_credits**](ProjectsApi.md#get_all_project_credits) | **GET** /sam/projects/projects/{project_uuid}/credits | Getallprojectcredits
 [**get_all_project_usage**](ProjectsApi.md#get_all_project_usage) | **GET** /sam/projects/projects/{project_uuid}/usage | Getallprojectusage
 [**get_member_projects**](ProjectsApi.md#get_member_projects) | **GET** /sam/projects/members/{entity_uuid}/projects | Getmemberprojects
 [**get_project**](ProjectsApi.md#get_project) | **GET** /sam/projects/projects/{project_uuid} | Getproject
+[**get_project_credit_transactions**](ProjectsApi.md#get_project_credit_transactions) | **GET** /sam/projects/projects/{project_uuid}/credits/{credit_uuid}/transactions | Getprojectcredittransactions
 [**get_project_invoice**](ProjectsApi.md#get_project_invoice) | **GET** /sam/projects/projects/{project_uuid}/invoices | Getprojectinvoice
 [**get_project_invoice_history**](ProjectsApi.md#get_project_invoice_history) | **GET** /sam/projects/projects/{project_uuid}/invoices/history | Getprojectinvoicehistory
 [**get_project_keys**](ProjectsApi.md#get_project_keys) | **GET** /sam/projects/projects/{project_uuid}/keys | Getprojectkeys
@@ -2467,6 +2469,261 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_all_project_credits**
+> Page get_all_project_credits(project_uuid)
+
+Getallprojectcredits
+
+### Example
+
+```python
+import ehelply_python_experimental_sdk
+from ehelply_python_experimental_sdk.api import projects_api
+from ehelply_python_experimental_sdk.model.page import Page
+from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.prod.ehelply.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = ehelply_python_experimental_sdk.Configuration(
+    host = "https://api.prod.ehelply.com"
+)
+
+# Enter a context with an instance of the API client
+with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = projects_api.ProjectsApi(api_client)
+
+    # example passing only required values which don't have defaults set
+    path_params = {
+        'project_uuid': "project_uuid_example",
+    }
+    query_params = {
+    }
+    header_params = {
+    }
+    try:
+        # Getallprojectcredits
+        api_response = api_instance.get_all_project_credits(
+            path_params=path_params,
+            query_params=query_params,
+            header_params=header_params,
+        )
+        pprint(api_response)
+    except ehelply_python_experimental_sdk.ApiException as e:
+        print("Exception when calling ProjectsApi->get_all_project_credits: %s\n" % e)
+
+    # example passing only optional values
+    path_params = {
+        'project_uuid': "project_uuid_example",
+    }
+    query_params = {
+        'fully_consumed': False,
+        'revoked': False,
+        'page': 1,
+        'page_size': 25,
+    }
+    header_params = {
+        'x-access-token': "x-access-token_example",
+        'x-secret-token': "x-secret-token_example",
+        'authorization': "authorization_example",
+        'ehelply-active-participant': "ehelply-active-participant_example",
+        'ehelply-project': "ehelply-project_example",
+        'ehelply-data': "ehelply-data_example",
+    }
+    try:
+        # Getallprojectcredits
+        api_response = api_instance.get_all_project_credits(
+            path_params=path_params,
+            query_params=query_params,
+            header_params=header_params,
+        )
+        pprint(api_response)
+    except ehelply_python_experimental_sdk.ApiException as e:
+        print("Exception when calling ProjectsApi->get_all_project_credits: %s\n" % e)
+```
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+query_params | RequestQueryParams | |
+header_params | RequestHeaderParams | |
+path_params | RequestPathParams | |
+accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
+stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
+timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
+skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
+
+### query_params
+#### RequestQueryParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+fully_consumed | FullyConsumedSchema | | optional
+revoked | RevokedSchema | | optional
+page | PageSchema | | optional
+page_size | PageSizeSchema | | optional
+
+
+#### FullyConsumedSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**bool** |  | defaults to False
+
+#### RevokedSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**bool** |  | defaults to False
+
+#### PageSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**int** |  | defaults to 1
+
+#### PageSizeSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**int** |  | defaults to 25
+
+### header_params
+#### RequestHeaderParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+x-access-token | XAccessTokenSchema | | optional
+x-secret-token | XSecretTokenSchema | | optional
+authorization | AuthorizationSchema | | optional
+ehelply-active-participant | EhelplyActiveParticipantSchema | | optional
+ehelply-project | EhelplyProjectSchema | | optional
+ehelply-data | EhelplyDataSchema | | optional
+
+#### XAccessTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### XSecretTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### AuthorizationSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyActiveParticipantSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyProjectSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyDataSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+### path_params
+#### RequestPathParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+project_uuid | ProjectUuidSchema | | 
+
+#### ProjectUuidSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+### Return Types, Responses
+
+Code | Class | Description
+------------- | ------------- | -------------
+n/a | api_client.ApiResponseWithoutDeserialization | When skip_deserialization is True this response is returned
+200 | ApiResponseFor200 | Successful Response
+403 | ApiResponseFor403 | Unauthorized - Denied by eHelply
+404 | ApiResponseFor404 | Project credits not found does not exist
+422 | ApiResponseFor422 | Validation Error
+
+#### ApiResponseFor200
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor200ResponseBodyApplicationJson, ] |  |
+headers | Unset | headers were not defined |
+
+#### SchemaFor200ResponseBodyApplicationJson
+Type | Description  | Notes
+------------- | ------------- | -------------
+[**Page**](Page.md) |  | 
+
+
+#### ApiResponseFor403
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor403ResponseBodyApplicationJson, ] |  |
+headers | Unset | headers were not defined |
+
+#### SchemaFor403ResponseBodyApplicationJson
+
+#### Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**message** | **str** |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
+
+#### ApiResponseFor404
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor404ResponseBodyApplicationJson, ] |  |
+headers | Unset | headers were not defined |
+
+#### SchemaFor404ResponseBodyApplicationJson
+
+#### Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**message** | **str** |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
+
+#### ApiResponseFor422
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor422ResponseBodyApplicationJson, ] |  |
+headers | Unset | headers were not defined |
+
+#### SchemaFor422ResponseBodyApplicationJson
+Type | Description  | Notes
+------------- | ------------- | -------------
+[**HTTPValidationError**](HTTPValidationError.md) |  | 
+
+
+
+[**Page**](Page.md)
+
+### Authorization
+
+No authorization required
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_all_project_usage**
 > [ProjectsProjectUsageDB] get_all_project_usage(project_uuid)
 
@@ -3141,6 +3398,254 @@ Type | Description  | Notes
 
 
 [**ProjectDB**](ProjectDB.md)
+
+### Authorization
+
+No authorization required
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_project_credit_transactions**
+> Page get_project_credit_transactions(project_uuidcredit_uuid)
+
+Getprojectcredittransactions
+
+### Example
+
+```python
+import ehelply_python_experimental_sdk
+from ehelply_python_experimental_sdk.api import projects_api
+from ehelply_python_experimental_sdk.model.page import Page
+from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.prod.ehelply.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = ehelply_python_experimental_sdk.Configuration(
+    host = "https://api.prod.ehelply.com"
+)
+
+# Enter a context with an instance of the API client
+with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = projects_api.ProjectsApi(api_client)
+
+    # example passing only required values which don't have defaults set
+    path_params = {
+        'project_uuid': "project_uuid_example",
+        'credit_uuid': "credit_uuid_example",
+    }
+    query_params = {
+    }
+    header_params = {
+    }
+    try:
+        # Getprojectcredittransactions
+        api_response = api_instance.get_project_credit_transactions(
+            path_params=path_params,
+            query_params=query_params,
+            header_params=header_params,
+        )
+        pprint(api_response)
+    except ehelply_python_experimental_sdk.ApiException as e:
+        print("Exception when calling ProjectsApi->get_project_credit_transactions: %s\n" % e)
+
+    # example passing only optional values
+    path_params = {
+        'project_uuid': "project_uuid_example",
+        'credit_uuid': "credit_uuid_example",
+    }
+    query_params = {
+        'page': 1,
+        'page_size': 25,
+    }
+    header_params = {
+        'x-access-token': "x-access-token_example",
+        'x-secret-token': "x-secret-token_example",
+        'authorization': "authorization_example",
+        'ehelply-active-participant': "ehelply-active-participant_example",
+        'ehelply-project': "ehelply-project_example",
+        'ehelply-data': "ehelply-data_example",
+    }
+    try:
+        # Getprojectcredittransactions
+        api_response = api_instance.get_project_credit_transactions(
+            path_params=path_params,
+            query_params=query_params,
+            header_params=header_params,
+        )
+        pprint(api_response)
+    except ehelply_python_experimental_sdk.ApiException as e:
+        print("Exception when calling ProjectsApi->get_project_credit_transactions: %s\n" % e)
+```
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+query_params | RequestQueryParams | |
+header_params | RequestHeaderParams | |
+path_params | RequestPathParams | |
+accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
+stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
+timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
+skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
+
+### query_params
+#### RequestQueryParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+page | PageSchema | | optional
+page_size | PageSizeSchema | | optional
+
+
+#### PageSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**int** |  | defaults to 1
+
+#### PageSizeSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**int** |  | defaults to 25
+
+### header_params
+#### RequestHeaderParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+x-access-token | XAccessTokenSchema | | optional
+x-secret-token | XSecretTokenSchema | | optional
+authorization | AuthorizationSchema | | optional
+ehelply-active-participant | EhelplyActiveParticipantSchema | | optional
+ehelply-project | EhelplyProjectSchema | | optional
+ehelply-data | EhelplyDataSchema | | optional
+
+#### XAccessTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### XSecretTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### AuthorizationSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyActiveParticipantSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyProjectSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyDataSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+### path_params
+#### RequestPathParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+project_uuid | ProjectUuidSchema | | 
+credit_uuid | CreditUuidSchema | | 
+
+#### ProjectUuidSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### CreditUuidSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+### Return Types, Responses
+
+Code | Class | Description
+------------- | ------------- | -------------
+n/a | api_client.ApiResponseWithoutDeserialization | When skip_deserialization is True this response is returned
+200 | ApiResponseFor200 | Successful Response
+403 | ApiResponseFor403 | Unauthorized - Denied by eHelply
+404 | ApiResponseFor404 | Project credential not found does not exist
+422 | ApiResponseFor422 | Validation Error
+
+#### ApiResponseFor200
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor200ResponseBodyApplicationJson, ] |  |
+headers | Unset | headers were not defined |
+
+#### SchemaFor200ResponseBodyApplicationJson
+Type | Description  | Notes
+------------- | ------------- | -------------
+[**Page**](Page.md) |  | 
+
+
+#### ApiResponseFor403
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor403ResponseBodyApplicationJson, ] |  |
+headers | Unset | headers were not defined |
+
+#### SchemaFor403ResponseBodyApplicationJson
+
+#### Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**message** | **str** |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
+
+#### ApiResponseFor404
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor404ResponseBodyApplicationJson, ] |  |
+headers | Unset | headers were not defined |
+
+#### SchemaFor404ResponseBodyApplicationJson
+
+#### Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**message** | **str** |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
+
+#### ApiResponseFor422
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor422ResponseBodyApplicationJson, ] |  |
+headers | Unset | headers were not defined |
+
+#### SchemaFor422ResponseBodyApplicationJson
+Type | Description  | Notes
+------------- | ------------- | -------------
+[**HTTPValidationError**](HTTPValidationError.md) |  | 
+
+
+
+[**Page**](Page.md)
 
 ### Authorization
 
