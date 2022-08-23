@@ -64,8 +64,6 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
-from ehelply_python_experimental_sdk.model.appointment_response import AppointmentResponse
-from ehelply_python_experimental_sdk.model.appointment_base import AppointmentBase
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 
 # header params
@@ -128,20 +126,43 @@ request_header_ehelply_data = api_client.HeaderParameter(
     style=api_client.ParameterStyle.SIMPLE,
     schema=EhelplyDataSchema,
 )
-# body param
-SchemaForRequestBodyApplicationJson = AppointmentBase
-
-
-request_body_appointment_base = api_client.RequestBody(
-    content={
-        'application/json': api_client.MediaType(
-            schema=SchemaForRequestBodyApplicationJson),
+# path params
+AppointmentUuidSchema = StrSchema
+EntityUuidSchema = StrSchema
+RequestRequiredPathParams = typing.TypedDict(
+    'RequestRequiredPathParams',
+    {
+        'appointment_uuid': AppointmentUuidSchema,
+        'entity_uuid': EntityUuidSchema,
+    }
+)
+RequestOptionalPathParams = typing.TypedDict(
+    'RequestOptionalPathParams',
+    {
     },
+    total=False
+)
+
+
+class RequestPathParams(RequestRequiredPathParams, RequestOptionalPathParams):
+    pass
+
+
+request_path_appointment_uuid = api_client.PathParameter(
+    name="appointment_uuid",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=AppointmentUuidSchema,
     required=True,
 )
-_path = '/appointments/appointments'
+request_path_entity_uuid = api_client.PathParameter(
+    name="entity_uuid",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=EntityUuidSchema,
+    required=True,
+)
+_path = '/appointments/appointments/{appointment_uuid}/entities/{entity_uuid}'
 _method = 'POST'
-SchemaFor200ResponseBodyApplicationJson = AppointmentResponse
+SchemaFor200ResponseBodyApplicationJson = BoolSchema
 
 
 @dataclass
@@ -201,13 +222,12 @@ _all_accept_content_types = (
 )
 
 
-class CreateAppointment(api_client.Api):
+class AddEntityToAppointment(api_client.Api):
 
-    def create_appointment(
+    def add_entity_to_appointment(
         self: api_client.Api,
-        body: typing.Union[SchemaForRequestBodyApplicationJson],
         header_params: RequestHeaderParams = frozendict(),
-        content_type: str = 'application/json',
+        path_params: RequestPathParams = frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
@@ -217,13 +237,28 @@ class CreateAppointment(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Create Appointment
+        Addentitytoappointment
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
         """
         self._verify_typed_dict_inputs(RequestHeaderParams, header_params)
+        self._verify_typed_dict_inputs(RequestPathParams, path_params)
         used_path = _path
+
+        _path_params = {}
+        for parameter in (
+            request_path_appointment_uuid,
+            request_path_entity_uuid,
+        ):
+            parameter_data = path_params.get(parameter.name, unset)
+            if parameter_data is unset:
+                continue
+            serialized_data = parameter.serialize(parameter_data)
+            _path_params.update(serialized_data)
+
+        for k, v in _path_params.items():
+            used_path = used_path.replace('{%s}' % k, v)
 
         _headers = HTTPHeaderDict()
         for parameter in (
@@ -244,23 +279,10 @@ class CreateAppointment(api_client.Api):
             for accept_content_type in accept_content_types:
                 _headers.add('Accept', accept_content_type)
 
-        if body is unset:
-            raise exceptions.ApiValueError(
-                'The required body parameter has an invalid value of: unset. Set a valid value instead')
-        _fields = None
-        _body = None
-        serialized_data = request_body_appointment_base.serialize(body, content_type)
-        _headers.add('Content-Type', content_type)
-        if 'fields' in serialized_data:
-            _fields = serialized_data['fields']
-        elif 'body' in serialized_data:
-            _body = serialized_data['body']
         response = self.api_client.call_api(
             resource_path=used_path,
             method=_method,
             headers=_headers,
-            fields=_fields,
-            body=_body,
             stream=stream,
             timeout=timeout,
         )

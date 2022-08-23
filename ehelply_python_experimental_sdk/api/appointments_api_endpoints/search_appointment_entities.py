@@ -66,6 +66,72 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
 
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 
+# query params
+PageSchema = IntSchema
+PageSizeSchema = IntSchema
+SortOnSchema = StrSchema
+SortDescSchema = BoolSchema
+SearchSchema = StrSchema
+SearchOnSchema = StrSchema
+RequestRequiredQueryParams = typing.TypedDict(
+    'RequestRequiredQueryParams',
+    {
+    }
+)
+RequestOptionalQueryParams = typing.TypedDict(
+    'RequestOptionalQueryParams',
+    {
+        'page': PageSchema,
+        'page_size': PageSizeSchema,
+        'sort_on': SortOnSchema,
+        'sort_desc': SortDescSchema,
+        'search': SearchSchema,
+        'search_on': SearchOnSchema,
+    },
+    total=False
+)
+
+
+class RequestQueryParams(RequestRequiredQueryParams, RequestOptionalQueryParams):
+    pass
+
+
+request_query_page = api_client.QueryParameter(
+    name="page",
+    style=api_client.ParameterStyle.FORM,
+    schema=PageSchema,
+    explode=True,
+)
+request_query_page_size = api_client.QueryParameter(
+    name="page_size",
+    style=api_client.ParameterStyle.FORM,
+    schema=PageSizeSchema,
+    explode=True,
+)
+request_query_sort_on = api_client.QueryParameter(
+    name="sort_on",
+    style=api_client.ParameterStyle.FORM,
+    schema=SortOnSchema,
+    explode=True,
+)
+request_query_sort_desc = api_client.QueryParameter(
+    name="sort_desc",
+    style=api_client.ParameterStyle.FORM,
+    schema=SortDescSchema,
+    explode=True,
+)
+request_query_search = api_client.QueryParameter(
+    name="search",
+    style=api_client.ParameterStyle.FORM,
+    schema=SearchSchema,
+    explode=True,
+)
+request_query_search_on = api_client.QueryParameter(
+    name="search_on",
+    style=api_client.ParameterStyle.FORM,
+    schema=SearchOnSchema,
+    explode=True,
+)
 # header params
 XAccessTokenSchema = StrSchema
 XSecretTokenSchema = StrSchema
@@ -128,12 +194,10 @@ request_header_ehelply_data = api_client.HeaderParameter(
 )
 # path params
 AppointmentUuidSchema = StrSchema
-EntityUuidSchema = StrSchema
 RequestRequiredPathParams = typing.TypedDict(
     'RequestRequiredPathParams',
     {
         'appointment_uuid': AppointmentUuidSchema,
-        'entity_uuid': EntityUuidSchema,
     }
 )
 RequestOptionalPathParams = typing.TypedDict(
@@ -154,15 +218,9 @@ request_path_appointment_uuid = api_client.PathParameter(
     schema=AppointmentUuidSchema,
     required=True,
 )
-request_path_entity_uuid = api_client.PathParameter(
-    name="entity_uuid",
-    style=api_client.ParameterStyle.SIMPLE,
-    schema=EntityUuidSchema,
-    required=True,
-)
-_path = '/appointments/appointments/{appointment_uuid}/entities/{entity_uuid}'
-_method = 'DELETE'
-SchemaFor200ResponseBodyApplicationJson = BoolSchema
+_path = '/appointments/appointments/{appointment_uuid}/entities'
+_method = 'GET'
+SchemaFor200ResponseBodyApplicationJson = AnyTypeSchema
 
 
 @dataclass
@@ -222,10 +280,11 @@ _all_accept_content_types = (
 )
 
 
-class DetachEntityFromAppointment(api_client.Api):
+class SearchAppointmentEntities(api_client.Api):
 
-    def detach_entity_from_appointment(
+    def search_appointment_entities(
         self: api_client.Api,
+        query_params: RequestQueryParams = frozendict(),
         header_params: RequestHeaderParams = frozendict(),
         path_params: RequestPathParams = frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
@@ -237,11 +296,12 @@ class DetachEntityFromAppointment(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Detach Entity From Appointment
+        Searchappointmententities
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
         """
+        self._verify_typed_dict_inputs(RequestQueryParams, query_params)
         self._verify_typed_dict_inputs(RequestHeaderParams, header_params)
         self._verify_typed_dict_inputs(RequestPathParams, path_params)
         used_path = _path
@@ -249,7 +309,6 @@ class DetachEntityFromAppointment(api_client.Api):
         _path_params = {}
         for parameter in (
             request_path_appointment_uuid,
-            request_path_entity_uuid,
         ):
             parameter_data = path_params.get(parameter.name, unset)
             if parameter_data is unset:
@@ -259,6 +318,24 @@ class DetachEntityFromAppointment(api_client.Api):
 
         for k, v in _path_params.items():
             used_path = used_path.replace('{%s}' % k, v)
+
+        prefix_separator_iterator = None
+        for parameter in (
+            request_query_page,
+            request_query_page_size,
+            request_query_sort_on,
+            request_query_sort_desc,
+            request_query_search,
+            request_query_search_on,
+        ):
+            parameter_data = query_params.get(parameter.name, unset)
+            if parameter_data is unset:
+                continue
+            if prefix_separator_iterator is None:
+                prefix_separator_iterator = parameter.get_prefix_separator_iterator()
+            serialized_data = parameter.serialize(parameter_data, prefix_separator_iterator)
+            for serialized_value in serialized_data.values():
+                used_path += serialized_value
 
         _headers = HTTPHeaderDict()
         for parameter in (

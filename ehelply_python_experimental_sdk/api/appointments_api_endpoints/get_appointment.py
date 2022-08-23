@@ -64,6 +64,7 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
+from ehelply_python_experimental_sdk.model.appointment_response import AppointmentResponse
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 
 # header params
@@ -153,8 +154,8 @@ request_path_appointment_uuid = api_client.PathParameter(
     required=True,
 )
 _path = '/appointments/appointments/{appointment_uuid}'
-_method = 'DELETE'
-SchemaFor200ResponseBodyApplicationJson = BoolSchema
+_method = 'GET'
+SchemaFor200ResponseBodyApplicationJson = AppointmentResponse
 
 
 @dataclass
@@ -175,15 +176,83 @@ _response_for_200 = api_client.OpenApiResponse(
 )
 
 
+class SchemaFor403ResponseBodyApplicationJson(
+    DictSchema
+):
+    message = StrSchema
+
+
+    def __new__(
+        cls,
+        *args: typing.Union[dict, frozendict, ],
+        message: typing.Union[message, Unset] = unset,
+        _configuration: typing.Optional[Configuration] = None,
+        **kwargs: typing.Type[Schema],
+    ) -> 'SchemaFor403ResponseBodyApplicationJson':
+        return super().__new__(
+            cls,
+            *args,
+            message=message,
+            _configuration=_configuration,
+            **kwargs,
+        )
+
+
+@dataclass
+class ApiResponseFor403(api_client.ApiResponse):
+    response: urllib3.HTTPResponse
+    body: typing.Union[
+        SchemaFor403ResponseBodyApplicationJson,
+    ]
+    headers: Unset = unset
+
+
+_response_for_403 = api_client.OpenApiResponse(
+    response_cls=ApiResponseFor403,
+    content={
+        'application/json': api_client.MediaType(
+            schema=SchemaFor403ResponseBodyApplicationJson),
+    },
+)
+
+
+class SchemaFor404ResponseBodyApplicationJson(
+    DictSchema
+):
+    message = StrSchema
+
+
+    def __new__(
+        cls,
+        *args: typing.Union[dict, frozendict, ],
+        message: typing.Union[message, Unset] = unset,
+        _configuration: typing.Optional[Configuration] = None,
+        **kwargs: typing.Type[Schema],
+    ) -> 'SchemaFor404ResponseBodyApplicationJson':
+        return super().__new__(
+            cls,
+            *args,
+            message=message,
+            _configuration=_configuration,
+            **kwargs,
+        )
+
+
 @dataclass
 class ApiResponseFor404(api_client.ApiResponse):
     response: urllib3.HTTPResponse
-    body: Unset = unset
+    body: typing.Union[
+        SchemaFor404ResponseBodyApplicationJson,
+    ]
     headers: Unset = unset
 
 
 _response_for_404 = api_client.OpenApiResponse(
     response_cls=ApiResponseFor404,
+    content={
+        'application/json': api_client.MediaType(
+            schema=SchemaFor404ResponseBodyApplicationJson),
+    },
 )
 SchemaFor422ResponseBodyApplicationJson = HTTPValidationError
 
@@ -206,6 +275,7 @@ _response_for_422 = api_client.OpenApiResponse(
 )
 _status_code_to_response = {
     '200': _response_for_200,
+    '403': _response_for_403,
     '404': _response_for_404,
     '422': _response_for_422,
 }
@@ -214,9 +284,9 @@ _all_accept_content_types = (
 )
 
 
-class DeleteAppointment(api_client.Api):
+class GetAppointment(api_client.Api):
 
-    def delete_appointment(
+    def get_appointment(
         self: api_client.Api,
         header_params: RequestHeaderParams = frozendict(),
         path_params: RequestPathParams = frozendict(),
@@ -229,7 +299,7 @@ class DeleteAppointment(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Delete Appointment
+        Getappointment
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances

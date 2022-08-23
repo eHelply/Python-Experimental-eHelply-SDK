@@ -14,6 +14,7 @@ docs/AlarmTerminate.md
 docs/AlarmTicket.md
 docs/AppointmentBase.md
 docs/AppointmentResponse.md
+docs/AppointmentsApi.md
 docs/AttachPaymentToProject.md
 docs/BasicMeta.md
 docs/BasicMetaCreate.md
@@ -40,7 +41,6 @@ docs/CreateTicket.md
 docs/Credential.md
 docs/CustomList.md
 docs/DatesMeta.md
-docs/DefaultApi.md
 docs/DetailedMeta.md
 docs/DetailedMetaCreate.md
 docs/DetailedMetaGet.md
@@ -152,11 +152,11 @@ docs/ValidationError.md
 docs/Validations.md
 ehelply_python_experimental_sdk/__init__.py
 ehelply_python_experimental_sdk/api/__init__.py
+ehelply_python_experimental_sdk/api/appointments_api.py
 ehelply_python_experimental_sdk/api/billing_api.py
 ehelply_python_experimental_sdk/api/catalogs_api.py
 ehelply_python_experimental_sdk/api/category_api.py
 ehelply_python_experimental_sdk/api/companies_api.py
-ehelply_python_experimental_sdk/api/default_api.py
 ehelply_python_experimental_sdk/api/logging_api.py
 ehelply_python_experimental_sdk/api/meta_api.py
 ehelply_python_experimental_sdk/api/monitor_api.py
@@ -324,6 +324,7 @@ test/test_alarm_terminate.py
 test/test_alarm_ticket.py
 test/test_appointment_base.py
 test/test_appointment_response.py
+test/test_appointments_api.py
 test/test_attach_payment_to_project.py
 test/test_basic_meta.py
 test/test_basic_meta_create.py
@@ -350,7 +351,6 @@ test/test_create_ticket.py
 test/test_credential.py
 test/test_custom_list.py
 test/test_dates_meta.py
-test/test_default_api.py
 test/test_detailed_meta.py
 test/test_detailed_meta_create.py
 test/test_detailed_meta_get.py

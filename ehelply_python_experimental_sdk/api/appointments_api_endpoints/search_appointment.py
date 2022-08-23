@@ -64,9 +64,98 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
-from ehelply_python_experimental_sdk.model.appointment_response import AppointmentResponse
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 
+# query params
+PlaceUuidSchema = StrSchema
+ExcludeCancelledSchema = BoolSchema
+IsDeletedSchema = BoolSchema
+StartRangeSchema = StrSchema
+EndRangeSchema = StrSchema
+PageSchema = IntSchema
+PageSizeSchema = IntSchema
+SortOnSchema = StrSchema
+SortDescSchema = BoolSchema
+RequestRequiredQueryParams = typing.TypedDict(
+    'RequestRequiredQueryParams',
+    {
+    }
+)
+RequestOptionalQueryParams = typing.TypedDict(
+    'RequestOptionalQueryParams',
+    {
+        'place_uuid': PlaceUuidSchema,
+        'exclude_cancelled': ExcludeCancelledSchema,
+        'is_deleted': IsDeletedSchema,
+        'start_range': StartRangeSchema,
+        'end_range': EndRangeSchema,
+        'page': PageSchema,
+        'page_size': PageSizeSchema,
+        'sort_on': SortOnSchema,
+        'sort_desc': SortDescSchema,
+    },
+    total=False
+)
+
+
+class RequestQueryParams(RequestRequiredQueryParams, RequestOptionalQueryParams):
+    pass
+
+
+request_query_place_uuid = api_client.QueryParameter(
+    name="place_uuid",
+    style=api_client.ParameterStyle.FORM,
+    schema=PlaceUuidSchema,
+    explode=True,
+)
+request_query_exclude_cancelled = api_client.QueryParameter(
+    name="exclude_cancelled",
+    style=api_client.ParameterStyle.FORM,
+    schema=ExcludeCancelledSchema,
+    explode=True,
+)
+request_query_is_deleted = api_client.QueryParameter(
+    name="is_deleted",
+    style=api_client.ParameterStyle.FORM,
+    schema=IsDeletedSchema,
+    explode=True,
+)
+request_query_start_range = api_client.QueryParameter(
+    name="start_range",
+    style=api_client.ParameterStyle.FORM,
+    schema=StartRangeSchema,
+    explode=True,
+)
+request_query_end_range = api_client.QueryParameter(
+    name="end_range",
+    style=api_client.ParameterStyle.FORM,
+    schema=EndRangeSchema,
+    explode=True,
+)
+request_query_page = api_client.QueryParameter(
+    name="page",
+    style=api_client.ParameterStyle.FORM,
+    schema=PageSchema,
+    explode=True,
+)
+request_query_page_size = api_client.QueryParameter(
+    name="page_size",
+    style=api_client.ParameterStyle.FORM,
+    schema=PageSizeSchema,
+    explode=True,
+)
+request_query_sort_on = api_client.QueryParameter(
+    name="sort_on",
+    style=api_client.ParameterStyle.FORM,
+    schema=SortOnSchema,
+    explode=True,
+)
+request_query_sort_desc = api_client.QueryParameter(
+    name="sort_desc",
+    style=api_client.ParameterStyle.FORM,
+    schema=SortDescSchema,
+    explode=True,
+)
 # header params
 XAccessTokenSchema = StrSchema
 XSecretTokenSchema = StrSchema
@@ -127,35 +216,9 @@ request_header_ehelply_data = api_client.HeaderParameter(
     style=api_client.ParameterStyle.SIMPLE,
     schema=EhelplyDataSchema,
 )
-# path params
-AppointmentUuidSchema = StrSchema
-RequestRequiredPathParams = typing.TypedDict(
-    'RequestRequiredPathParams',
-    {
-        'appointment_uuid': AppointmentUuidSchema,
-    }
-)
-RequestOptionalPathParams = typing.TypedDict(
-    'RequestOptionalPathParams',
-    {
-    },
-    total=False
-)
-
-
-class RequestPathParams(RequestRequiredPathParams, RequestOptionalPathParams):
-    pass
-
-
-request_path_appointment_uuid = api_client.PathParameter(
-    name="appointment_uuid",
-    style=api_client.ParameterStyle.SIMPLE,
-    schema=AppointmentUuidSchema,
-    required=True,
-)
-_path = '/appointments/appointments/{appointment_uuid}'
+_path = '/appointments/appointments'
 _method = 'GET'
-SchemaFor200ResponseBodyApplicationJson = AppointmentResponse
+SchemaFor200ResponseBodyApplicationJson = AnyTypeSchema
 
 
 @dataclass
@@ -176,83 +239,15 @@ _response_for_200 = api_client.OpenApiResponse(
 )
 
 
-class SchemaFor403ResponseBodyApplicationJson(
-    DictSchema
-):
-    message = StrSchema
-
-
-    def __new__(
-        cls,
-        *args: typing.Union[dict, frozendict, ],
-        message: typing.Union[message, Unset] = unset,
-        _configuration: typing.Optional[Configuration] = None,
-        **kwargs: typing.Type[Schema],
-    ) -> 'SchemaFor403ResponseBodyApplicationJson':
-        return super().__new__(
-            cls,
-            *args,
-            message=message,
-            _configuration=_configuration,
-            **kwargs,
-        )
-
-
-@dataclass
-class ApiResponseFor403(api_client.ApiResponse):
-    response: urllib3.HTTPResponse
-    body: typing.Union[
-        SchemaFor403ResponseBodyApplicationJson,
-    ]
-    headers: Unset = unset
-
-
-_response_for_403 = api_client.OpenApiResponse(
-    response_cls=ApiResponseFor403,
-    content={
-        'application/json': api_client.MediaType(
-            schema=SchemaFor403ResponseBodyApplicationJson),
-    },
-)
-
-
-class SchemaFor404ResponseBodyApplicationJson(
-    DictSchema
-):
-    message = StrSchema
-
-
-    def __new__(
-        cls,
-        *args: typing.Union[dict, frozendict, ],
-        message: typing.Union[message, Unset] = unset,
-        _configuration: typing.Optional[Configuration] = None,
-        **kwargs: typing.Type[Schema],
-    ) -> 'SchemaFor404ResponseBodyApplicationJson':
-        return super().__new__(
-            cls,
-            *args,
-            message=message,
-            _configuration=_configuration,
-            **kwargs,
-        )
-
-
 @dataclass
 class ApiResponseFor404(api_client.ApiResponse):
     response: urllib3.HTTPResponse
-    body: typing.Union[
-        SchemaFor404ResponseBodyApplicationJson,
-    ]
+    body: Unset = unset
     headers: Unset = unset
 
 
 _response_for_404 = api_client.OpenApiResponse(
     response_cls=ApiResponseFor404,
-    content={
-        'application/json': api_client.MediaType(
-            schema=SchemaFor404ResponseBodyApplicationJson),
-    },
 )
 SchemaFor422ResponseBodyApplicationJson = HTTPValidationError
 
@@ -275,7 +270,6 @@ _response_for_422 = api_client.OpenApiResponse(
 )
 _status_code_to_response = {
     '200': _response_for_200,
-    '403': _response_for_403,
     '404': _response_for_404,
     '422': _response_for_422,
 }
@@ -284,12 +278,12 @@ _all_accept_content_types = (
 )
 
 
-class GetAppointment(api_client.Api):
+class SearchAppointment(api_client.Api):
 
-    def get_appointment(
+    def search_appointment(
         self: api_client.Api,
+        query_params: RequestQueryParams = frozendict(),
         header_params: RequestHeaderParams = frozendict(),
-        path_params: RequestPathParams = frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
@@ -299,27 +293,35 @@ class GetAppointment(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Get Appointment
+        Searchappointments
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
         """
+        self._verify_typed_dict_inputs(RequestQueryParams, query_params)
         self._verify_typed_dict_inputs(RequestHeaderParams, header_params)
-        self._verify_typed_dict_inputs(RequestPathParams, path_params)
         used_path = _path
 
-        _path_params = {}
+        prefix_separator_iterator = None
         for parameter in (
-            request_path_appointment_uuid,
+            request_query_place_uuid,
+            request_query_exclude_cancelled,
+            request_query_is_deleted,
+            request_query_start_range,
+            request_query_end_range,
+            request_query_page,
+            request_query_page_size,
+            request_query_sort_on,
+            request_query_sort_desc,
         ):
-            parameter_data = path_params.get(parameter.name, unset)
+            parameter_data = query_params.get(parameter.name, unset)
             if parameter_data is unset:
                 continue
-            serialized_data = parameter.serialize(parameter_data)
-            _path_params.update(serialized_data)
-
-        for k, v in _path_params.items():
-            used_path = used_path.replace('{%s}' % k, v)
+            if prefix_separator_iterator is None:
+                prefix_separator_iterator = parameter.get_prefix_separator_iterator()
+            serialized_data = parameter.serialize(parameter_data, prefix_separator_iterator)
+            for serialized_value in serialized_data.values():
+                used_path += serialized_value
 
         _headers = HTTPHeaderDict()
         for parameter in (
