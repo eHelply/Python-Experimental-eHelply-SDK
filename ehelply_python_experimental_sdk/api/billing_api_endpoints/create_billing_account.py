@@ -209,7 +209,6 @@ class CreateBillingAccount(api_client.Api):
             class instances
         """
         self._verify_typed_dict_inputs(RequestHeaderParams, header_params)
-        used_path = _path
 
         _headers = HTTPHeaderDict()
         for parameter in (
@@ -231,7 +230,7 @@ class CreateBillingAccount(api_client.Api):
                 _headers.add('Accept', accept_content_type)
 
         response = self.api_client.call_api(
-            resource_path=used_path,
+            resource_path=_path,
             method=_method,
             headers=_headers,
             stream=stream,

@@ -243,7 +243,6 @@ class VerifyKey(api_client.Api):
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
         """
-        used_path = _path
 
         _headers = HTTPHeaderDict()
         # TODO add cookie handling
@@ -263,7 +262,7 @@ class VerifyKey(api_client.Api):
         elif 'body' in serialized_data:
             _body = serialized_data['body']
         response = self.api_client.call_api(
-            resource_path=used_path,
+            resource_path=_path,
             method=_method,
             headers=_headers,
             fields=_fields,
