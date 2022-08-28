@@ -64,59 +64,10 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
-from ehelply_python_experimental_sdk.model.page import Page
+from ehelply_python_experimental_sdk.model.create_project_credit import CreateProjectCredit
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
+from ehelply_python_experimental_sdk.model.project_credit_response import ProjectCreditResponse
 
-# query params
-FullyConsumedSchema = BoolSchema
-RevokedSchema = BoolSchema
-PageSchema = IntSchema
-PageSizeSchema = IntSchema
-RequestRequiredQueryParams = typing.TypedDict(
-    'RequestRequiredQueryParams',
-    {
-    }
-)
-RequestOptionalQueryParams = typing.TypedDict(
-    'RequestOptionalQueryParams',
-    {
-        'fully_consumed': FullyConsumedSchema,
-        'revoked': RevokedSchema,
-        'page': PageSchema,
-        'page_size': PageSizeSchema,
-    },
-    total=False
-)
-
-
-class RequestQueryParams(RequestRequiredQueryParams, RequestOptionalQueryParams):
-    pass
-
-
-request_query_fully_consumed = api_client.QueryParameter(
-    name="fully_consumed",
-    style=api_client.ParameterStyle.FORM,
-    schema=FullyConsumedSchema,
-    explode=True,
-)
-request_query_revoked = api_client.QueryParameter(
-    name="revoked",
-    style=api_client.ParameterStyle.FORM,
-    schema=RevokedSchema,
-    explode=True,
-)
-request_query_page = api_client.QueryParameter(
-    name="page",
-    style=api_client.ParameterStyle.FORM,
-    schema=PageSchema,
-    explode=True,
-)
-request_query_page_size = api_client.QueryParameter(
-    name="page_size",
-    style=api_client.ParameterStyle.FORM,
-    schema=PageSizeSchema,
-    explode=True,
-)
 # header params
 XAccessTokenSchema = StrSchema
 XSecretTokenSchema = StrSchema
@@ -203,9 +154,20 @@ request_path_project_uuid = api_client.PathParameter(
     schema=ProjectUuidSchema,
     required=True,
 )
+# body param
+SchemaForRequestBodyApplicationJson = CreateProjectCredit
+
+
+request_body_create_project_credit = api_client.RequestBody(
+    content={
+        'application/json': api_client.MediaType(
+            schema=SchemaForRequestBodyApplicationJson),
+    },
+    required=True,
+)
 _path = '/sam/projects/projects/{project_uuid}/credits'
-_method = 'GET'
-SchemaFor200ResponseBodyApplicationJson = Page
+_method = 'POST'
+SchemaFor200ResponseBodyApplicationJson = DictSchema
 
 
 @dataclass
@@ -222,6 +184,46 @@ _response_for_200 = api_client.OpenApiResponse(
     content={
         'application/json': api_client.MediaType(
             schema=SchemaFor200ResponseBodyApplicationJson),
+    },
+)
+
+
+class SchemaFor403ResponseBodyApplicationJson(
+    DictSchema
+):
+    message = StrSchema
+
+
+    def __new__(
+        cls,
+        *args: typing.Union[dict, frozendict, ],
+        message: typing.Union[message, Unset] = unset,
+        _configuration: typing.Optional[Configuration] = None,
+        **kwargs: typing.Type[Schema],
+    ) -> 'SchemaFor403ResponseBodyApplicationJson':
+        return super().__new__(
+            cls,
+            *args,
+            message=message,
+            _configuration=_configuration,
+            **kwargs,
+        )
+
+
+@dataclass
+class ApiResponseFor403(api_client.ApiResponse):
+    response: urllib3.HTTPResponse
+    body: typing.Union[
+        SchemaFor403ResponseBodyApplicationJson,
+    ]
+    headers: Unset = unset
+
+
+_response_for_403 = api_client.OpenApiResponse(
+    response_cls=ApiResponseFor403,
+    content={
+        'application/json': api_client.MediaType(
+            schema=SchemaFor403ResponseBodyApplicationJson),
     },
 )
 
@@ -257,6 +259,7 @@ _response_for_422 = api_client.OpenApiResponse(
 )
 _status_code_to_response = {
     '200': _response_for_200,
+    '403': _response_for_403,
     '404': _response_for_404,
     '422': _response_for_422,
 }
@@ -265,13 +268,14 @@ _all_accept_content_types = (
 )
 
 
-class GetAllProjectCredits(api_client.Api):
+class CreateProjectCredit(api_client.Api):
 
-    def get_all_project_credits(
+    def create_project_credit(
         self: api_client.Api,
-        query_params: RequestQueryParams = frozendict(),
+        body: typing.Union[SchemaForRequestBodyApplicationJson],
         header_params: RequestHeaderParams = frozendict(),
         path_params: RequestPathParams = frozendict(),
+        content_type: str = 'application/json',
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
@@ -281,12 +285,11 @@ class GetAllProjectCredits(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Getallprojectcredits
+        Createprojectcredit
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
         """
-        self._verify_typed_dict_inputs(RequestQueryParams, query_params)
         self._verify_typed_dict_inputs(RequestHeaderParams, header_params)
         self._verify_typed_dict_inputs(RequestPathParams, path_params)
 
@@ -299,19 +302,6 @@ class GetAllProjectCredits(api_client.Api):
                 continue
             serialized_data = parameter.serialize(parameter_data)
             _path_params.update(serialized_data)
-
-        _query_params = []
-        for parameter in (
-            request_query_fully_consumed,
-            request_query_revoked,
-            request_query_page,
-            request_query_page_size,
-        ):
-            parameter_data = query_params.get(parameter.name, unset)
-            if parameter_data is unset:
-                continue
-            serialized_data = parameter.serialize(parameter_data)
-            _query_params.extend(serialized_data)
 
         _headers = HTTPHeaderDict()
         for parameter in (
@@ -332,12 +322,24 @@ class GetAllProjectCredits(api_client.Api):
             for accept_content_type in accept_content_types:
                 _headers.add('Accept', accept_content_type)
 
+        if body is unset:
+            raise exceptions.ApiValueError(
+                'The required body parameter has an invalid value of: unset. Set a valid value instead')
+        _fields = None
+        _body = None
+        serialized_data = request_body_create_project_credit.serialize(body, content_type)
+        _headers.add('Content-Type', content_type)
+        if 'fields' in serialized_data:
+            _fields = serialized_data['fields']
+        elif 'body' in serialized_data:
+            _body = serialized_data['body']
         response = self.api_client.call_api(
             resource_path=_path,
             method=_method,
             path_params=_path_params,
-            query_params=tuple(_query_params),
             headers=_headers,
+            fields=_fields,
+            body=_body,
             stream=stream,
             timeout=timeout,
         )

@@ -64,26 +64,19 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
-from ehelply_python_experimental_sdk.model.page import Page
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 
 # query params
-FullyConsumedSchema = BoolSchema
-RevokedSchema = BoolSchema
-PageSchema = IntSchema
-PageSizeSchema = IntSchema
+RevokedReasonSchema = StrSchema
 RequestRequiredQueryParams = typing.TypedDict(
     'RequestRequiredQueryParams',
     {
+        'revoked_reason': RevokedReasonSchema,
     }
 )
 RequestOptionalQueryParams = typing.TypedDict(
     'RequestOptionalQueryParams',
     {
-        'fully_consumed': FullyConsumedSchema,
-        'revoked': RevokedSchema,
-        'page': PageSchema,
-        'page_size': PageSizeSchema,
     },
     total=False
 )
@@ -93,28 +86,11 @@ class RequestQueryParams(RequestRequiredQueryParams, RequestOptionalQueryParams)
     pass
 
 
-request_query_fully_consumed = api_client.QueryParameter(
-    name="fully_consumed",
+request_query_revoked_reason = api_client.QueryParameter(
+    name="revoked_reason",
     style=api_client.ParameterStyle.FORM,
-    schema=FullyConsumedSchema,
-    explode=True,
-)
-request_query_revoked = api_client.QueryParameter(
-    name="revoked",
-    style=api_client.ParameterStyle.FORM,
-    schema=RevokedSchema,
-    explode=True,
-)
-request_query_page = api_client.QueryParameter(
-    name="page",
-    style=api_client.ParameterStyle.FORM,
-    schema=PageSchema,
-    explode=True,
-)
-request_query_page_size = api_client.QueryParameter(
-    name="page_size",
-    style=api_client.ParameterStyle.FORM,
-    schema=PageSizeSchema,
+    schema=RevokedReasonSchema,
+    required=True,
     explode=True,
 )
 # header params
@@ -179,10 +155,12 @@ request_header_ehelply_data = api_client.HeaderParameter(
 )
 # path params
 ProjectUuidSchema = StrSchema
+CreditUuidSchema = StrSchema
 RequestRequiredPathParams = typing.TypedDict(
     'RequestRequiredPathParams',
     {
         'project_uuid': ProjectUuidSchema,
+        'credit_uuid': CreditUuidSchema,
     }
 )
 RequestOptionalPathParams = typing.TypedDict(
@@ -203,9 +181,36 @@ request_path_project_uuid = api_client.PathParameter(
     schema=ProjectUuidSchema,
     required=True,
 )
-_path = '/sam/projects/projects/{project_uuid}/credits'
-_method = 'GET'
-SchemaFor200ResponseBodyApplicationJson = Page
+request_path_credit_uuid = api_client.PathParameter(
+    name="credit_uuid",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=CreditUuidSchema,
+    required=True,
+)
+_path = '/sam/projects/projects/{project_uuid}/credits/{credit_uuid}'
+_method = 'DELETE'
+
+
+class SchemaFor200ResponseBodyApplicationJson(
+    DictSchema
+):
+    message = StrSchema
+
+
+    def __new__(
+        cls,
+        *args: typing.Union[dict, frozendict, ],
+        message: typing.Union[message, Unset] = unset,
+        _configuration: typing.Optional[Configuration] = None,
+        **kwargs: typing.Type[Schema],
+    ) -> 'SchemaFor200ResponseBodyApplicationJson':
+        return super().__new__(
+            cls,
+            *args,
+            message=message,
+            _configuration=_configuration,
+            **kwargs,
+        )
 
 
 @dataclass
@@ -222,6 +227,46 @@ _response_for_200 = api_client.OpenApiResponse(
     content={
         'application/json': api_client.MediaType(
             schema=SchemaFor200ResponseBodyApplicationJson),
+    },
+)
+
+
+class SchemaFor403ResponseBodyApplicationJson(
+    DictSchema
+):
+    message = StrSchema
+
+
+    def __new__(
+        cls,
+        *args: typing.Union[dict, frozendict, ],
+        message: typing.Union[message, Unset] = unset,
+        _configuration: typing.Optional[Configuration] = None,
+        **kwargs: typing.Type[Schema],
+    ) -> 'SchemaFor403ResponseBodyApplicationJson':
+        return super().__new__(
+            cls,
+            *args,
+            message=message,
+            _configuration=_configuration,
+            **kwargs,
+        )
+
+
+@dataclass
+class ApiResponseFor403(api_client.ApiResponse):
+    response: urllib3.HTTPResponse
+    body: typing.Union[
+        SchemaFor403ResponseBodyApplicationJson,
+    ]
+    headers: Unset = unset
+
+
+_response_for_403 = api_client.OpenApiResponse(
+    response_cls=ApiResponseFor403,
+    content={
+        'application/json': api_client.MediaType(
+            schema=SchemaFor403ResponseBodyApplicationJson),
     },
 )
 
@@ -257,6 +302,7 @@ _response_for_422 = api_client.OpenApiResponse(
 )
 _status_code_to_response = {
     '200': _response_for_200,
+    '403': _response_for_403,
     '404': _response_for_404,
     '422': _response_for_422,
 }
@@ -265,9 +311,9 @@ _all_accept_content_types = (
 )
 
 
-class GetAllProjectCredits(api_client.Api):
+class RevokeProjectCredit(api_client.Api):
 
-    def get_all_project_credits(
+    def revoke_project_credit(
         self: api_client.Api,
         query_params: RequestQueryParams = frozendict(),
         header_params: RequestHeaderParams = frozendict(),
@@ -281,7 +327,7 @@ class GetAllProjectCredits(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Getallprojectcredits
+        Revokeprojectcredit
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
@@ -293,6 +339,7 @@ class GetAllProjectCredits(api_client.Api):
         _path_params = {}
         for parameter in (
             request_path_project_uuid,
+            request_path_credit_uuid,
         ):
             parameter_data = path_params.get(parameter.name, unset)
             if parameter_data is unset:
@@ -302,10 +349,7 @@ class GetAllProjectCredits(api_client.Api):
 
         _query_params = []
         for parameter in (
-            request_query_fully_consumed,
-            request_query_revoked,
-            request_query_page,
-            request_query_page_size,
+            request_query_revoked_reason,
         ):
             parameter_data = query_params.get(parameter.name, unset)
             if parameter_data is unset:

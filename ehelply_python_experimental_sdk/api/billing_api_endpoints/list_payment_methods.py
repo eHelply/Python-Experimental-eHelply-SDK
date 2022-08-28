@@ -67,6 +67,32 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
 from ehelply_python_experimental_sdk.model.payment_method_response import PaymentMethodResponse
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 
+# query params
+ProjectUuidSchema = AnyTypeSchema
+RequestRequiredQueryParams = typing.TypedDict(
+    'RequestRequiredQueryParams',
+    {
+    }
+)
+RequestOptionalQueryParams = typing.TypedDict(
+    'RequestOptionalQueryParams',
+    {
+        'project_uuid': ProjectUuidSchema,
+    },
+    total=False
+)
+
+
+class RequestQueryParams(RequestRequiredQueryParams, RequestOptionalQueryParams):
+    pass
+
+
+request_query_project_uuid = api_client.QueryParameter(
+    name="project_uuid",
+    style=api_client.ParameterStyle.FORM,
+    schema=ProjectUuidSchema,
+    explode=True,
+)
 # header params
 XAccessTokenSchema = StrSchema
 XSecretTokenSchema = StrSchema
@@ -202,6 +228,7 @@ class ListPaymentMethods(api_client.Api):
 
     def list_payment_methods(
         self: api_client.Api,
+        query_params: RequestQueryParams = frozendict(),
         header_params: RequestHeaderParams = frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
@@ -217,7 +244,18 @@ class ListPaymentMethods(api_client.Api):
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
         """
+        self._verify_typed_dict_inputs(RequestQueryParams, query_params)
         self._verify_typed_dict_inputs(RequestHeaderParams, header_params)
+
+        _query_params = []
+        for parameter in (
+            request_query_project_uuid,
+        ):
+            parameter_data = query_params.get(parameter.name, unset)
+            if parameter_data is unset:
+                continue
+            serialized_data = parameter.serialize(parameter_data)
+            _query_params.extend(serialized_data)
 
         _headers = HTTPHeaderDict()
         for parameter in (
@@ -241,6 +279,7 @@ class ListPaymentMethods(api_client.Api):
         response = self.api_client.call_api(
             resource_path=_path,
             method=_method,
+            query_params=tuple(_query_params),
             headers=_headers,
             stream=stream,
             timeout=timeout,

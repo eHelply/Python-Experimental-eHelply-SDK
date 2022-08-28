@@ -338,6 +338,9 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     api_instance = billing_api.BillingApi(api_client)
 
     # example passing only optional values
+    query_params = {
+        'project_uuid': None,
+    }
     header_params = {
         'x-access-token': "x-access-token_example",
         'x-secret-token': "x-secret-token_example",
@@ -349,6 +352,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     try:
         # Haspayment
         api_response = api_instance.has_payment(
+            query_params=query_params,
             header_params=header_params,
         )
         pprint(api_response)
@@ -359,11 +363,27 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+query_params | RequestQueryParams | |
 header_params | RequestHeaderParams | |
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
 skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
+
+### query_params
+#### RequestQueryParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+project_uuid | ProjectUuidSchema | | optional
+
+
+#### ProjectUuidSchema
+
+#### Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 ### header_params
 #### RequestHeaderParams
@@ -489,6 +509,9 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     api_instance = billing_api.BillingApi(api_client)
 
     # example passing only optional values
+    query_params = {
+        'project_uuid': None,
+    }
     header_params = {
         'x-access-token': "x-access-token_example",
         'x-secret-token': "x-secret-token_example",
@@ -500,6 +523,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     try:
         # Listpaymentmethods
         api_response = api_instance.list_payment_methods(
+            query_params=query_params,
             header_params=header_params,
         )
         pprint(api_response)
@@ -510,11 +534,27 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+query_params | RequestQueryParams | |
 header_params | RequestHeaderParams | |
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
 skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
+
+### query_params
+#### RequestQueryParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+project_uuid | ProjectUuidSchema | | optional
+
+
+#### ProjectUuidSchema
+
+#### Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 ### header_params
 #### RequestHeaderParams
@@ -970,6 +1010,9 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     api_instance = billing_api.BillingApi(api_client)
 
     # example passing only optional values
+    query_params = {
+        'project_uuid': None,
+    }
     header_params = {
         'x-access-token': "x-access-token_example",
         'x-secret-token': "x-secret-token_example",
@@ -981,6 +1024,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     try:
         # Removepaymentmethod
         api_response = api_instance.remove_payment_method(
+            query_params=query_params,
             header_params=header_params,
         )
         pprint(api_response)
@@ -991,11 +1035,27 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+query_params | RequestQueryParams | |
 header_params | RequestHeaderParams | |
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
 skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
+
+### query_params
+#### RequestQueryParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+project_uuid | ProjectUuidSchema | | optional
+
+
+#### ProjectUuidSchema
+
+#### Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 ### header_params
 #### RequestHeaderParams
