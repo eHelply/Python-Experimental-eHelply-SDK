@@ -66,6 +66,33 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
 
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 
+# query params
+RevokedReasonSchema = StrSchema
+RequestRequiredQueryParams = typing.TypedDict(
+    'RequestRequiredQueryParams',
+    {
+        'revoked_reason': RevokedReasonSchema,
+    }
+)
+RequestOptionalQueryParams = typing.TypedDict(
+    'RequestOptionalQueryParams',
+    {
+    },
+    total=False
+)
+
+
+class RequestQueryParams(RequestRequiredQueryParams, RequestOptionalQueryParams):
+    pass
+
+
+request_query_revoked_reason = api_client.QueryParameter(
+    name="revoked_reason",
+    style=api_client.ParameterStyle.FORM,
+    schema=RevokedReasonSchema,
+    required=True,
+    explode=True,
+)
 # header params
 XAccessTokenSchema = StrSchema
 XSecretTokenSchema = StrSchema
@@ -127,15 +154,13 @@ request_header_ehelply_data = api_client.HeaderParameter(
     schema=EhelplyDataSchema,
 )
 # path params
-EntityTypeSchema = StrSchema
-EntityUuidSchema = StrSchema
-ReviewUuidSchema = StrSchema
+ProjectUuidSchema = StrSchema
+CreditUuidSchema = StrSchema
 RequestRequiredPathParams = typing.TypedDict(
     'RequestRequiredPathParams',
     {
-        'entity_type': EntityTypeSchema,
-        'entity_uuid': EntityUuidSchema,
-        'review_uuid': ReviewUuidSchema,
+        'project_uuid': ProjectUuidSchema,
+        'credit_uuid': CreditUuidSchema,
     }
 )
 RequestOptionalPathParams = typing.TypedDict(
@@ -150,27 +175,42 @@ class RequestPathParams(RequestRequiredPathParams, RequestOptionalPathParams):
     pass
 
 
-request_path_entity_type = api_client.PathParameter(
-    name="entity_type",
+request_path_project_uuid = api_client.PathParameter(
+    name="project_uuid",
     style=api_client.ParameterStyle.SIMPLE,
-    schema=EntityTypeSchema,
+    schema=ProjectUuidSchema,
     required=True,
 )
-request_path_entity_uuid = api_client.PathParameter(
-    name="entity_uuid",
+request_path_credit_uuid = api_client.PathParameter(
+    name="credit_uuid",
     style=api_client.ParameterStyle.SIMPLE,
-    schema=EntityUuidSchema,
+    schema=CreditUuidSchema,
     required=True,
 )
-request_path_review_uuid = api_client.PathParameter(
-    name="review_uuid",
-    style=api_client.ParameterStyle.SIMPLE,
-    schema=ReviewUuidSchema,
-    required=True,
-)
-_path = '/products/reviews/types/{entity_type}/entities/{entity_uuid}/reviews/{review_uuid}'
-_method = 'GET'
-SchemaFor200ResponseBodyApplicationJson = AnyTypeSchema
+_path = '/sam/projects/projects/{project_uuid}/credits/{credit_uuid}'
+_method = 'DELETE'
+
+
+class SchemaFor200ResponseBodyApplicationJson(
+    DictSchema
+):
+    message = StrSchema
+
+
+    def __new__(
+        cls,
+        *args: typing.Union[dict, frozendict, ],
+        message: typing.Union[message, Unset] = unset,
+        _configuration: typing.Optional[Configuration] = None,
+        **kwargs: typing.Type[Schema],
+    ) -> 'SchemaFor200ResponseBodyApplicationJson':
+        return super().__new__(
+            cls,
+            *args,
+            message=message,
+            _configuration=_configuration,
+            **kwargs,
+        )
 
 
 @dataclass
@@ -187,6 +227,46 @@ _response_for_200 = api_client.OpenApiResponse(
     content={
         'application/json': api_client.MediaType(
             schema=SchemaFor200ResponseBodyApplicationJson),
+    },
+)
+
+
+class SchemaFor403ResponseBodyApplicationJson(
+    DictSchema
+):
+    message = StrSchema
+
+
+    def __new__(
+        cls,
+        *args: typing.Union[dict, frozendict, ],
+        message: typing.Union[message, Unset] = unset,
+        _configuration: typing.Optional[Configuration] = None,
+        **kwargs: typing.Type[Schema],
+    ) -> 'SchemaFor403ResponseBodyApplicationJson':
+        return super().__new__(
+            cls,
+            *args,
+            message=message,
+            _configuration=_configuration,
+            **kwargs,
+        )
+
+
+@dataclass
+class ApiResponseFor403(api_client.ApiResponse):
+    response: urllib3.HTTPResponse
+    body: typing.Union[
+        SchemaFor403ResponseBodyApplicationJson,
+    ]
+    headers: Unset = unset
+
+
+_response_for_403 = api_client.OpenApiResponse(
+    response_cls=ApiResponseFor403,
+    content={
+        'application/json': api_client.MediaType(
+            schema=SchemaFor403ResponseBodyApplicationJson),
     },
 )
 
@@ -222,6 +302,7 @@ _response_for_422 = api_client.OpenApiResponse(
 )
 _status_code_to_response = {
     '200': _response_for_200,
+    '403': _response_for_403,
     '404': _response_for_404,
     '422': _response_for_422,
 }
@@ -230,10 +311,11 @@ _all_accept_content_types = (
 )
 
 
-class GetReview(api_client.Api):
+class RevokeProjectCredit(api_client.Api):
 
-    def get_review(
+    def revoke_project_credit(
         self: api_client.Api,
+        query_params: RequestQueryParams = frozendict(),
         header_params: RequestHeaderParams = frozendict(),
         path_params: RequestPathParams = frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
@@ -245,25 +327,35 @@ class GetReview(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Getreview
+        Revokeprojectcredit
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
         """
+        self._verify_typed_dict_inputs(RequestQueryParams, query_params)
         self._verify_typed_dict_inputs(RequestHeaderParams, header_params)
         self._verify_typed_dict_inputs(RequestPathParams, path_params)
 
         _path_params = {}
         for parameter in (
-            request_path_entity_type,
-            request_path_entity_uuid,
-            request_path_review_uuid,
+            request_path_project_uuid,
+            request_path_credit_uuid,
         ):
             parameter_data = path_params.get(parameter.name, unset)
             if parameter_data is unset:
                 continue
             serialized_data = parameter.serialize(parameter_data)
             _path_params.update(serialized_data)
+
+        _query_params = []
+        for parameter in (
+            request_query_revoked_reason,
+        ):
+            parameter_data = query_params.get(parameter.name, unset)
+            if parameter_data is unset:
+                continue
+            serialized_data = parameter.serialize(parameter_data)
+            _query_params.extend(serialized_data)
 
         _headers = HTTPHeaderDict()
         for parameter in (
@@ -288,6 +380,7 @@ class GetReview(api_client.Api):
             resource_path=_path,
             method=_method,
             path_params=_path_params,
+            query_params=tuple(_query_params),
             headers=_headers,
             stream=stream,
             timeout=timeout,

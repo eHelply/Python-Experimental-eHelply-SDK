@@ -212,7 +212,6 @@ class GetServiceKpis(api_client.Api):
         """
         self._verify_typed_dict_inputs(RequestQueryParams, query_params)
         self._verify_typed_dict_inputs(RequestPathParams, path_params)
-        used_path = _path
 
         _path_params = {}
         for parameter in (
@@ -224,21 +223,15 @@ class GetServiceKpis(api_client.Api):
             serialized_data = parameter.serialize(parameter_data)
             _path_params.update(serialized_data)
 
-        for k, v in _path_params.items():
-            used_path = used_path.replace('{%s}' % k, v)
-
-        prefix_separator_iterator = None
+        _query_params = []
         for parameter in (
             request_query_history,
         ):
             parameter_data = query_params.get(parameter.name, unset)
             if parameter_data is unset:
                 continue
-            if prefix_separator_iterator is None:
-                prefix_separator_iterator = parameter.get_prefix_separator_iterator()
-            serialized_data = parameter.serialize(parameter_data, prefix_separator_iterator)
-            for serialized_value in serialized_data.values():
-                used_path += serialized_value
+            serialized_data = parameter.serialize(parameter_data)
+            _query_params.extend(serialized_data)
 
         _headers = HTTPHeaderDict()
         # TODO add cookie handling
@@ -247,8 +240,10 @@ class GetServiceKpis(api_client.Api):
                 _headers.add('Accept', accept_content_type)
 
         response = self.api_client.call_api(
-            resource_path=used_path,
+            resource_path=_path,
             method=_method,
+            path_params=_path_params,
+            query_params=tuple(_query_params),
             headers=_headers,
             stream=stream,
             timeout=timeout,

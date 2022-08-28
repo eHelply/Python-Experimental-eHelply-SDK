@@ -264,7 +264,6 @@ class CreateContact(api_client.Api):
             class instances
         """
         self._verify_typed_dict_inputs(RequestHeaderParams, header_params)
-        used_path = _path
 
         _headers = HTTPHeaderDict()
         for parameter in (
@@ -297,7 +296,7 @@ class CreateContact(api_client.Api):
         elif 'body' in serialized_data:
             _body = serialized_data['body']
         response = self.api_client.call_api(
-            resource_path=used_path,
+            resource_path=_path,
             method=_method,
             headers=_headers,
             fields=_fields,

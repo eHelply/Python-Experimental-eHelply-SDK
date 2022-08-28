@@ -226,83 +226,15 @@ _response_for_200 = api_client.OpenApiResponse(
 )
 
 
-class SchemaFor403ResponseBodyApplicationJson(
-    DictSchema
-):
-    message = StrSchema
-
-
-    def __new__(
-        cls,
-        *args: typing.Union[dict, frozendict, ],
-        message: typing.Union[message, Unset] = unset,
-        _configuration: typing.Optional[Configuration] = None,
-        **kwargs: typing.Type[Schema],
-    ) -> 'SchemaFor403ResponseBodyApplicationJson':
-        return super().__new__(
-            cls,
-            *args,
-            message=message,
-            _configuration=_configuration,
-            **kwargs,
-        )
-
-
-@dataclass
-class ApiResponseFor403(api_client.ApiResponse):
-    response: urllib3.HTTPResponse
-    body: typing.Union[
-        SchemaFor403ResponseBodyApplicationJson,
-    ]
-    headers: Unset = unset
-
-
-_response_for_403 = api_client.OpenApiResponse(
-    response_cls=ApiResponseFor403,
-    content={
-        'application/json': api_client.MediaType(
-            schema=SchemaFor403ResponseBodyApplicationJson),
-    },
-)
-
-
-class SchemaFor404ResponseBodyApplicationJson(
-    DictSchema
-):
-    message = StrSchema
-
-
-    def __new__(
-        cls,
-        *args: typing.Union[dict, frozendict, ],
-        message: typing.Union[message, Unset] = unset,
-        _configuration: typing.Optional[Configuration] = None,
-        **kwargs: typing.Type[Schema],
-    ) -> 'SchemaFor404ResponseBodyApplicationJson':
-        return super().__new__(
-            cls,
-            *args,
-            message=message,
-            _configuration=_configuration,
-            **kwargs,
-        )
-
-
 @dataclass
 class ApiResponseFor404(api_client.ApiResponse):
     response: urllib3.HTTPResponse
-    body: typing.Union[
-        SchemaFor404ResponseBodyApplicationJson,
-    ]
+    body: Unset = unset
     headers: Unset = unset
 
 
 _response_for_404 = api_client.OpenApiResponse(
     response_cls=ApiResponseFor404,
-    content={
-        'application/json': api_client.MediaType(
-            schema=SchemaFor404ResponseBodyApplicationJson),
-    },
 )
 SchemaFor422ResponseBodyApplicationJson = HTTPValidationError
 
@@ -325,7 +257,6 @@ _response_for_422 = api_client.OpenApiResponse(
 )
 _status_code_to_response = {
     '200': _response_for_200,
-    '403': _response_for_403,
     '404': _response_for_404,
     '422': _response_for_422,
 }
@@ -358,7 +289,6 @@ class GetAllProjectCredits(api_client.Api):
         self._verify_typed_dict_inputs(RequestQueryParams, query_params)
         self._verify_typed_dict_inputs(RequestHeaderParams, header_params)
         self._verify_typed_dict_inputs(RequestPathParams, path_params)
-        used_path = _path
 
         _path_params = {}
         for parameter in (
@@ -370,10 +300,7 @@ class GetAllProjectCredits(api_client.Api):
             serialized_data = parameter.serialize(parameter_data)
             _path_params.update(serialized_data)
 
-        for k, v in _path_params.items():
-            used_path = used_path.replace('{%s}' % k, v)
-
-        prefix_separator_iterator = None
+        _query_params = []
         for parameter in (
             request_query_fully_consumed,
             request_query_revoked,
@@ -383,11 +310,8 @@ class GetAllProjectCredits(api_client.Api):
             parameter_data = query_params.get(parameter.name, unset)
             if parameter_data is unset:
                 continue
-            if prefix_separator_iterator is None:
-                prefix_separator_iterator = parameter.get_prefix_separator_iterator()
-            serialized_data = parameter.serialize(parameter_data, prefix_separator_iterator)
-            for serialized_value in serialized_data.values():
-                used_path += serialized_value
+            serialized_data = parameter.serialize(parameter_data)
+            _query_params.extend(serialized_data)
 
         _headers = HTTPHeaderDict()
         for parameter in (
@@ -409,8 +333,10 @@ class GetAllProjectCredits(api_client.Api):
                 _headers.add('Accept', accept_content_type)
 
         response = self.api_client.call_api(
-            resource_path=used_path,
+            resource_path=_path,
             method=_method,
+            path_params=_path_params,
+            query_params=tuple(_query_params),
             headers=_headers,
             stream=stream,
             timeout=timeout,
