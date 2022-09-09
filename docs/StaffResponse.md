@@ -1,13 +1,15 @@
 # StaffResponse
 
-**:param** uuid                                **type:** string **:param** project_uuid                        **type:** string or None  **:param** entity                              **type:** string or None  **:param** place                               **type:** string or None  **:param** company                             **type:** string or None  **:param** schedule                            **type:** string or None  **:param** catalog                             **type:** string or None  **:param** reviews                             **type:** string or None  **:param** created_at                          **type:** string or None  **:param** updated_at                          **type:** string or None  **:param** deleted_at                          **type:** string or None
-
 #### Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**uuid** | **str** |  | 
+**entity_uuid** | **str** |  | 
 **project_uuid** | **str** |  | [optional] 
-**entity** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** |  | [optional] 
+**schedule_uuid** | **str** |  | [optional] 
+**catalog_uuid** | **str** |  | [optional] 
+**review_group_uuid** | **str** |  | [optional] 
+**uuid** | **str** |  | 
+**entity** | **str** |  | [optional] 
 **place** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** |  | [optional] 
 **place_roles** | **[str]** |  | [optional] 
 **company** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** |  | [optional] 

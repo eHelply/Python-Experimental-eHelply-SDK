@@ -5,6 +5,7 @@
 #### Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**project_uuid** | **str** |  | [optional] 
 **name** | **str** |  | 
 **summary** | **str** |  | [optional] 
 **public** | **bool** |  | [optional]  if omitted the server will use the default value of True

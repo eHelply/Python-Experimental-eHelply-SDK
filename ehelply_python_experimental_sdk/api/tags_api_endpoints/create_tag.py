@@ -64,7 +64,7 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
-from ehelply_python_experimental_sdk.model.tag_db import TagDb
+from ehelply_python_experimental_sdk.model.tag_response import TagResponse
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 from ehelply_python_experimental_sdk.model.tag_base import TagBase
 
@@ -141,7 +141,7 @@ request_body_tag_base = api_client.RequestBody(
 )
 _path = '/places/tags'
 _method = 'POST'
-SchemaFor200ResponseBodyApplicationJson = TagDb
+SchemaFor200ResponseBodyApplicationJson = TagResponse
 
 
 @dataclass

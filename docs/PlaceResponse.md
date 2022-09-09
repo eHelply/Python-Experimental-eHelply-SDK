@@ -5,6 +5,7 @@
 #### Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**project_uuid** | **str** |  | [optional] 
 **name** | **str** |  | 
 **summary** | **str** |  | [optional] 
 **public** | **bool** |  | [optional]  if omitted the server will use the default value of True
@@ -13,7 +14,6 @@ Name | Type | Description | Notes
 **contact** | [**ContactBase**](ContactBase.md) |  | [optional] 
 **picture** | **str** |  | [optional] 
 **uuid** | **str** |  | 
-**project_uuid** | **str** |  | [optional] 
 **meta_uuid** | **str** |  | [optional] 
 **tags** | **[TagBase]** |  | [optional] 
 **categories** | **[CategoryBase]** |  | [optional] 

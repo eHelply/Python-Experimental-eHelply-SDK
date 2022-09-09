@@ -65,7 +65,7 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
 )
 
 from ehelply_python_experimental_sdk.model.category_base import CategoryBase
-from ehelply_python_experimental_sdk.model.category_db import CategoryDb
+from ehelply_python_experimental_sdk.model.category_response import CategoryResponse
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 
 # header params
@@ -141,7 +141,7 @@ request_body_category_base = api_client.RequestBody(
 )
 _path = '/places/categories'
 _method = 'POST'
-SchemaFor200ResponseBodyApplicationJson = CategoryDb
+SchemaFor200ResponseBodyApplicationJson = CategoryResponse
 
 
 @dataclass

@@ -240,9 +240,9 @@ _all_accept_content_types = (
 )
 
 
-class DeletePlacePlacesCompaniesCompanyUuidDelete(api_client.Api):
+class DeleteCompanyPlacesCompaniesCompanyUuidDelete(api_client.Api):
 
-    def delete_place_places_companies_company_uuid_delete(
+    def delete_company_places_companies_company_uuid_delete(
         self: api_client.Api,
         query_params: RequestQueryParams = frozendict(),
         header_params: RequestHeaderParams = frozendict(),
@@ -256,7 +256,7 @@ class DeletePlacePlacesCompaniesCompanyUuidDelete(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Delete Place
+        Delete Company
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances

@@ -11,7 +11,7 @@ Method | HTTP request | Description
 [**update_category_places_categories_category_uuid_put**](CategoryApi.md#update_category_places_categories_category_uuid_put) | **PUT** /places/categories/{category_uuid} | Update Category
 
 # **create_category_places_categories_post**
-> CategoryDb create_category_places_categories_post(category_base)
+> CategoryResponse create_category_places_categories_post(category_base)
 
 Create Category
 
@@ -23,7 +23,7 @@ Creates a category
 import ehelply_python_experimental_sdk
 from ehelply_python_experimental_sdk.api import category_api
 from ehelply_python_experimental_sdk.model.category_base import CategoryBase
-from ehelply_python_experimental_sdk.model.category_db import CategoryDb
+from ehelply_python_experimental_sdk.model.category_response import CategoryResponse
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.prod.ehelply.com
@@ -168,7 +168,7 @@ headers | Unset | headers were not defined |
 #### SchemaFor200ResponseBodyApplicationJson
 Type | Description  | Notes
 ------------- | ------------- | -------------
-[**CategoryDb**](CategoryDb.md) |  | 
+[**CategoryResponse**](CategoryResponse.md) |  | 
 
 
 #### ApiResponseFor404
@@ -192,7 +192,7 @@ Type | Description  | Notes
 
 
 
-[**CategoryDb**](CategoryDb.md)
+[**CategoryResponse**](CategoryResponse.md)
 
 ### Authorization
 
@@ -387,7 +387,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_category_places_categories_category_uuid_get**
-> CategoryBase get_category_places_categories_category_uuid_get(category_uuid)
+> CategoryResponse get_category_places_categories_category_uuid_get(category_uuid)
 
 Get Category
 
@@ -398,7 +398,7 @@ Gets the category information given the category ID
 ```python
 import ehelply_python_experimental_sdk
 from ehelply_python_experimental_sdk.api import category_api
-from ehelply_python_experimental_sdk.model.category_base import CategoryBase
+from ehelply_python_experimental_sdk.model.category_response import CategoryResponse
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.prod.ehelply.com
@@ -563,7 +563,7 @@ headers | Unset | headers were not defined |
 #### SchemaFor200ResponseBodyApplicationJson
 Type | Description  | Notes
 ------------- | ------------- | -------------
-[**CategoryBase**](CategoryBase.md) |  | 
+[**CategoryResponse**](CategoryResponse.md) |  | 
 
 
 #### ApiResponseFor404
@@ -587,7 +587,7 @@ Type | Description  | Notes
 
 
 
-[**CategoryBase**](CategoryBase.md)
+[**CategoryResponse**](CategoryResponse.md)
 
 ### Authorization
 

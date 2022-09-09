@@ -11,7 +11,7 @@ Method | HTTP request | Description
 [**update_staff**](StaffApi.md#update_staff) | **PUT** /places/staff/{staff_uuid} | Updatestaff
 
 # **create_staff**
-> StaffDb create_staff(staff_create)
+> StaffResponse create_staff(staff_base)
 
 Createstaff
 
@@ -22,8 +22,8 @@ Creates a staff member
 ```python
 import ehelply_python_experimental_sdk
 from ehelply_python_experimental_sdk.api import staff_api
-from ehelply_python_experimental_sdk.model.staff_db import StaffDb
-from ehelply_python_experimental_sdk.model.staff_create import StaffCreate
+from ehelply_python_experimental_sdk.model.staff_base import StaffBase
+from ehelply_python_experimental_sdk.model.staff_response import StaffResponse
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.prod.ehelply.com
@@ -40,7 +40,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     # example passing only required values which don't have defaults set
     header_params = {
     }
-    body = StaffCreate(
+    body = StaffBase(
         entity_uuid="entity_uuid_1234",
         project_uuid="project_uuid_1234",
         schedule_uuid="schedule_uuid_1234",
@@ -66,7 +66,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         'ehelply-project': "ehelply-project_example",
         'ehelply-data': "ehelply-data_example",
     }
-    body = StaffCreate(
+    body = StaffBase(
         entity_uuid="entity_uuid_1234",
         project_uuid="project_uuid_1234",
         schedule_uuid="schedule_uuid_1234",
@@ -100,7 +100,7 @@ skip_deserialization | bool | default is False | when True, headers and body wil
 #### SchemaForRequestBodyApplicationJson
 Type | Description  | Notes
 ------------- | ------------- | -------------
-[**StaffCreate**](StaffCreate.md) |  | 
+[**StaffBase**](StaffBase.md) |  | 
 
 
 ### header_params
@@ -170,7 +170,7 @@ headers | Unset | headers were not defined |
 #### SchemaFor200ResponseBodyApplicationJson
 Type | Description  | Notes
 ------------- | ------------- | -------------
-[**StaffDb**](StaffDb.md) |  | 
+[**StaffResponse**](StaffResponse.md) |  | 
 
 
 #### ApiResponseFor404
@@ -194,7 +194,7 @@ Type | Description  | Notes
 
 
 
-[**StaffDb**](StaffDb.md)
+[**StaffResponse**](StaffResponse.md)
 
 ### Authorization
 
@@ -928,7 +928,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_staff**
-> StaffResponse update_staff(staff_uuidstaff_create)
+> StaffResponse update_staff(staff_uuidstaff_base)
 
 Updatestaff
 
@@ -939,7 +939,7 @@ Update staff with given info, only updating the fields supplied. Staff Uuid must
 ```python
 import ehelply_python_experimental_sdk
 from ehelply_python_experimental_sdk.api import staff_api
-from ehelply_python_experimental_sdk.model.staff_create import StaffCreate
+from ehelply_python_experimental_sdk.model.staff_base import StaffBase
 from ehelply_python_experimental_sdk.model.staff_response import StaffResponse
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 from pprint import pprint
@@ -960,7 +960,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     }
     header_params = {
     }
-    body = StaffCreate(
+    body = StaffBase(
         entity_uuid="entity_uuid_1234",
         project_uuid="project_uuid_1234",
         schedule_uuid="schedule_uuid_1234",
@@ -990,7 +990,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         'ehelply-project': "ehelply-project_example",
         'ehelply-data': "ehelply-data_example",
     }
-    body = StaffCreate(
+    body = StaffBase(
         entity_uuid="entity_uuid_1234",
         project_uuid="project_uuid_1234",
         schedule_uuid="schedule_uuid_1234",
@@ -1026,7 +1026,7 @@ skip_deserialization | bool | default is False | when True, headers and body wil
 #### SchemaForRequestBodyApplicationJson
 Type | Description  | Notes
 ------------- | ------------- | -------------
-[**StaffCreate**](StaffCreate.md) |  | 
+[**StaffBase**](StaffBase.md) |  | 
 
 
 ### header_params

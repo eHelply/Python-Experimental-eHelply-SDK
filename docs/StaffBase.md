@@ -1,6 +1,4 @@
-# StaffCreate
-
-**:param** project_uuid                        **type:** string or None  **:param** entity_uuid                         **type:** string or None  **:param** schedule_uuid                       **type:** string or None  **:param** catalog_uuid                        **type:** string or None  **:param** review_group_uuid                   **type:** string or None
+# StaffBase
 
 #### Properties
 Name | Type | Description | Notes

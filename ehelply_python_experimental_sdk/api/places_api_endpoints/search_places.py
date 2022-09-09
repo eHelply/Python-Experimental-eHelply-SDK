@@ -68,7 +68,6 @@ from ehelply_python_experimental_sdk.model.page import Page
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 
 # query params
-ProjectUuidSchema = StrSchema
 NameSchema = StrSchema
 AddressLine1Schema = StrSchema
 AddressLine2Schema = StrSchema
@@ -102,7 +101,6 @@ RequestRequiredQueryParams = typing.TypedDict(
 RequestOptionalQueryParams = typing.TypedDict(
     'RequestOptionalQueryParams',
     {
-        'project_uuid': ProjectUuidSchema,
         'name': NameSchema,
         'address_line_1': AddressLine1Schema,
         'address_line_2': AddressLine2Schema,
@@ -137,12 +135,6 @@ class RequestQueryParams(RequestRequiredQueryParams, RequestOptionalQueryParams)
     pass
 
 
-request_query_project_uuid = api_client.QueryParameter(
-    name="project_uuid",
-    style=api_client.ParameterStyle.FORM,
-    schema=ProjectUuidSchema,
-    explode=True,
-)
 request_query_name = api_client.QueryParameter(
     name="name",
     style=api_client.ParameterStyle.FORM,
@@ -440,7 +432,6 @@ class SearchPlaces(api_client.Api):
 
         _query_params = []
         for parameter in (
-            request_query_project_uuid,
             request_query_name,
             request_query_address_line_1,
             request_query_address_line_2,

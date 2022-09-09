@@ -64,8 +64,8 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
-from ehelply_python_experimental_sdk.model.staff_db import StaffDb
-from ehelply_python_experimental_sdk.model.staff_create import StaffCreate
+from ehelply_python_experimental_sdk.model.staff_base import StaffBase
+from ehelply_python_experimental_sdk.model.staff_response import StaffResponse
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 
 # header params
@@ -129,10 +129,10 @@ request_header_ehelply_data = api_client.HeaderParameter(
     schema=EhelplyDataSchema,
 )
 # body param
-SchemaForRequestBodyApplicationJson = StaffCreate
+SchemaForRequestBodyApplicationJson = StaffBase
 
 
-request_body_staff_create = api_client.RequestBody(
+request_body_staff_base = api_client.RequestBody(
     content={
         'application/json': api_client.MediaType(
             schema=SchemaForRequestBodyApplicationJson),
@@ -141,7 +141,7 @@ request_body_staff_create = api_client.RequestBody(
 )
 _path = '/places/staff'
 _method = 'POST'
-SchemaFor200ResponseBodyApplicationJson = StaffDb
+SchemaFor200ResponseBodyApplicationJson = StaffResponse
 
 
 @dataclass
@@ -248,7 +248,7 @@ class CreateStaff(api_client.Api):
                 'The required body parameter has an invalid value of: unset. Set a valid value instead')
         _fields = None
         _body = None
-        serialized_data = request_body_staff_create.serialize(body, content_type)
+        serialized_data = request_body_staff_base.serialize(body, content_type)
         _headers.add('Content-Type', content_type)
         if 'fields' in serialized_data:
             _fields = serialized_data['fields']

@@ -24,7 +24,7 @@ docs/CatalogReturn.md
 docs/CatalogsApi.md
 docs/CategoryApi.md
 docs/CategoryBase.md
-docs/CategoryDb.md
+docs/CategoryResponse.md
 docs/CompaniesApi.md
 docs/CompanyBase.md
 docs/CompanyResponse.md
@@ -118,8 +118,7 @@ docs/ServiceCreate.md
 docs/ServiceMessageResponse.md
 docs/ServiceResponse.md
 docs/StaffApi.md
-docs/StaffCreate.md
-docs/StaffDb.md
+docs/StaffBase.md
 docs/StaffResponse.md
 docs/StatsVitalsResponse.md
 docs/StripeAccountResponse.md
@@ -127,7 +126,7 @@ docs/StripeCustomerSecretResponse.md
 docs/SupportApi.md
 docs/TagApi.md
 docs/TagBase.md
-docs/TagDb.md
+docs/TagResponse.md
 docs/TagsApi.md
 docs/Tax.md
 docs/TicketResponse.md
@@ -193,7 +192,7 @@ ehelply_python_experimental_sdk/model/basic_meta_create.py
 ehelply_python_experimental_sdk/model/catalog_base.py
 ehelply_python_experimental_sdk/model/catalog_return.py
 ehelply_python_experimental_sdk/model/category_base.py
-ehelply_python_experimental_sdk/model/category_db.py
+ehelply_python_experimental_sdk/model/category_response.py
 ehelply_python_experimental_sdk/model/company_base.py
 ehelply_python_experimental_sdk/model/company_response.py
 ehelply_python_experimental_sdk/model/contact.py
@@ -276,14 +275,13 @@ ehelply_python_experimental_sdk/model/selection.py
 ehelply_python_experimental_sdk/model/service_create.py
 ehelply_python_experimental_sdk/model/service_message_response.py
 ehelply_python_experimental_sdk/model/service_response.py
-ehelply_python_experimental_sdk/model/staff_create.py
-ehelply_python_experimental_sdk/model/staff_db.py
+ehelply_python_experimental_sdk/model/staff_base.py
 ehelply_python_experimental_sdk/model/staff_response.py
 ehelply_python_experimental_sdk/model/stats_vitals_response.py
 ehelply_python_experimental_sdk/model/stripe_account_response.py
 ehelply_python_experimental_sdk/model/stripe_customer_secret_response.py
 ehelply_python_experimental_sdk/model/tag_base.py
-ehelply_python_experimental_sdk/model/tag_db.py
+ehelply_python_experimental_sdk/model/tag_response.py
 ehelply_python_experimental_sdk/model/tax.py
 ehelply_python_experimental_sdk/model/ticket_response.py
 ehelply_python_experimental_sdk/model/tickets_response.py
@@ -334,7 +332,7 @@ test/test_catalog_return.py
 test/test_catalogs_api.py
 test/test_category_api.py
 test/test_category_base.py
-test/test_category_db.py
+test/test_category_response.py
 test/test_companies_api.py
 test/test_company_base.py
 test/test_company_response.py
@@ -428,8 +426,7 @@ test/test_service_create.py
 test/test_service_message_response.py
 test/test_service_response.py
 test/test_staff_api.py
-test/test_staff_create.py
-test/test_staff_db.py
+test/test_staff_base.py
 test/test_staff_response.py
 test/test_stats_vitals_response.py
 test/test_stripe_account_response.py
@@ -437,7 +434,7 @@ test/test_stripe_customer_secret_response.py
 test/test_support_api.py
 test/test_tag_api.py
 test/test_tag_base.py
-test/test_tag_db.py
+test/test_tag_response.py
 test/test_tags_api.py
 test/test_tax.py
 test/test_ticket_response.py

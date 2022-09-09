@@ -1,4 +1,4 @@
-# TagDb
+# TagResponse
 
 **:param** uuid                                **type:** string **:param** name                                **type:** string **:param** project_uuid                        **type:** string or None
 

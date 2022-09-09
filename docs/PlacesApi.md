@@ -248,6 +248,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     header_params = {
     }
     body = PlaceBase(
+        project_uuid="project_uuid_example",
         name="Example Clinic",
         summary="Summary of the clinic",
         public=True,
@@ -281,6 +282,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         'ehelply-data': "ehelply-data_example",
     }
     body = PlaceBase(
+        project_uuid="project_uuid_example",
         name="Example Clinic",
         summary="Summary of the clinic",
         public=True,
@@ -1311,7 +1313,6 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 
     # example passing only optional values
     query_params = {
-        'project_uuid': "project_uuid_example",
         'name': "name_example",
         'address_line_1': "address_line_1_example",
         'address_line_2': "address_line_2_example",
@@ -1372,7 +1373,6 @@ skip_deserialization | bool | default is False | when True, headers and body wil
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-project_uuid | ProjectUuidSchema | | optional
 name | NameSchema | | optional
 address_line_1 | AddressLine1Schema | | optional
 address_line_2 | AddressLine2Schema | | optional
@@ -1399,12 +1399,6 @@ page_size | PageSizeSchema | | optional
 sort_on | SortOnSchema | | optional
 sort_desc | SortDescSchema | | optional
 
-
-#### ProjectUuidSchema
-
-Type | Description | Notes
-------------- | ------------- | -------------
-**str** |  | 
 
 #### NameSchema
 
@@ -1689,6 +1683,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     header_params = {
     }
     body = PlaceBase(
+        project_uuid="project_uuid_example",
         name="Example Clinic",
         summary="Summary of the clinic",
         public=True,
@@ -1726,6 +1721,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         'ehelply-data': "ehelply-data_example",
     }
     body = PlaceBase(
+        project_uuid="project_uuid_example",
         name="Example Clinic",
         summary="Summary of the clinic",
         public=True,

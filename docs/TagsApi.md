@@ -10,7 +10,7 @@ Method | HTTP request | Description
 [**update_tag**](TagsApi.md#update_tag) | **PUT** /places/tags/{tag_uuid} | Updatetag
 
 # **create_tag**
-> TagDb create_tag(tag_base)
+> TagResponse create_tag(tag_base)
 
 Createtag
 
@@ -21,7 +21,7 @@ Creates a tag
 ```python
 import ehelply_python_experimental_sdk
 from ehelply_python_experimental_sdk.api import tags_api
-from ehelply_python_experimental_sdk.model.tag_db import TagDb
+from ehelply_python_experimental_sdk.model.tag_response import TagResponse
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 from ehelply_python_experimental_sdk.model.tag_base import TagBase
 from pprint import pprint
@@ -163,7 +163,7 @@ headers | Unset | headers were not defined |
 #### SchemaFor200ResponseBodyApplicationJson
 Type | Description  | Notes
 ------------- | ------------- | -------------
-[**TagDb**](TagDb.md) |  | 
+[**TagResponse**](TagResponse.md) |  | 
 
 
 #### ApiResponseFor404
@@ -187,7 +187,7 @@ Type | Description  | Notes
 
 
 
-[**TagDb**](TagDb.md)
+[**TagResponse**](TagResponse.md)
 
 ### Authorization
 
@@ -196,7 +196,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_tag**
-> TagBase get_tag(tag_uuid)
+> TagResponse get_tag(tag_uuid)
 
 Gettag
 
@@ -207,8 +207,8 @@ Gets the tag member information given the tag ID
 ```python
 import ehelply_python_experimental_sdk
 from ehelply_python_experimental_sdk.api import tags_api
+from ehelply_python_experimental_sdk.model.tag_response import TagResponse
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
-from ehelply_python_experimental_sdk.model.tag_base import TagBase
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.prod.ehelply.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -350,7 +350,7 @@ headers | Unset | headers were not defined |
 #### SchemaFor200ResponseBodyApplicationJson
 Type | Description  | Notes
 ------------- | ------------- | -------------
-[**TagBase**](TagBase.md) |  | 
+[**TagResponse**](TagResponse.md) |  | 
 
 
 #### ApiResponseFor404
@@ -374,7 +374,7 @@ Type | Description  | Notes
 
 
 
-[**TagBase**](TagBase.md)
+[**TagResponse**](TagResponse.md)
 
 ### Authorization
 
@@ -595,7 +595,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_tag**
-> TagBase update_tag(tag_uuidtag_base)
+> TagResponse update_tag(tag_uuidtag_base)
 
 Updatetag
 
@@ -606,6 +606,7 @@ Update tag with given info, only updating the fields supplied. Tag Uuid must be 
 ```python
 import ehelply_python_experimental_sdk
 from ehelply_python_experimental_sdk.api import tags_api
+from ehelply_python_experimental_sdk.model.tag_response import TagResponse
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 from ehelply_python_experimental_sdk.model.tag_base import TagBase
 from pprint import pprint
@@ -769,7 +770,7 @@ headers | Unset | headers were not defined |
 #### SchemaFor200ResponseBodyApplicationJson
 Type | Description  | Notes
 ------------- | ------------- | -------------
-[**TagBase**](TagBase.md) |  | 
+[**TagResponse**](TagResponse.md) |  | 
 
 
 #### ApiResponseFor404
@@ -793,7 +794,7 @@ Type | Description  | Notes
 
 
 
-[**TagBase**](TagBase.md)
+[**TagResponse**](TagResponse.md)
 
 ### Authorization
 

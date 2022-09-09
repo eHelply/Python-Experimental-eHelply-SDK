@@ -64,8 +64,8 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
+from ehelply_python_experimental_sdk.model.tag_response import TagResponse
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
-from ehelply_python_experimental_sdk.model.tag_base import TagBase
 
 # header params
 XAccessTokenSchema = StrSchema
@@ -155,7 +155,7 @@ request_path_tag_uuid = api_client.PathParameter(
 )
 _path = '/places/tags/{tag_uuid}'
 _method = 'GET'
-SchemaFor200ResponseBodyApplicationJson = TagBase
+SchemaFor200ResponseBodyApplicationJson = TagResponse
 
 
 @dataclass

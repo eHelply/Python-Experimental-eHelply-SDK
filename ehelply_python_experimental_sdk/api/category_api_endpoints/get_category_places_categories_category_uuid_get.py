@@ -64,7 +64,7 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
-from ehelply_python_experimental_sdk.model.category_base import CategoryBase
+from ehelply_python_experimental_sdk.model.category_response import CategoryResponse
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 
 # query params
@@ -181,7 +181,7 @@ request_path_category_uuid = api_client.PathParameter(
 )
 _path = '/places/categories/{category_uuid}'
 _method = 'GET'
-SchemaFor200ResponseBodyApplicationJson = CategoryBase
+SchemaFor200ResponseBodyApplicationJson = CategoryResponse
 
 
 @dataclass
