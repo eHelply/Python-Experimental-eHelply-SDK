@@ -64,6 +64,7 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
+from ehelply_python_experimental_sdk.model.logging_dynamo import LoggingDynamo
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 
 # query params
@@ -212,7 +213,16 @@ request_path_subject = api_client.PathParameter(
 )
 _path = '/sam/logging/logs/services/{service}/subjects/{subject}'
 _method = 'GET'
-SchemaFor200ResponseBodyApplicationJson = DictSchema
+
+
+class SchemaFor200ResponseBodyApplicationJson(
+    ListSchema
+):
+
+    @classmethod
+    @property
+    def _items(cls) -> typing.Type['LoggingDynamo']:
+        return LoggingDynamo
 
 
 @dataclass

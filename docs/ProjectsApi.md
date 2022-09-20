@@ -394,6 +394,7 @@ Code | Class | Description
 ------------- | ------------- | -------------
 n/a | api_client.ApiResponseWithoutDeserialization | When skip_deserialization is True this response is returned
 200 | ApiResponseFor200 | Successful Response
+400 | ApiResponseFor400 | Cannot archive project
 403 | ApiResponseFor403 | Unauthorized - Denied by eHelply
 404 | ApiResponseFor404 | Not found
 422 | ApiResponseFor422 | Validation Error
@@ -406,6 +407,21 @@ body | typing.Union[SchemaFor200ResponseBodyApplicationJson, ] |  |
 headers | Unset | headers were not defined |
 
 #### SchemaFor200ResponseBodyApplicationJson
+
+#### Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**message** | **str** |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
+
+#### ApiResponseFor400
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor400ResponseBodyApplicationJson, ] |  |
+headers | Unset | headers were not defined |
+
+#### SchemaFor400ResponseBodyApplicationJson
 
 #### Properties
 Name | Type | Description | Notes
