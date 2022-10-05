@@ -1,13 +1,13 @@
-# ehelply_python_experimental_sdk.DefaultApi
+# ehelply_python_experimental_sdk.ContentApi
 
 All URIs are relative to *https://api.prod.ehelply.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_file**](DefaultApi.md#create_file) | **POST** /files/files | Createfile
-[**delete_file**](DefaultApi.md#delete_file) | **DELETE** /files/files/{file_uuid} | Deletefile
-[**get_file**](DefaultApi.md#get_file) | **GET** /files/files/{file_uuid} | Getfile
-[**update_file**](DefaultApi.md#update_file) | **PUT** /files/files/{file_uuid} | Updatefile
+[**create_file**](ContentApi.md#create_file) | **POST** /files/files | Createfile
+[**delete_file**](ContentApi.md#delete_file) | **DELETE** /files/files/{file_uuid} | Deletefile
+[**get_file**](ContentApi.md#get_file) | **GET** /files/files/{file_uuid} | Getfile
+[**update_file**](ContentApi.md#update_file) | **PUT** /files/files/{file_uuid} | Updatefile
 
 # **create_file**
 > {str: (bool, date, datetime, dict, float, int, list, str, none_type)} create_file()
@@ -18,7 +18,7 @@ Createfile
 
 ```python
 import ehelply_python_experimental_sdk
-from ehelply_python_experimental_sdk.api import default_api
+from ehelply_python_experimental_sdk.api import content_api
 from ehelply_python_experimental_sdk.model.body_create_file import BodyCreateFile
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 from pprint import pprint
@@ -31,7 +31,7 @@ configuration = ehelply_python_experimental_sdk.Configuration(
 # Enter a context with an instance of the API client
 with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = default_api.DefaultApi(api_client)
+    api_instance = content_api.ContentApi(api_client)
 
     # example passing only optional values
     header_params = {
@@ -53,7 +53,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         )
         pprint(api_response)
     except ehelply_python_experimental_sdk.ApiException as e:
-        print("Exception when calling DefaultApi->create_file: %s\n" % e)
+        print("Exception when calling ContentApi->create_file: %s\n" % e)
 ```
 ### Parameters
 
@@ -217,7 +217,7 @@ Deletefile
 
 ```python
 import ehelply_python_experimental_sdk
-from ehelply_python_experimental_sdk.api import default_api
+from ehelply_python_experimental_sdk.api import content_api
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.prod.ehelply.com
@@ -229,7 +229,7 @@ configuration = ehelply_python_experimental_sdk.Configuration(
 # Enter a context with an instance of the API client
 with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = default_api.DefaultApi(api_client)
+    api_instance = content_api.ContentApi(api_client)
 
     # example passing only required values which don't have defaults set
     path_params = {
@@ -245,7 +245,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         )
         pprint(api_response)
     except ehelply_python_experimental_sdk.ApiException as e:
-        print("Exception when calling DefaultApi->delete_file: %s\n" % e)
+        print("Exception when calling ContentApi->delete_file: %s\n" % e)
 
     # example passing only optional values
     path_params = {
@@ -267,7 +267,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         )
         pprint(api_response)
     except ehelply_python_experimental_sdk.ApiException as e:
-        print("Exception when calling DefaultApi->delete_file: %s\n" % e)
+        print("Exception when calling ContentApi->delete_file: %s\n" % e)
 ```
 ### Parameters
 
@@ -435,7 +435,7 @@ Getfile
 
 ```python
 import ehelply_python_experimental_sdk
-from ehelply_python_experimental_sdk.api import default_api
+from ehelply_python_experimental_sdk.api import content_api
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.prod.ehelply.com
@@ -447,7 +447,7 @@ configuration = ehelply_python_experimental_sdk.Configuration(
 # Enter a context with an instance of the API client
 with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = default_api.DefaultApi(api_client)
+    api_instance = content_api.ContentApi(api_client)
 
     # example passing only required values which don't have defaults set
     path_params = {
@@ -463,7 +463,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         )
         pprint(api_response)
     except ehelply_python_experimental_sdk.ApiException as e:
-        print("Exception when calling DefaultApi->get_file: %s\n" % e)
+        print("Exception when calling ContentApi->get_file: %s\n" % e)
 
     # example passing only optional values
     path_params = {
@@ -485,7 +485,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         )
         pprint(api_response)
     except ehelply_python_experimental_sdk.ApiException as e:
-        print("Exception when calling DefaultApi->get_file: %s\n" % e)
+        print("Exception when calling ContentApi->get_file: %s\n" % e)
 ```
 ### Parameters
 
@@ -651,7 +651,7 @@ Updatefile
 
 ```python
 import ehelply_python_experimental_sdk
-from ehelply_python_experimental_sdk.api import default_api
+from ehelply_python_experimental_sdk.api import content_api
 from ehelply_python_experimental_sdk.model.body_update_file import BodyUpdateFile
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 from pprint import pprint
@@ -664,7 +664,7 @@ configuration = ehelply_python_experimental_sdk.Configuration(
 # Enter a context with an instance of the API client
 with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = default_api.DefaultApi(api_client)
+    api_instance = content_api.ContentApi(api_client)
 
     # example passing only required values which don't have defaults set
     path_params = {
@@ -680,7 +680,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         )
         pprint(api_response)
     except ehelply_python_experimental_sdk.ApiException as e:
-        print("Exception when calling DefaultApi->update_file: %s\n" % e)
+        print("Exception when calling ContentApi->update_file: %s\n" % e)
 
     # example passing only optional values
     path_params = {
@@ -706,7 +706,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         )
         pprint(api_response)
     except ehelply_python_experimental_sdk.ApiException as e:
-        print("Exception when calling DefaultApi->update_file: %s\n" % e)
+        print("Exception when calling ContentApi->update_file: %s\n" % e)
 ```
 ### Parameters
 
