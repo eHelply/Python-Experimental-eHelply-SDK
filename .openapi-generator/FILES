@@ -41,6 +41,7 @@ docs/CreateTicket.md
 docs/Credential.md
 docs/CustomList.md
 docs/DatesMeta.md
+docs/DefaultApi.md
 docs/DetailedMeta.md
 docs/DetailedMetaCreate.md
 docs/DetailedMetaGet.md
@@ -157,6 +158,7 @@ ehelply_python_experimental_sdk/api/billing_api.py
 ehelply_python_experimental_sdk/api/catalogs_api.py
 ehelply_python_experimental_sdk/api/category_api.py
 ehelply_python_experimental_sdk/api/companies_api.py
+ehelply_python_experimental_sdk/api/default_api.py
 ehelply_python_experimental_sdk/api/logging_api.py
 ehelply_python_experimental_sdk/api/meta_api.py
 ehelply_python_experimental_sdk/api/monitor_api.py
@@ -351,6 +353,7 @@ test/test_create_ticket.py
 test/test_credential.py
 test/test_custom_list.py
 test/test_dates_meta.py
+test/test_default_api.py
 test/test_detailed_meta.py
 test/test_detailed_meta_create.py
 test/test_detailed_meta_get.py

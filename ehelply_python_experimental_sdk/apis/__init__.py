@@ -20,6 +20,7 @@ from ehelply_python_experimental_sdk.api.billing_api import BillingApi
 from ehelply_python_experimental_sdk.api.catalogs_api import CatalogsApi
 from ehelply_python_experimental_sdk.api.category_api import CategoryApi
 from ehelply_python_experimental_sdk.api.companies_api import CompaniesApi
+from ehelply_python_experimental_sdk.api.default_api import DefaultApi
 from ehelply_python_experimental_sdk.api.logging_api import LoggingApi
 from ehelply_python_experimental_sdk.api.meta_api import MetaApi
 from ehelply_python_experimental_sdk.api.monitor_api import MonitorApi
