@@ -64,59 +64,9 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
-from ehelply_python_experimental_sdk.model.meta_get import MetaGet
+from ehelply_python_experimental_sdk.model.field_dynamo import FieldDynamo
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 
-# query params
-DetailedSchema = BoolSchema
-CustomSchema = BoolSchema
-DatesSchema = BoolSchema
-HistorySchema = IntSchema
-RequestRequiredQueryParams = typing.TypedDict(
-    'RequestRequiredQueryParams',
-    {
-    }
-)
-RequestOptionalQueryParams = typing.TypedDict(
-    'RequestOptionalQueryParams',
-    {
-        'detailed': DetailedSchema,
-        'custom': CustomSchema,
-        'dates': DatesSchema,
-        'history': HistorySchema,
-    },
-    total=False
-)
-
-
-class RequestQueryParams(RequestRequiredQueryParams, RequestOptionalQueryParams):
-    pass
-
-
-request_query_detailed = api_client.QueryParameter(
-    name="detailed",
-    style=api_client.ParameterStyle.FORM,
-    schema=DetailedSchema,
-    explode=True,
-)
-request_query_custom = api_client.QueryParameter(
-    name="custom",
-    style=api_client.ParameterStyle.FORM,
-    schema=CustomSchema,
-    explode=True,
-)
-request_query_dates = api_client.QueryParameter(
-    name="dates",
-    style=api_client.ParameterStyle.FORM,
-    schema=DatesSchema,
-    explode=True,
-)
-request_query_history = api_client.QueryParameter(
-    name="history",
-    style=api_client.ParameterStyle.FORM,
-    schema=HistorySchema,
-    explode=True,
-)
 # header params
 XAccessTokenSchema = StrSchema
 XSecretTokenSchema = StrSchema
@@ -178,11 +128,11 @@ request_header_ehelply_data = api_client.HeaderParameter(
     schema=EhelplyDataSchema,
 )
 # path params
-MetaUuidSchema = StrSchema
+FieldUuidSchema = StrSchema
 RequestRequiredPathParams = typing.TypedDict(
     'RequestRequiredPathParams',
     {
-        'meta_uuid': MetaUuidSchema,
+        'field_uuid': FieldUuidSchema,
     }
 )
 RequestOptionalPathParams = typing.TypedDict(
@@ -197,15 +147,15 @@ class RequestPathParams(RequestRequiredPathParams, RequestOptionalPathParams):
     pass
 
 
-request_path_meta_uuid = api_client.PathParameter(
-    name="meta_uuid",
+request_path_field_uuid = api_client.PathParameter(
+    name="field_uuid",
     style=api_client.ParameterStyle.SIMPLE,
-    schema=MetaUuidSchema,
+    schema=FieldUuidSchema,
     required=True,
 )
-_path = '/meta/meta/{meta_uuid}'
+_path = '/fields/fields/{field_uuid}'
 _method = 'GET'
-SchemaFor200ResponseBodyApplicationJson = MetaGet
+SchemaFor200ResponseBodyApplicationJson = FieldDynamo
 
 
 @dataclass
@@ -226,15 +176,83 @@ _response_for_200 = api_client.OpenApiResponse(
 )
 
 
+class SchemaFor403ResponseBodyApplicationJson(
+    DictSchema
+):
+    message = StrSchema
+
+
+    def __new__(
+        cls,
+        *args: typing.Union[dict, frozendict, ],
+        message: typing.Union[message, Unset] = unset,
+        _configuration: typing.Optional[Configuration] = None,
+        **kwargs: typing.Type[Schema],
+    ) -> 'SchemaFor403ResponseBodyApplicationJson':
+        return super().__new__(
+            cls,
+            *args,
+            message=message,
+            _configuration=_configuration,
+            **kwargs,
+        )
+
+
+@dataclass
+class ApiResponseFor403(api_client.ApiResponse):
+    response: urllib3.HTTPResponse
+    body: typing.Union[
+        SchemaFor403ResponseBodyApplicationJson,
+    ]
+    headers: Unset = unset
+
+
+_response_for_403 = api_client.OpenApiResponse(
+    response_cls=ApiResponseFor403,
+    content={
+        'application/json': api_client.MediaType(
+            schema=SchemaFor403ResponseBodyApplicationJson),
+    },
+)
+
+
+class SchemaFor404ResponseBodyApplicationJson(
+    DictSchema
+):
+    message = StrSchema
+
+
+    def __new__(
+        cls,
+        *args: typing.Union[dict, frozendict, ],
+        message: typing.Union[message, Unset] = unset,
+        _configuration: typing.Optional[Configuration] = None,
+        **kwargs: typing.Type[Schema],
+    ) -> 'SchemaFor404ResponseBodyApplicationJson':
+        return super().__new__(
+            cls,
+            *args,
+            message=message,
+            _configuration=_configuration,
+            **kwargs,
+        )
+
+
 @dataclass
 class ApiResponseFor404(api_client.ApiResponse):
     response: urllib3.HTTPResponse
-    body: Unset = unset
+    body: typing.Union[
+        SchemaFor404ResponseBodyApplicationJson,
+    ]
     headers: Unset = unset
 
 
 _response_for_404 = api_client.OpenApiResponse(
     response_cls=ApiResponseFor404,
+    content={
+        'application/json': api_client.MediaType(
+            schema=SchemaFor404ResponseBodyApplicationJson),
+    },
 )
 SchemaFor422ResponseBodyApplicationJson = HTTPValidationError
 
@@ -257,6 +275,7 @@ _response_for_422 = api_client.OpenApiResponse(
 )
 _status_code_to_response = {
     '200': _response_for_200,
+    '403': _response_for_403,
     '404': _response_for_404,
     '422': _response_for_422,
 }
@@ -265,11 +284,10 @@ _all_accept_content_types = (
 )
 
 
-class GetMetaFromUuid(api_client.Api):
+class GetField(api_client.Api):
 
-    def get_meta_from_uuid(
+    def get_field(
         self: api_client.Api,
-        query_params: RequestQueryParams = frozendict(),
         header_params: RequestHeaderParams = frozendict(),
         path_params: RequestPathParams = frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
@@ -281,37 +299,23 @@ class GetMetaFromUuid(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Get Meta From Uuid
+        Getfield
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
         """
-        self._verify_typed_dict_inputs(RequestQueryParams, query_params)
         self._verify_typed_dict_inputs(RequestHeaderParams, header_params)
         self._verify_typed_dict_inputs(RequestPathParams, path_params)
 
         _path_params = {}
         for parameter in (
-            request_path_meta_uuid,
+            request_path_field_uuid,
         ):
             parameter_data = path_params.get(parameter.name, unset)
             if parameter_data is unset:
                 continue
             serialized_data = parameter.serialize(parameter_data)
             _path_params.update(serialized_data)
-
-        _query_params = []
-        for parameter in (
-            request_query_detailed,
-            request_query_custom,
-            request_query_dates,
-            request_query_history,
-        ):
-            parameter_data = query_params.get(parameter.name, unset)
-            if parameter_data is unset:
-                continue
-            serialized_data = parameter.serialize(parameter_data)
-            _query_params.extend(serialized_data)
 
         _headers = HTTPHeaderDict()
         for parameter in (
@@ -336,7 +340,6 @@ class GetMetaFromUuid(api_client.Api):
             resource_path=_path,
             method=_method,
             path_params=_path_params,
-            query_params=tuple(_query_params),
             headers=_headers,
             stream=stream,
             timeout=timeout,

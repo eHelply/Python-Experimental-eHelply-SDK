@@ -64,7 +64,6 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
-from ehelply_python_experimental_sdk.model.meta_dynamo import MetaDynamo
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 
 # header params
@@ -128,15 +127,11 @@ request_header_ehelply_data = api_client.HeaderParameter(
     schema=EhelplyDataSchema,
 )
 # path params
-ServiceSchema = StrSchema
-TypeStrSchema = StrSchema
-EntityUuidSchema = StrSchema
+MetaUuidSchema = StrSchema
 RequestRequiredPathParams = typing.TypedDict(
     'RequestRequiredPathParams',
     {
-        'service': ServiceSchema,
-        'type_str': TypeStrSchema,
-        'entity_uuid': EntityUuidSchema,
+        'meta_uuid': MetaUuidSchema,
     }
 )
 RequestOptionalPathParams = typing.TypedDict(
@@ -151,27 +146,36 @@ class RequestPathParams(RequestRequiredPathParams, RequestOptionalPathParams):
     pass
 
 
-request_path_service = api_client.PathParameter(
-    name="service",
+request_path_meta_uuid = api_client.PathParameter(
+    name="meta_uuid",
     style=api_client.ParameterStyle.SIMPLE,
-    schema=ServiceSchema,
+    schema=MetaUuidSchema,
     required=True,
 )
-request_path_type_str = api_client.PathParameter(
-    name="type_str",
-    style=api_client.ParameterStyle.SIMPLE,
-    schema=TypeStrSchema,
-    required=True,
-)
-request_path_entity_uuid = api_client.PathParameter(
-    name="entity_uuid",
-    style=api_client.ParameterStyle.SIMPLE,
-    schema=EntityUuidSchema,
-    required=True,
-)
-_path = '/meta/meta/service/{service}/type/{type_str}/entity/{entity_uuid}/touch'
+_path = '/meta/meta/{meta_uuid}/touch'
 _method = 'POST'
-SchemaFor200ResponseBodyApplicationJson = MetaDynamo
+
+
+class SchemaFor200ResponseBodyApplicationJson(
+    DictSchema
+):
+    message = StrSchema
+
+
+    def __new__(
+        cls,
+        *args: typing.Union[dict, frozendict, ],
+        message: typing.Union[message, Unset] = unset,
+        _configuration: typing.Optional[Configuration] = None,
+        **kwargs: typing.Type[Schema],
+    ) -> 'SchemaFor200ResponseBodyApplicationJson':
+        return super().__new__(
+            cls,
+            *args,
+            message=message,
+            _configuration=_configuration,
+            **kwargs,
+        )
 
 
 @dataclass
@@ -188,6 +192,86 @@ _response_for_200 = api_client.OpenApiResponse(
     content={
         'application/json': api_client.MediaType(
             schema=SchemaFor200ResponseBodyApplicationJson),
+    },
+)
+
+
+class SchemaFor400ResponseBodyApplicationJson(
+    DictSchema
+):
+    message = StrSchema
+
+
+    def __new__(
+        cls,
+        *args: typing.Union[dict, frozendict, ],
+        message: typing.Union[message, Unset] = unset,
+        _configuration: typing.Optional[Configuration] = None,
+        **kwargs: typing.Type[Schema],
+    ) -> 'SchemaFor400ResponseBodyApplicationJson':
+        return super().__new__(
+            cls,
+            *args,
+            message=message,
+            _configuration=_configuration,
+            **kwargs,
+        )
+
+
+@dataclass
+class ApiResponseFor400(api_client.ApiResponse):
+    response: urllib3.HTTPResponse
+    body: typing.Union[
+        SchemaFor400ResponseBodyApplicationJson,
+    ]
+    headers: Unset = unset
+
+
+_response_for_400 = api_client.OpenApiResponse(
+    response_cls=ApiResponseFor400,
+    content={
+        'application/json': api_client.MediaType(
+            schema=SchemaFor400ResponseBodyApplicationJson),
+    },
+)
+
+
+class SchemaFor403ResponseBodyApplicationJson(
+    DictSchema
+):
+    message = StrSchema
+
+
+    def __new__(
+        cls,
+        *args: typing.Union[dict, frozendict, ],
+        message: typing.Union[message, Unset] = unset,
+        _configuration: typing.Optional[Configuration] = None,
+        **kwargs: typing.Type[Schema],
+    ) -> 'SchemaFor403ResponseBodyApplicationJson':
+        return super().__new__(
+            cls,
+            *args,
+            message=message,
+            _configuration=_configuration,
+            **kwargs,
+        )
+
+
+@dataclass
+class ApiResponseFor403(api_client.ApiResponse):
+    response: urllib3.HTTPResponse
+    body: typing.Union[
+        SchemaFor403ResponseBodyApplicationJson,
+    ]
+    headers: Unset = unset
+
+
+_response_for_403 = api_client.OpenApiResponse(
+    response_cls=ApiResponseFor403,
+    content={
+        'application/json': api_client.MediaType(
+            schema=SchemaFor403ResponseBodyApplicationJson),
     },
 )
 
@@ -223,6 +307,8 @@ _response_for_422 = api_client.OpenApiResponse(
 )
 _status_code_to_response = {
     '200': _response_for_200,
+    '400': _response_for_400,
+    '403': _response_for_403,
     '404': _response_for_404,
     '422': _response_for_422,
 }
@@ -246,7 +332,7 @@ class TouchMeta(api_client.Api):
         api_client.ApiResponseWithoutDeserialization
     ]:
         """
-        Touch Meta
+        Touchmeta
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
@@ -256,9 +342,7 @@ class TouchMeta(api_client.Api):
 
         _path_params = {}
         for parameter in (
-            request_path_service,
-            request_path_type_str,
-            request_path_entity_uuid,
+            request_path_meta_uuid,
         ):
             parameter_data = path_params.get(parameter.name, unset)
             if parameter_data is unset:

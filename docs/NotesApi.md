@@ -4,22 +4,21 @@ All URIs are relative to *https://api.prod.ehelply.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_note**](NotesApi.md#create_note) | **POST** /notes/notes | Create Note
-[**delete_note**](NotesApi.md#delete_note) | **DELETE** /notes/notes/{note_id} | Delete Note
-[**get_note**](NotesApi.md#get_note) | **GET** /notes/notes/{note_id} | Get Note
-[**update_note**](NotesApi.md#update_note) | **PUT** /notes/notes/{note_id} | Update Note
+[**create_note**](NotesApi.md#create_note) | **POST** /notes/notes | Createnote
+[**delete_note**](NotesApi.md#delete_note) | **DELETE** /notes/notes/{note_id} | Deletenote
+[**get_note**](NotesApi.md#get_note) | **GET** /notes/notes/{note_id} | Getnote
+[**update_note**](NotesApi.md#update_note) | **PUT** /notes/notes/{note_id} | Updatenote
 
 # **create_note**
-> NoteDynamoResponse create_note(note_base)
+> {str: (bool, date, datetime, dict, float, int, list, str, none_type)} create_note(note_base)
 
-Create Note
+Createnote
 
 ### Example
 
 ```python
 import ehelply_python_experimental_sdk
 from ehelply_python_experimental_sdk.api import notes_api
-from ehelply_python_experimental_sdk.model.note_dynamo_response import NoteDynamoResponse
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 from ehelply_python_experimental_sdk.model.note_base import NoteBase
 from pprint import pprint
@@ -48,7 +47,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         ),
     )
     try:
-        # Create Note
+        # Createnote
         api_response = api_instance.create_note(
             header_params=header_params,
             body=body,
@@ -77,7 +76,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         ),
     )
     try:
-        # Create Note
+        # Createnote
         api_response = api_instance.create_note(
             header_params=header_params,
             body=body,
@@ -160,6 +159,8 @@ Code | Class | Description
 ------------- | ------------- | -------------
 n/a | api_client.ApiResponseWithoutDeserialization | When skip_deserialization is True this response is returned
 200 | ApiResponseFor200 | Successful Response
+400 | ApiResponseFor400 | Something went wrong while trying to create a note
+403 | ApiResponseFor403 | Unauthorized - Denied by eHelply
 404 | ApiResponseFor404 | Not found
 422 | ApiResponseFor422 | Validation Error
 
@@ -171,10 +172,42 @@ body | typing.Union[SchemaFor200ResponseBodyApplicationJson, ] |  |
 headers | Unset | headers were not defined |
 
 #### SchemaFor200ResponseBodyApplicationJson
-Type | Description  | Notes
-------------- | ------------- | -------------
-[**NoteDynamoResponse**](NoteDynamoResponse.md) |  | 
 
+#### Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**message** | **str** |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
+
+#### ApiResponseFor400
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor400ResponseBodyApplicationJson, ] |  |
+headers | Unset | headers were not defined |
+
+#### SchemaFor400ResponseBodyApplicationJson
+
+#### Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**message** | **str** |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
+
+#### ApiResponseFor403
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor403ResponseBodyApplicationJson, ] |  |
+headers | Unset | headers were not defined |
+
+#### SchemaFor403ResponseBodyApplicationJson
+
+#### Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**message** | **str** |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 #### ApiResponseFor404
 Name | Type | Description  | Notes
@@ -197,7 +230,7 @@ Type | Description  | Notes
 
 
 
-[**NoteDynamoResponse**](NoteDynamoResponse.md)
+**{str: (bool, date, datetime, dict, float, int, list, str, none_type)}**
 
 ### Authorization
 
@@ -206,9 +239,9 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_note**
-> bool, date, datetime, dict, float, int, list, str, none_type delete_note(note_id)
+> {str: (bool, date, datetime, dict, float, int, list, str, none_type)} delete_note(note_id)
 
-Delete Note
+Deletenote
 
 ### Example
 
@@ -237,7 +270,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     header_params = {
     }
     try:
-        # Delete Note
+        # Deletenote
         api_response = api_instance.delete_note(
             path_params=path_params,
             query_params=query_params,
@@ -263,7 +296,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         'ehelply-data': "ehelply-data_example",
     }
     try:
-        # Delete Note
+        # Deletenote
         api_response = api_instance.delete_note(
             path_params=path_params,
             query_params=query_params,
@@ -366,6 +399,8 @@ Code | Class | Description
 ------------- | ------------- | -------------
 n/a | api_client.ApiResponseWithoutDeserialization | When skip_deserialization is True this response is returned
 200 | ApiResponseFor200 | Successful Response
+400 | ApiResponseFor400 | Unable to delete note(s)
+403 | ApiResponseFor403 | Unauthorized - Denied by eHelply
 404 | ApiResponseFor404 | Not found
 422 | ApiResponseFor422 | Validation Error
 
@@ -378,9 +413,41 @@ headers | Unset | headers were not defined |
 
 #### SchemaFor200ResponseBodyApplicationJson
 
-Type | Description | Notes
-------------- | ------------- | -------------
-typing.Union[dict, frozendict, str, date, datetime, int, float, bool, Decimal, None, list, tuple, bytes] | |
+#### Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**message** | **str** |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
+
+#### ApiResponseFor400
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor400ResponseBodyApplicationJson, ] |  |
+headers | Unset | headers were not defined |
+
+#### SchemaFor400ResponseBodyApplicationJson
+
+#### Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**message** | **str** |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
+
+#### ApiResponseFor403
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor403ResponseBodyApplicationJson, ] |  |
+headers | Unset | headers were not defined |
+
+#### SchemaFor403ResponseBodyApplicationJson
+
+#### Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**message** | **str** |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 #### ApiResponseFor404
 Name | Type | Description  | Notes
@@ -403,7 +470,7 @@ Type | Description  | Notes
 
 
 
-**bool, date, datetime, dict, float, int, list, str, none_type**
+**{str: (bool, date, datetime, dict, float, int, list, str, none_type)}**
 
 ### Authorization
 
@@ -414,7 +481,7 @@ No authorization required
 # **get_note**
 > NoteDynamoHistoryResponse get_note(note_id)
 
-Get Note
+Getnote
 
 ### Example
 
@@ -444,7 +511,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     header_params = {
     }
     try:
-        # Get Note
+        # Getnote
         api_response = api_instance.get_note(
             path_params=path_params,
             query_params=query_params,
@@ -471,7 +538,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         'ehelply-data': "ehelply-data_example",
     }
     try:
-        # Get Note
+        # Getnote
         api_response = api_instance.get_note(
             path_params=path_params,
             query_params=query_params,
@@ -581,7 +648,8 @@ Code | Class | Description
 ------------- | ------------- | -------------
 n/a | api_client.ApiResponseWithoutDeserialization | When skip_deserialization is True this response is returned
 200 | ApiResponseFor200 | Successful Response
-404 | ApiResponseFor404 | Not found
+403 | ApiResponseFor403 | Unauthorized - Denied by eHelply
+404 | ApiResponseFor404 | note does not exist
 422 | ApiResponseFor422 | Validation Error
 
 #### ApiResponseFor200
@@ -597,12 +665,35 @@ Type | Description  | Notes
 [**NoteDynamoHistoryResponse**](NoteDynamoHistoryResponse.md) |  | 
 
 
+#### ApiResponseFor403
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor403ResponseBodyApplicationJson, ] |  |
+headers | Unset | headers were not defined |
+
+#### SchemaFor403ResponseBodyApplicationJson
+
+#### Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**message** | **str** |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
+
 #### ApiResponseFor404
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | Unset | body was not defined |
+body | typing.Union[SchemaFor404ResponseBodyApplicationJson, ] |  |
 headers | Unset | headers were not defined |
+
+#### SchemaFor404ResponseBodyApplicationJson
+
+#### Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**message** | **str** |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 #### ApiResponseFor422
 Name | Type | Description  | Notes
@@ -627,16 +718,15 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_note**
-> NoteDynamoResponse update_note(note_idnote_base)
+> {str: (bool, date, datetime, dict, float, int, list, str, none_type)} update_note(note_idnote_base)
 
-Update Note
+Updatenote
 
 ### Example
 
 ```python
 import ehelply_python_experimental_sdk
 from ehelply_python_experimental_sdk.api import notes_api
-from ehelply_python_experimental_sdk.model.note_dynamo_response import NoteDynamoResponse
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 from ehelply_python_experimental_sdk.model.note_base import NoteBase
 from pprint import pprint
@@ -668,7 +758,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         ),
     )
     try:
-        # Update Note
+        # Updatenote
         api_response = api_instance.update_note(
             path_params=path_params,
             header_params=header_params,
@@ -701,7 +791,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         ),
     )
     try:
-        # Update Note
+        # Updatenote
         api_response = api_instance.update_note(
             path_params=path_params,
             header_params=header_params,
@@ -799,7 +889,9 @@ Code | Class | Description
 ------------- | ------------- | -------------
 n/a | api_client.ApiResponseWithoutDeserialization | When skip_deserialization is True this response is returned
 200 | ApiResponseFor200 | Successful Response
-404 | ApiResponseFor404 | Not found
+400 | ApiResponseFor400 | Something went wrong while updating note
+403 | ApiResponseFor403 | Unauthorized - Denied by eHelply
+404 | ApiResponseFor404 | note does not exist
 422 | ApiResponseFor422 | Validation Error
 
 #### ApiResponseFor200
@@ -810,17 +902,57 @@ body | typing.Union[SchemaFor200ResponseBodyApplicationJson, ] |  |
 headers | Unset | headers were not defined |
 
 #### SchemaFor200ResponseBodyApplicationJson
-Type | Description  | Notes
-------------- | ------------- | -------------
-[**NoteDynamoResponse**](NoteDynamoResponse.md) |  | 
 
+#### Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**message** | **str** |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
+
+#### ApiResponseFor400
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor400ResponseBodyApplicationJson, ] |  |
+headers | Unset | headers were not defined |
+
+#### SchemaFor400ResponseBodyApplicationJson
+
+#### Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**message** | **str** |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
+
+#### ApiResponseFor403
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor403ResponseBodyApplicationJson, ] |  |
+headers | Unset | headers were not defined |
+
+#### SchemaFor403ResponseBodyApplicationJson
+
+#### Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**message** | **str** |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 #### ApiResponseFor404
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | Unset | body was not defined |
+body | typing.Union[SchemaFor404ResponseBodyApplicationJson, ] |  |
 headers | Unset | headers were not defined |
+
+#### SchemaFor404ResponseBodyApplicationJson
+
+#### Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**message** | **str** |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 #### ApiResponseFor422
 Name | Type | Description  | Notes
@@ -836,7 +968,7 @@ Type | Description  | Notes
 
 
 
-[**NoteDynamoResponse**](NoteDynamoResponse.md)
+**{str: (bool, date, datetime, dict, float, int, list, str, none_type)}**
 
 ### Authorization
 
