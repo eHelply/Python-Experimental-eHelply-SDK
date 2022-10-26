@@ -32,6 +32,7 @@ docs/Contact.md
 docs/ContactBase.md
 docs/ContactMethod.md
 docs/ContactResponse.md
+docs/ContentApi.md
 docs/CreateKeyResponse.md
 docs/CreateProjectCredential.md
 docs/CreateProjectCredit.md
@@ -156,6 +157,7 @@ ehelply_python_experimental_sdk/api/billing_api.py
 ehelply_python_experimental_sdk/api/catalogs_api.py
 ehelply_python_experimental_sdk/api/category_api.py
 ehelply_python_experimental_sdk/api/companies_api.py
+ehelply_python_experimental_sdk/api/content_api.py
 ehelply_python_experimental_sdk/api/logging_api.py
 ehelply_python_experimental_sdk/api/meta_api.py
 ehelply_python_experimental_sdk/api/monitor_api.py
@@ -340,6 +342,7 @@ test/test_contact.py
 test/test_contact_base.py
 test/test_contact_method.py
 test/test_contact_response.py
+test/test_content_api.py
 test/test_create_key_response.py
 test/test_create_project_credential.py
 test/test_create_project_credit.py
