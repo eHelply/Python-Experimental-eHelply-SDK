@@ -40,6 +40,7 @@ docs/CreateProjectInvoice.md
 docs/CreateReview.md
 docs/CreateTicket.md
 docs/Credential.md
+docs/CustomList.md
 docs/DatesMeta.md
 docs/DetailedMeta.md
 docs/DetailedMetaCreate.md
@@ -64,7 +65,9 @@ docs/LineItem.md
 docs/LoggingApi.md
 docs/LoggingDynamo.md
 docs/MetaApi.md
+docs/MetaChildren.md
 docs/MetaCreate.md
+docs/MetaCustom.md
 docs/MetaDynamo.md
 docs/MonitorApi.md
 docs/Note.md
@@ -73,6 +76,8 @@ docs/NoteDynamoHistoryResponse.md
 docs/NoteDynamoResponse.md
 docs/NoteMeta.md
 docs/NotesApi.md
+docs/OptionGroup.md
+docs/Options.md
 docs/Page.md
 docs/Pagination.md
 docs/ParticipantCreate.md
@@ -107,6 +112,7 @@ docs/SecurityEncryptionKeyResponse.md
 docs/SecurityKeyCreate.md
 docs/SecurityKeyGet.md
 docs/SecurityKeyVerify.md
+docs/Selection.md
 docs/ServiceCreate.md
 docs/ServiceMessageResponse.md
 docs/ServiceResponse.md
@@ -143,6 +149,7 @@ docs/UserTokenReturn.md
 docs/UserValidations.md
 docs/UsersApi.md
 docs/ValidationError.md
+docs/Validations.md
 ehelply_python_experimental_sdk/__init__.py
 ehelply_python_experimental_sdk/api/__init__.py
 ehelply_python_experimental_sdk/api/appointments_api.py
@@ -202,6 +209,7 @@ ehelply_python_experimental_sdk/model/create_project_invoice.py
 ehelply_python_experimental_sdk/model/create_review.py
 ehelply_python_experimental_sdk/model/create_ticket.py
 ehelply_python_experimental_sdk/model/credential.py
+ehelply_python_experimental_sdk/model/custom_list.py
 ehelply_python_experimental_sdk/model/dates_meta.py
 ehelply_python_experimental_sdk/model/detailed_meta.py
 ehelply_python_experimental_sdk/model/detailed_meta_create.py
@@ -223,13 +231,17 @@ ehelply_python_experimental_sdk/model/http_validation_error.py
 ehelply_python_experimental_sdk/model/kpi_response.py
 ehelply_python_experimental_sdk/model/line_item.py
 ehelply_python_experimental_sdk/model/logging_dynamo.py
+ehelply_python_experimental_sdk/model/meta_children.py
 ehelply_python_experimental_sdk/model/meta_create.py
+ehelply_python_experimental_sdk/model/meta_custom.py
 ehelply_python_experimental_sdk/model/meta_dynamo.py
 ehelply_python_experimental_sdk/model/note.py
 ehelply_python_experimental_sdk/model/note_base.py
 ehelply_python_experimental_sdk/model/note_dynamo_history_response.py
 ehelply_python_experimental_sdk/model/note_dynamo_response.py
 ehelply_python_experimental_sdk/model/note_meta.py
+ehelply_python_experimental_sdk/model/option_group.py
+ehelply_python_experimental_sdk/model/options.py
 ehelply_python_experimental_sdk/model/page.py
 ehelply_python_experimental_sdk/model/pagination.py
 ehelply_python_experimental_sdk/model/participant_create.py
@@ -259,6 +271,7 @@ ehelply_python_experimental_sdk/model/security_encryption_key_response.py
 ehelply_python_experimental_sdk/model/security_key_create.py
 ehelply_python_experimental_sdk/model/security_key_get.py
 ehelply_python_experimental_sdk/model/security_key_verify.py
+ehelply_python_experimental_sdk/model/selection.py
 ehelply_python_experimental_sdk/model/service_create.py
 ehelply_python_experimental_sdk/model/service_message_response.py
 ehelply_python_experimental_sdk/model/service_response.py
@@ -290,6 +303,7 @@ ehelply_python_experimental_sdk/model/user_signup_return.py
 ehelply_python_experimental_sdk/model/user_token_return.py
 ehelply_python_experimental_sdk/model/user_validations.py
 ehelply_python_experimental_sdk/model/validation_error.py
+ehelply_python_experimental_sdk/model/validations.py
 ehelply_python_experimental_sdk/models/__init__.py
 ehelply_python_experimental_sdk/rest.py
 ehelply_python_experimental_sdk/schemas.py
@@ -336,6 +350,7 @@ test/test_create_project_invoice.py
 test/test_create_review.py
 test/test_create_ticket.py
 test/test_credential.py
+test/test_custom_list.py
 test/test_dates_meta.py
 test/test_detailed_meta.py
 test/test_detailed_meta_create.py
@@ -360,7 +375,9 @@ test/test_line_item.py
 test/test_logging_api.py
 test/test_logging_dynamo.py
 test/test_meta_api.py
+test/test_meta_children.py
 test/test_meta_create.py
+test/test_meta_custom.py
 test/test_meta_dynamo.py
 test/test_monitor_api.py
 test/test_note.py
@@ -369,6 +386,8 @@ test/test_note_dynamo_history_response.py
 test/test_note_dynamo_response.py
 test/test_note_meta.py
 test/test_notes_api.py
+test/test_option_group.py
+test/test_options.py
 test/test_page.py
 test/test_pagination.py
 test/test_participant_create.py
@@ -403,6 +422,7 @@ test/test_security_encryption_key_response.py
 test/test_security_key_create.py
 test/test_security_key_get.py
 test/test_security_key_verify.py
+test/test_selection.py
 test/test_service_create.py
 test/test_service_message_response.py
 test/test_service_response.py
@@ -439,4 +459,5 @@ test/test_user_token_return.py
 test/test_user_validations.py
 test/test_users_api.py
 test/test_validation_error.py
+test/test_validations.py
 tox.ini

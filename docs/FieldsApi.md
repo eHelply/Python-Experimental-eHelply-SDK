@@ -37,13 +37,44 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     header_params = {
     }
     body = Field(
-        type=dict(),
+        type=1,
         placeholder="placeholder_example",
-        validations=dict(),
+        validations=Validations(
+            value=[
+                "value_example"
+            ],
+        ),
         hint="hint_example",
         icon="icon_example",
         label="label_example",
-        options=dict(),
+        options=Options(
+            required=True,
+            label="label_example",
+            inset_label="inset_label_example",
+            placeholder="placeholder_example",
+            hint="hint_example",
+            icon="icon_example",
+            max_length=3.14,
+            counter=True,
+            caption="caption_example",
+            color="color_example",
+            size="size_example",
+            type="type_example",
+            icon_position="icon_position_example",
+            selections=[
+                OptionGroup(
+                    name="name_example",
+                    type="type_example",
+                    selections=[
+                        Selection(
+                            name="name_example",
+                            value=3.14,
+                            icon="icon_example",
+                        )
+                    ],
+                )
+            ],
+        ),
     )
     try:
         # Createfield
@@ -65,13 +96,44 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         'ehelply-data': "ehelply-data_example",
     }
     body = Field(
-        type=dict(),
+        type=1,
         placeholder="placeholder_example",
-        validations=dict(),
+        validations=Validations(
+            value=[
+                "value_example"
+            ],
+        ),
         hint="hint_example",
         icon="icon_example",
         label="label_example",
-        options=dict(),
+        options=Options(
+            required=True,
+            label="label_example",
+            inset_label="inset_label_example",
+            placeholder="placeholder_example",
+            hint="hint_example",
+            icon="icon_example",
+            max_length=3.14,
+            counter=True,
+            caption="caption_example",
+            color="color_example",
+            size="size_example",
+            type="type_example",
+            icon_position="icon_position_example",
+            selections=[
+                OptionGroup(
+                    name="name_example",
+                    type="type_example",
+                    selections=[
+                        Selection(
+                            name="name_example",
+                            value=3.14,
+                            icon="icon_example",
+                        )
+                    ],
+                )
+            ],
+        ),
     )
     try:
         # Createfield
@@ -694,13 +756,44 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     header_params = {
     }
     body = Field(
-        type=dict(),
+        type=1,
         placeholder="placeholder_example",
-        validations=dict(),
+        validations=Validations(
+            value=[
+                "value_example"
+            ],
+        ),
         hint="hint_example",
         icon="icon_example",
         label="label_example",
-        options=dict(),
+        options=Options(
+            required=True,
+            label="label_example",
+            inset_label="inset_label_example",
+            placeholder="placeholder_example",
+            hint="hint_example",
+            icon="icon_example",
+            max_length=3.14,
+            counter=True,
+            caption="caption_example",
+            color="color_example",
+            size="size_example",
+            type="type_example",
+            icon_position="icon_position_example",
+            selections=[
+                OptionGroup(
+                    name="name_example",
+                    type="type_example",
+                    selections=[
+                        Selection(
+                            name="name_example",
+                            value=3.14,
+                            icon="icon_example",
+                        )
+                    ],
+                )
+            ],
+        ),
     )
     try:
         # Updatefield
@@ -726,13 +819,44 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         'ehelply-data': "ehelply-data_example",
     }
     body = Field(
-        type=dict(),
+        type=1,
         placeholder="placeholder_example",
-        validations=dict(),
+        validations=Validations(
+            value=[
+                "value_example"
+            ],
+        ),
         hint="hint_example",
         icon="icon_example",
         label="label_example",
-        options=dict(),
+        options=Options(
+            required=True,
+            label="label_example",
+            inset_label="inset_label_example",
+            placeholder="placeholder_example",
+            hint="hint_example",
+            icon="icon_example",
+            max_length=3.14,
+            counter=True,
+            caption="caption_example",
+            color="color_example",
+            size="size_example",
+            type="type_example",
+            icon_position="icon_position_example",
+            selections=[
+                OptionGroup(
+                    name="name_example",
+                    type="type_example",
+                    selections=[
+                        Selection(
+                            name="name_example",
+                            value=3.14,
+                            icon="icon_example",
+                        )
+                    ],
+                )
+            ],
+        ),
     )
     try:
         # Updatefield

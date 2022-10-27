@@ -55,20 +55,64 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
             summary="summary_example",
             description="description_example",
         ),
-        custom=dict(),
+        custom=MetaCustom(
+            name="name_example",
+            description="description_example",
+            _list=[
+                CustomList(
+                    name="name_example",
+                    description="description_example",
+                )
+            ],
+        ),
         fields=[
             Field(
-                type=dict(),
+                type=1,
                 placeholder="placeholder_example",
-                validations=dict(),
+                validations=Validations(
+                    value=[
+                        "value_example"
+                    ],
+                ),
                 hint="hint_example",
                 icon="icon_example",
                 label="label_example",
-                options=dict(),
+                options=Options(
+                    required=True,
+                    label="label_example",
+                    inset_label="inset_label_example",
+                    placeholder="placeholder_example",
+                    hint="hint_example",
+                    icon="icon_example",
+                    max_length=3.14,
+                    counter=True,
+                    caption="caption_example",
+                    color="color_example",
+                    size="size_example",
+                    type="type_example",
+                    icon_position="icon_position_example",
+                    selections=[
+                        OptionGroup(
+                            name="name_example",
+                            type="type_example",
+                            selections=[
+                                Selection(
+                                    name="name_example",
+                                    value=3.14,
+                                    icon="icon_example",
+                                )
+                            ],
+                        )
+                    ],
+                ),
             )
         ],
         children=[
-            dict()
+            MetaChildren(
+                child_name="child_name_example",
+                child_description="child_description_example",
+                child_uuid="child_uuid_example",
+            )
         ],
         parent_uuid="parent_uuid_example",
     )
@@ -106,20 +150,64 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
             summary="summary_example",
             description="description_example",
         ),
-        custom=dict(),
+        custom=MetaCustom(
+            name="name_example",
+            description="description_example",
+            _list=[
+                CustomList(
+                    name="name_example",
+                    description="description_example",
+                )
+            ],
+        ),
         fields=[
             Field(
-                type=dict(),
+                type=1,
                 placeholder="placeholder_example",
-                validations=dict(),
+                validations=Validations(
+                    value=[
+                        "value_example"
+                    ],
+                ),
                 hint="hint_example",
                 icon="icon_example",
                 label="label_example",
-                options=dict(),
+                options=Options(
+                    required=True,
+                    label="label_example",
+                    inset_label="inset_label_example",
+                    placeholder="placeholder_example",
+                    hint="hint_example",
+                    icon="icon_example",
+                    max_length=3.14,
+                    counter=True,
+                    caption="caption_example",
+                    color="color_example",
+                    size="size_example",
+                    type="type_example",
+                    icon_position="icon_position_example",
+                    selections=[
+                        OptionGroup(
+                            name="name_example",
+                            type="type_example",
+                            selections=[
+                                Selection(
+                                    name="name_example",
+                                    value=3.14,
+                                    icon="icon_example",
+                                )
+                            ],
+                        )
+                    ],
+                ),
             )
         ],
         children=[
-            dict()
+            MetaChildren(
+                child_name="child_name_example",
+                child_description="child_description_example",
+                child_uuid="child_uuid_example",
+            )
         ],
         parent_uuid="parent_uuid_example",
     )
@@ -1753,20 +1841,64 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
             summary="summary_example",
             description="description_example",
         ),
-        custom=dict(),
+        custom=MetaCustom(
+            name="name_example",
+            description="description_example",
+            _list=[
+                CustomList(
+                    name="name_example",
+                    description="description_example",
+                )
+            ],
+        ),
         fields=[
             Field(
-                type=dict(),
+                type=1,
                 placeholder="placeholder_example",
-                validations=dict(),
+                validations=Validations(
+                    value=[
+                        "value_example"
+                    ],
+                ),
                 hint="hint_example",
                 icon="icon_example",
                 label="label_example",
-                options=dict(),
+                options=Options(
+                    required=True,
+                    label="label_example",
+                    inset_label="inset_label_example",
+                    placeholder="placeholder_example",
+                    hint="hint_example",
+                    icon="icon_example",
+                    max_length=3.14,
+                    counter=True,
+                    caption="caption_example",
+                    color="color_example",
+                    size="size_example",
+                    type="type_example",
+                    icon_position="icon_position_example",
+                    selections=[
+                        OptionGroup(
+                            name="name_example",
+                            type="type_example",
+                            selections=[
+                                Selection(
+                                    name="name_example",
+                                    value=3.14,
+                                    icon="icon_example",
+                                )
+                            ],
+                        )
+                    ],
+                ),
             )
         ],
         children=[
-            dict()
+            MetaChildren(
+                child_name="child_name_example",
+                child_description="child_description_example",
+                child_uuid="child_uuid_example",
+            )
         ],
         parent_uuid="parent_uuid_example",
     )
@@ -1802,20 +1934,64 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
             summary="summary_example",
             description="description_example",
         ),
-        custom=dict(),
+        custom=MetaCustom(
+            name="name_example",
+            description="description_example",
+            _list=[
+                CustomList(
+                    name="name_example",
+                    description="description_example",
+                )
+            ],
+        ),
         fields=[
             Field(
-                type=dict(),
+                type=1,
                 placeholder="placeholder_example",
-                validations=dict(),
+                validations=Validations(
+                    value=[
+                        "value_example"
+                    ],
+                ),
                 hint="hint_example",
                 icon="icon_example",
                 label="label_example",
-                options=dict(),
+                options=Options(
+                    required=True,
+                    label="label_example",
+                    inset_label="inset_label_example",
+                    placeholder="placeholder_example",
+                    hint="hint_example",
+                    icon="icon_example",
+                    max_length=3.14,
+                    counter=True,
+                    caption="caption_example",
+                    color="color_example",
+                    size="size_example",
+                    type="type_example",
+                    icon_position="icon_position_example",
+                    selections=[
+                        OptionGroup(
+                            name="name_example",
+                            type="type_example",
+                            selections=[
+                                Selection(
+                                    name="name_example",
+                                    value=3.14,
+                                    icon="icon_example",
+                                )
+                            ],
+                        )
+                    ],
+                ),
             )
         ],
         children=[
-            dict()
+            MetaChildren(
+                child_name="child_name_example",
+                child_description="child_description_example",
+                child_uuid="child_uuid_example",
+            )
         ],
         parent_uuid="parent_uuid_example",
     )
@@ -2046,20 +2222,64 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
             summary="summary_example",
             description="description_example",
         ),
-        custom=dict(),
+        custom=MetaCustom(
+            name="name_example",
+            description="description_example",
+            _list=[
+                CustomList(
+                    name="name_example",
+                    description="description_example",
+                )
+            ],
+        ),
         fields=[
             Field(
-                type=dict(),
+                type=1,
                 placeholder="placeholder_example",
-                validations=dict(),
+                validations=Validations(
+                    value=[
+                        "value_example"
+                    ],
+                ),
                 hint="hint_example",
                 icon="icon_example",
                 label="label_example",
-                options=dict(),
+                options=Options(
+                    required=True,
+                    label="label_example",
+                    inset_label="inset_label_example",
+                    placeholder="placeholder_example",
+                    hint="hint_example",
+                    icon="icon_example",
+                    max_length=3.14,
+                    counter=True,
+                    caption="caption_example",
+                    color="color_example",
+                    size="size_example",
+                    type="type_example",
+                    icon_position="icon_position_example",
+                    selections=[
+                        OptionGroup(
+                            name="name_example",
+                            type="type_example",
+                            selections=[
+                                Selection(
+                                    name="name_example",
+                                    value=3.14,
+                                    icon="icon_example",
+                                )
+                            ],
+                        )
+                    ],
+                ),
             )
         ],
         children=[
-            dict()
+            MetaChildren(
+                child_name="child_name_example",
+                child_description="child_description_example",
+                child_uuid="child_uuid_example",
+            )
         ],
         parent_uuid="parent_uuid_example",
     )
@@ -2097,20 +2317,64 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
             summary="summary_example",
             description="description_example",
         ),
-        custom=dict(),
+        custom=MetaCustom(
+            name="name_example",
+            description="description_example",
+            _list=[
+                CustomList(
+                    name="name_example",
+                    description="description_example",
+                )
+            ],
+        ),
         fields=[
             Field(
-                type=dict(),
+                type=1,
                 placeholder="placeholder_example",
-                validations=dict(),
+                validations=Validations(
+                    value=[
+                        "value_example"
+                    ],
+                ),
                 hint="hint_example",
                 icon="icon_example",
                 label="label_example",
-                options=dict(),
+                options=Options(
+                    required=True,
+                    label="label_example",
+                    inset_label="inset_label_example",
+                    placeholder="placeholder_example",
+                    hint="hint_example",
+                    icon="icon_example",
+                    max_length=3.14,
+                    counter=True,
+                    caption="caption_example",
+                    color="color_example",
+                    size="size_example",
+                    type="type_example",
+                    icon_position="icon_position_example",
+                    selections=[
+                        OptionGroup(
+                            name="name_example",
+                            type="type_example",
+                            selections=[
+                                Selection(
+                                    name="name_example",
+                                    value=3.14,
+                                    icon="icon_example",
+                                )
+                            ],
+                        )
+                    ],
+                ),
             )
         ],
         children=[
-            dict()
+            MetaChildren(
+                child_name="child_name_example",
+                child_description="child_description_example",
+                child_uuid="child_uuid_example",
+            )
         ],
         parent_uuid="parent_uuid_example",
     )
