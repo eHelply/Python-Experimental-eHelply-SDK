@@ -68,6 +68,66 @@ from ehelply_python_experimental_sdk.model.alarm_note import AlarmNote
 from ehelply_python_experimental_sdk.model.alarm_response import AlarmResponse
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 
+# header params
+XAccessTokenSchema = StrSchema
+XSecretTokenSchema = StrSchema
+AuthorizationSchema = StrSchema
+EhelplyActiveParticipantSchema = StrSchema
+EhelplyProjectSchema = StrSchema
+EhelplyDataSchema = StrSchema
+RequestRequiredHeaderParams = typing.TypedDict(
+    'RequestRequiredHeaderParams',
+    {
+    }
+)
+RequestOptionalHeaderParams = typing.TypedDict(
+    'RequestOptionalHeaderParams',
+    {
+        'x-access-token': XAccessTokenSchema,
+        'x-secret-token': XSecretTokenSchema,
+        'authorization': AuthorizationSchema,
+        'ehelply-active-participant': EhelplyActiveParticipantSchema,
+        'ehelply-project': EhelplyProjectSchema,
+        'ehelply-data': EhelplyDataSchema,
+    },
+    total=False
+)
+
+
+class RequestHeaderParams(RequestRequiredHeaderParams, RequestOptionalHeaderParams):
+    pass
+
+
+request_header_x_access_token = api_client.HeaderParameter(
+    name="x-access-token",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=XAccessTokenSchema,
+)
+request_header_x_secret_token = api_client.HeaderParameter(
+    name="x-secret-token",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=XSecretTokenSchema,
+)
+request_header_authorization = api_client.HeaderParameter(
+    name="authorization",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=AuthorizationSchema,
+)
+request_header_ehelply_active_participant = api_client.HeaderParameter(
+    name="ehelply-active-participant",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=EhelplyActiveParticipantSchema,
+)
+request_header_ehelply_project = api_client.HeaderParameter(
+    name="ehelply-project",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=EhelplyProjectSchema,
+)
+request_header_ehelply_data = api_client.HeaderParameter(
+    name="ehelply-data",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=EhelplyDataSchema,
+)
 # path params
 ServiceSchema = StrSchema
 StageSchema = StrSchema
@@ -188,6 +248,7 @@ class AttachAlarmNote(api_client.Api):
     def attach_alarm_note(
         self: api_client.Api,
         body: typing.Union[SchemaForRequestBodyApplicationJson],
+        header_params: RequestHeaderParams = frozendict(),
         path_params: RequestPathParams = frozendict(),
         content_type: str = 'application/json',
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
@@ -204,6 +265,7 @@ class AttachAlarmNote(api_client.Api):
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
         """
+        self._verify_typed_dict_inputs(RequestHeaderParams, header_params)
         self._verify_typed_dict_inputs(RequestPathParams, path_params)
 
         _path_params = {}
@@ -219,6 +281,19 @@ class AttachAlarmNote(api_client.Api):
             _path_params.update(serialized_data)
 
         _headers = HTTPHeaderDict()
+        for parameter in (
+            request_header_x_access_token,
+            request_header_x_secret_token,
+            request_header_authorization,
+            request_header_ehelply_active_participant,
+            request_header_ehelply_project,
+            request_header_ehelply_data,
+        ):
+            parameter_data = header_params.get(parameter.name, unset)
+            if parameter_data is unset:
+                continue
+            serialized_data = parameter.serialize(parameter_data)
+            _headers.extend(serialized_data)
         # TODO add cookie handling
         if accept_content_types:
             for accept_content_type in accept_content_types:
