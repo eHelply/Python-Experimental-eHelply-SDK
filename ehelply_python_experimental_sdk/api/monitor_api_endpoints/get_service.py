@@ -125,6 +125,66 @@ request_query_stage = api_client.QueryParameter(
     schema=StageSchema,
     explode=True,
 )
+# header params
+XAccessTokenSchema = StrSchema
+XSecretTokenSchema = StrSchema
+AuthorizationSchema = StrSchema
+EhelplyActiveParticipantSchema = StrSchema
+EhelplyProjectSchema = StrSchema
+EhelplyDataSchema = StrSchema
+RequestRequiredHeaderParams = typing.TypedDict(
+    'RequestRequiredHeaderParams',
+    {
+    }
+)
+RequestOptionalHeaderParams = typing.TypedDict(
+    'RequestOptionalHeaderParams',
+    {
+        'x-access-token': XAccessTokenSchema,
+        'x-secret-token': XSecretTokenSchema,
+        'authorization': AuthorizationSchema,
+        'ehelply-active-participant': EhelplyActiveParticipantSchema,
+        'ehelply-project': EhelplyProjectSchema,
+        'ehelply-data': EhelplyDataSchema,
+    },
+    total=False
+)
+
+
+class RequestHeaderParams(RequestRequiredHeaderParams, RequestOptionalHeaderParams):
+    pass
+
+
+request_header_x_access_token = api_client.HeaderParameter(
+    name="x-access-token",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=XAccessTokenSchema,
+)
+request_header_x_secret_token = api_client.HeaderParameter(
+    name="x-secret-token",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=XSecretTokenSchema,
+)
+request_header_authorization = api_client.HeaderParameter(
+    name="authorization",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=AuthorizationSchema,
+)
+request_header_ehelply_active_participant = api_client.HeaderParameter(
+    name="ehelply-active-participant",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=EhelplyActiveParticipantSchema,
+)
+request_header_ehelply_project = api_client.HeaderParameter(
+    name="ehelply-project",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=EhelplyProjectSchema,
+)
+request_header_ehelply_data = api_client.HeaderParameter(
+    name="ehelply-data",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=EhelplyDataSchema,
+)
 # path params
 ServiceSchema = StrSchema
 RequestRequiredPathParams = typing.TypedDict(
@@ -218,6 +278,7 @@ class GetService(api_client.Api):
     def get_service(
         self: api_client.Api,
         query_params: RequestQueryParams = frozendict(),
+        header_params: RequestHeaderParams = frozendict(),
         path_params: RequestPathParams = frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
@@ -234,6 +295,7 @@ class GetService(api_client.Api):
             class instances
         """
         self._verify_typed_dict_inputs(RequestQueryParams, query_params)
+        self._verify_typed_dict_inputs(RequestHeaderParams, header_params)
         self._verify_typed_dict_inputs(RequestPathParams, path_params)
 
         _path_params = {}
@@ -261,6 +323,19 @@ class GetService(api_client.Api):
             _query_params.extend(serialized_data)
 
         _headers = HTTPHeaderDict()
+        for parameter in (
+            request_header_x_access_token,
+            request_header_x_secret_token,
+            request_header_authorization,
+            request_header_ehelply_active_participant,
+            request_header_ehelply_project,
+            request_header_ehelply_data,
+        ):
+            parameter_data = header_params.get(parameter.name, unset)
+            if parameter_data is unset:
+                continue
+            serialized_data = parameter.serialize(parameter_data)
+            _headers.extend(serialized_data)
         # TODO add cookie handling
         if accept_content_types:
             for accept_content_type in accept_content_types:

@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**attach_alarm_note**](MonitorApi.md#attach_alarm_note) | **POST** /sam/monitor/services/{service}/stages/{stage}/alarms/{alarm_uuid}/note | Attachalarmnote
 [**attach_alarm_ticket**](MonitorApi.md#attach_alarm_ticket) | **POST** /sam/monitor/services/{service}/stages/{stage}/alarms/{alarm_uuid}/ticket | Attachalarmticket
 [**clear_alarm**](MonitorApi.md#clear_alarm) | **POST** /sam/monitor/services/{service}/stages/{stage}/alarms/{alarm_uuid}/clear | Clearalarm
+[**delete_service_super_stack_meta**](MonitorApi.md#delete_service_super_stack_meta) | **DELETE** /sam/monitor/services/{service}/superstack | Deleteservicesuperstackmeta
 [**get_service**](MonitorApi.md#get_service) | **GET** /sam/monitor/services/{service} | Getservice
 [**get_service_alarm**](MonitorApi.md#get_service_alarm) | **GET** /sam/monitor/services/{service}/stages/{stage}/alarms/{alarm_uuid} | Getservicealarm
 [**get_service_alarms**](MonitorApi.md#get_service_alarms) | **GET** /sam/monitor/services/{service}/stages/{stage}/alarms | Getservicealarms
@@ -19,9 +20,11 @@ Method | HTTP request | Description
 [**get_service_vitals**](MonitorApi.md#get_service_vitals) | **GET** /sam/monitor/services/{service}/stages/{stage}/vitals | Getservicevitals
 [**get_services**](MonitorApi.md#get_services) | **GET** /sam/monitor/services | Getservices
 [**get_services_with_specs**](MonitorApi.md#get_services_with_specs) | **GET** /sam/monitor/specs/services | Getserviceswithspecs
+[**get_supertack_services**](MonitorApi.md#get_supertack_services) | **GET** /sam/monitor/superstack-services | Getsupertackservices
 [**hide_service**](MonitorApi.md#hide_service) | **POST** /sam/monitor/services/{service}/stages/{stage}/hide | Hideservice
 [**ignore_alarm**](MonitorApi.md#ignore_alarm) | **POST** /sam/monitor/services/{service}/stages/{stage}/alarms/{alarm_uuid}/ignore | Ignorealarm
 [**register_service**](MonitorApi.md#register_service) | **POST** /sam/monitor/services | Registerservice
+[**save_service_super_stack_meta**](MonitorApi.md#save_service_super_stack_meta) | **POST** /sam/monitor/services/{service}/superstack | Saveservicesuperstackmeta
 [**search_alarms**](MonitorApi.md#search_alarms) | **GET** /sam/monitor/services/{service}/alarms | Searchalarms
 [**show_service**](MonitorApi.md#show_service) | **POST** /sam/monitor/services/{service}/stages/{stage}/show | Showservice
 [**terminate_alarm**](MonitorApi.md#terminate_alarm) | **POST** /sam/monitor/services/{service}/stages/{stage}/alarms/{alarm_uuid}/terminate | Terminatealarm
@@ -58,6 +61,8 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         'stage': "stage_example",
         'alarm_uuid': "alarm_uuid_example",
     }
+    header_params = {
+    }
     body = AlarmAcknowledge(
         acknowledger_uuid="acknowledger_uuid_example",
     )
@@ -65,6 +70,35 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         # Acknowledgealarm
         api_response = api_instance.acknowledge_alarm(
             path_params=path_params,
+            header_params=header_params,
+            body=body,
+        )
+        pprint(api_response)
+    except ehelply_python_experimental_sdk.ApiException as e:
+        print("Exception when calling MonitorApi->acknowledge_alarm: %s\n" % e)
+
+    # example passing only optional values
+    path_params = {
+        'service': "service_example",
+        'stage': "stage_example",
+        'alarm_uuid': "alarm_uuid_example",
+    }
+    header_params = {
+        'x-access-token': "x-access-token_example",
+        'x-secret-token': "x-secret-token_example",
+        'authorization': "authorization_example",
+        'ehelply-active-participant': "ehelply-active-participant_example",
+        'ehelply-project': "ehelply-project_example",
+        'ehelply-data': "ehelply-data_example",
+    }
+    body = AlarmAcknowledge(
+        acknowledger_uuid="acknowledger_uuid_example",
+    )
+    try:
+        # Acknowledgealarm
+        api_response = api_instance.acknowledge_alarm(
+            path_params=path_params,
+            header_params=header_params,
             body=body,
         )
         pprint(api_response)
@@ -76,6 +110,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 body | typing.Union[SchemaForRequestBodyApplicationJson] | required |
+header_params | RequestHeaderParams | |
 path_params | RequestPathParams | |
 content_type | str | optional, default is 'application/json' | Selects the schema and serialization of the request body
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
@@ -90,6 +125,54 @@ Type | Description  | Notes
 ------------- | ------------- | -------------
 [**AlarmAcknowledge**](AlarmAcknowledge.md) |  | 
 
+
+### header_params
+#### RequestHeaderParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+x-access-token | XAccessTokenSchema | | optional
+x-secret-token | XSecretTokenSchema | | optional
+authorization | AuthorizationSchema | | optional
+ehelply-active-participant | EhelplyActiveParticipantSchema | | optional
+ehelply-project | EhelplyProjectSchema | | optional
+ehelply-data | EhelplyDataSchema | | optional
+
+#### XAccessTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### XSecretTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### AuthorizationSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyActiveParticipantSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyProjectSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyDataSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
 
 ### path_params
 #### RequestPathParams
@@ -200,6 +283,8 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         'stage': "stage_example",
         'alarm_uuid': "alarm_uuid_example",
     }
+    header_params = {
+    }
     body = AlarmAssign(
         assignee_uuid="assignee_uuid_example",
     )
@@ -207,6 +292,35 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         # Assignalarm
         api_response = api_instance.assign_alarm(
             path_params=path_params,
+            header_params=header_params,
+            body=body,
+        )
+        pprint(api_response)
+    except ehelply_python_experimental_sdk.ApiException as e:
+        print("Exception when calling MonitorApi->assign_alarm: %s\n" % e)
+
+    # example passing only optional values
+    path_params = {
+        'service': "service_example",
+        'stage': "stage_example",
+        'alarm_uuid': "alarm_uuid_example",
+    }
+    header_params = {
+        'x-access-token': "x-access-token_example",
+        'x-secret-token': "x-secret-token_example",
+        'authorization': "authorization_example",
+        'ehelply-active-participant': "ehelply-active-participant_example",
+        'ehelply-project': "ehelply-project_example",
+        'ehelply-data': "ehelply-data_example",
+    }
+    body = AlarmAssign(
+        assignee_uuid="assignee_uuid_example",
+    )
+    try:
+        # Assignalarm
+        api_response = api_instance.assign_alarm(
+            path_params=path_params,
+            header_params=header_params,
             body=body,
         )
         pprint(api_response)
@@ -218,6 +332,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 body | typing.Union[SchemaForRequestBodyApplicationJson] | required |
+header_params | RequestHeaderParams | |
 path_params | RequestPathParams | |
 content_type | str | optional, default is 'application/json' | Selects the schema and serialization of the request body
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
@@ -232,6 +347,54 @@ Type | Description  | Notes
 ------------- | ------------- | -------------
 [**AlarmAssign**](AlarmAssign.md) |  | 
 
+
+### header_params
+#### RequestHeaderParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+x-access-token | XAccessTokenSchema | | optional
+x-secret-token | XSecretTokenSchema | | optional
+authorization | AuthorizationSchema | | optional
+ehelply-active-participant | EhelplyActiveParticipantSchema | | optional
+ehelply-project | EhelplyProjectSchema | | optional
+ehelply-data | EhelplyDataSchema | | optional
+
+#### XAccessTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### XSecretTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### AuthorizationSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyActiveParticipantSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyProjectSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyDataSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
 
 ### path_params
 #### RequestPathParams
@@ -342,6 +505,8 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         'stage': "stage_example",
         'alarm_uuid': "alarm_uuid_example",
     }
+    header_params = {
+    }
     body = AlarmNote(
         author_uuid="author_uuid_example",
         message="message_example",
@@ -350,6 +515,36 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         # Attachalarmnote
         api_response = api_instance.attach_alarm_note(
             path_params=path_params,
+            header_params=header_params,
+            body=body,
+        )
+        pprint(api_response)
+    except ehelply_python_experimental_sdk.ApiException as e:
+        print("Exception when calling MonitorApi->attach_alarm_note: %s\n" % e)
+
+    # example passing only optional values
+    path_params = {
+        'service': "service_example",
+        'stage': "stage_example",
+        'alarm_uuid': "alarm_uuid_example",
+    }
+    header_params = {
+        'x-access-token': "x-access-token_example",
+        'x-secret-token': "x-secret-token_example",
+        'authorization': "authorization_example",
+        'ehelply-active-participant': "ehelply-active-participant_example",
+        'ehelply-project': "ehelply-project_example",
+        'ehelply-data': "ehelply-data_example",
+    }
+    body = AlarmNote(
+        author_uuid="author_uuid_example",
+        message="message_example",
+    )
+    try:
+        # Attachalarmnote
+        api_response = api_instance.attach_alarm_note(
+            path_params=path_params,
+            header_params=header_params,
             body=body,
         )
         pprint(api_response)
@@ -361,6 +556,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 body | typing.Union[SchemaForRequestBodyApplicationJson] | required |
+header_params | RequestHeaderParams | |
 path_params | RequestPathParams | |
 content_type | str | optional, default is 'application/json' | Selects the schema and serialization of the request body
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
@@ -375,6 +571,54 @@ Type | Description  | Notes
 ------------- | ------------- | -------------
 [**AlarmNote**](AlarmNote.md) |  | 
 
+
+### header_params
+#### RequestHeaderParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+x-access-token | XAccessTokenSchema | | optional
+x-secret-token | XSecretTokenSchema | | optional
+authorization | AuthorizationSchema | | optional
+ehelply-active-participant | EhelplyActiveParticipantSchema | | optional
+ehelply-project | EhelplyProjectSchema | | optional
+ehelply-data | EhelplyDataSchema | | optional
+
+#### XAccessTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### XSecretTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### AuthorizationSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyActiveParticipantSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyProjectSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyDataSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
 
 ### path_params
 #### RequestPathParams
@@ -485,6 +729,8 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         'stage': "stage_example",
         'alarm_uuid': "alarm_uuid_example",
     }
+    header_params = {
+    }
     body = AlarmTicket(
         ticket_uuid="ticket_uuid_example",
     )
@@ -492,6 +738,35 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         # Attachalarmticket
         api_response = api_instance.attach_alarm_ticket(
             path_params=path_params,
+            header_params=header_params,
+            body=body,
+        )
+        pprint(api_response)
+    except ehelply_python_experimental_sdk.ApiException as e:
+        print("Exception when calling MonitorApi->attach_alarm_ticket: %s\n" % e)
+
+    # example passing only optional values
+    path_params = {
+        'service': "service_example",
+        'stage': "stage_example",
+        'alarm_uuid': "alarm_uuid_example",
+    }
+    header_params = {
+        'x-access-token': "x-access-token_example",
+        'x-secret-token': "x-secret-token_example",
+        'authorization': "authorization_example",
+        'ehelply-active-participant': "ehelply-active-participant_example",
+        'ehelply-project': "ehelply-project_example",
+        'ehelply-data': "ehelply-data_example",
+    }
+    body = AlarmTicket(
+        ticket_uuid="ticket_uuid_example",
+    )
+    try:
+        # Attachalarmticket
+        api_response = api_instance.attach_alarm_ticket(
+            path_params=path_params,
+            header_params=header_params,
             body=body,
         )
         pprint(api_response)
@@ -503,6 +778,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 body | typing.Union[SchemaForRequestBodyApplicationJson] | required |
+header_params | RequestHeaderParams | |
 path_params | RequestPathParams | |
 content_type | str | optional, default is 'application/json' | Selects the schema and serialization of the request body
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
@@ -517,6 +793,54 @@ Type | Description  | Notes
 ------------- | ------------- | -------------
 [**AlarmTicket**](AlarmTicket.md) |  | 
 
+
+### header_params
+#### RequestHeaderParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+x-access-token | XAccessTokenSchema | | optional
+x-secret-token | XSecretTokenSchema | | optional
+authorization | AuthorizationSchema | | optional
+ehelply-active-participant | EhelplyActiveParticipantSchema | | optional
+ehelply-project | EhelplyProjectSchema | | optional
+ehelply-data | EhelplyDataSchema | | optional
+
+#### XAccessTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### XSecretTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### AuthorizationSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyActiveParticipantSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyProjectSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyDataSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
 
 ### path_params
 #### RequestPathParams
@@ -626,10 +950,37 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         'stage': "stage_example",
         'alarm_uuid': "alarm_uuid_example",
     }
+    header_params = {
+    }
     try:
         # Clearalarm
         api_response = api_instance.clear_alarm(
             path_params=path_params,
+            header_params=header_params,
+        )
+        pprint(api_response)
+    except ehelply_python_experimental_sdk.ApiException as e:
+        print("Exception when calling MonitorApi->clear_alarm: %s\n" % e)
+
+    # example passing only optional values
+    path_params = {
+        'service': "service_example",
+        'stage': "stage_example",
+        'alarm_uuid': "alarm_uuid_example",
+    }
+    header_params = {
+        'x-access-token': "x-access-token_example",
+        'x-secret-token': "x-secret-token_example",
+        'authorization': "authorization_example",
+        'ehelply-active-participant': "ehelply-active-participant_example",
+        'ehelply-project': "ehelply-project_example",
+        'ehelply-data': "ehelply-data_example",
+    }
+    try:
+        # Clearalarm
+        api_response = api_instance.clear_alarm(
+            path_params=path_params,
+            header_params=header_params,
         )
         pprint(api_response)
     except ehelply_python_experimental_sdk.ApiException as e:
@@ -639,11 +990,60 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+header_params | RequestHeaderParams | |
 path_params | RequestPathParams | |
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
 skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
+
+### header_params
+#### RequestHeaderParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+x-access-token | XAccessTokenSchema | | optional
+x-secret-token | XSecretTokenSchema | | optional
+authorization | AuthorizationSchema | | optional
+ehelply-active-participant | EhelplyActiveParticipantSchema | | optional
+ehelply-project | EhelplyProjectSchema | | optional
+ehelply-data | EhelplyDataSchema | | optional
+
+#### XAccessTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### XSecretTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### AuthorizationSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyActiveParticipantSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyProjectSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyDataSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
 
 ### path_params
 #### RequestPathParams
@@ -723,6 +1123,190 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **delete_service_super_stack_meta**
+> bool, date, datetime, dict, float, int, list, str, none_type delete_service_super_stack_meta(service)
+
+Deleteservicesuperstackmeta
+
+### Example
+
+```python
+import ehelply_python_experimental_sdk
+from ehelply_python_experimental_sdk.api import monitor_api
+from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.prod.ehelply.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = ehelply_python_experimental_sdk.Configuration(
+    host = "https://api.prod.ehelply.com"
+)
+
+# Enter a context with an instance of the API client
+with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = monitor_api.MonitorApi(api_client)
+
+    # example passing only required values which don't have defaults set
+    path_params = {
+        'service': "service_example",
+    }
+    header_params = {
+    }
+    try:
+        # Deleteservicesuperstackmeta
+        api_response = api_instance.delete_service_super_stack_meta(
+            path_params=path_params,
+            header_params=header_params,
+        )
+        pprint(api_response)
+    except ehelply_python_experimental_sdk.ApiException as e:
+        print("Exception when calling MonitorApi->delete_service_super_stack_meta: %s\n" % e)
+
+    # example passing only optional values
+    path_params = {
+        'service': "service_example",
+    }
+    header_params = {
+        'x-access-token': "x-access-token_example",
+        'x-secret-token': "x-secret-token_example",
+        'authorization': "authorization_example",
+        'ehelply-active-participant': "ehelply-active-participant_example",
+        'ehelply-project': "ehelply-project_example",
+        'ehelply-data': "ehelply-data_example",
+    }
+    try:
+        # Deleteservicesuperstackmeta
+        api_response = api_instance.delete_service_super_stack_meta(
+            path_params=path_params,
+            header_params=header_params,
+        )
+        pprint(api_response)
+    except ehelply_python_experimental_sdk.ApiException as e:
+        print("Exception when calling MonitorApi->delete_service_super_stack_meta: %s\n" % e)
+```
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+header_params | RequestHeaderParams | |
+path_params | RequestPathParams | |
+accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
+stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
+timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
+skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
+
+### header_params
+#### RequestHeaderParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+x-access-token | XAccessTokenSchema | | optional
+x-secret-token | XSecretTokenSchema | | optional
+authorization | AuthorizationSchema | | optional
+ehelply-active-participant | EhelplyActiveParticipantSchema | | optional
+ehelply-project | EhelplyProjectSchema | | optional
+ehelply-data | EhelplyDataSchema | | optional
+
+#### XAccessTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### XSecretTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### AuthorizationSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyActiveParticipantSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyProjectSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyDataSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+### path_params
+#### RequestPathParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+service | ServiceSchema | | 
+
+#### ServiceSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+### Return Types, Responses
+
+Code | Class | Description
+------------- | ------------- | -------------
+n/a | api_client.ApiResponseWithoutDeserialization | When skip_deserialization is True this response is returned
+200 | ApiResponseFor200 | Successful Response
+404 | ApiResponseFor404 | Not found
+422 | ApiResponseFor422 | Validation Error
+
+#### ApiResponseFor200
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor200ResponseBodyApplicationJson, ] |  |
+headers | Unset | headers were not defined |
+
+#### SchemaFor200ResponseBodyApplicationJson
+
+Type | Description | Notes
+------------- | ------------- | -------------
+typing.Union[dict, frozendict, str, date, datetime, int, float, bool, Decimal, None, list, tuple, bytes] | |
+
+#### ApiResponseFor404
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | Unset | body was not defined |
+headers | Unset | headers were not defined |
+
+#### ApiResponseFor422
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor422ResponseBodyApplicationJson, ] |  |
+headers | Unset | headers were not defined |
+
+#### SchemaFor422ResponseBodyApplicationJson
+Type | Description  | Notes
+------------- | ------------- | -------------
+[**HTTPValidationError**](HTTPValidationError.md) |  | 
+
+
+
+**bool, date, datetime, dict, float, int, list, str, none_type**
+
+### Authorization
+
+No authorization required
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_service**
 > ServiceResponse get_service(service)
 
@@ -753,11 +1337,14 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     }
     query_params = {
     }
+    header_params = {
+    }
     try:
         # Getservice
         api_response = api_instance.get_service(
             path_params=path_params,
             query_params=query_params,
+            header_params=header_params,
         )
         pprint(api_response)
     except ehelply_python_experimental_sdk.ApiException as e:
@@ -774,11 +1361,20 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         'alarm_limit': 5,
         'stage': "stage_example",
     }
+    header_params = {
+        'x-access-token': "x-access-token_example",
+        'x-secret-token': "x-secret-token_example",
+        'authorization': "authorization_example",
+        'ehelply-active-participant': "ehelply-active-participant_example",
+        'ehelply-project': "ehelply-project_example",
+        'ehelply-data': "ehelply-data_example",
+    }
     try:
         # Getservice
         api_response = api_instance.get_service(
             path_params=path_params,
             query_params=query_params,
+            header_params=header_params,
         )
         pprint(api_response)
     except ehelply_python_experimental_sdk.ApiException as e:
@@ -789,6 +1385,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 query_params | RequestQueryParams | |
+header_params | RequestHeaderParams | |
 path_params | RequestPathParams | |
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
@@ -832,6 +1429,54 @@ Type | Description | Notes
 **int** |  | defaults to 5
 
 #### StageSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+### header_params
+#### RequestHeaderParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+x-access-token | XAccessTokenSchema | | optional
+x-secret-token | XSecretTokenSchema | | optional
+authorization | AuthorizationSchema | | optional
+ehelply-active-participant | EhelplyActiveParticipantSchema | | optional
+ehelply-project | EhelplyProjectSchema | | optional
+ehelply-data | EhelplyDataSchema | | optional
+
+#### XAccessTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### XSecretTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### AuthorizationSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyActiveParticipantSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyProjectSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyDataSchema
 
 Type | Description | Notes
 ------------- | ------------- | -------------
@@ -931,10 +1576,37 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         'stage': "stage_example",
         'alarm_uuid': "alarm_uuid_example",
     }
+    header_params = {
+    }
     try:
         # Getservicealarm
         api_response = api_instance.get_service_alarm(
             path_params=path_params,
+            header_params=header_params,
+        )
+        pprint(api_response)
+    except ehelply_python_experimental_sdk.ApiException as e:
+        print("Exception when calling MonitorApi->get_service_alarm: %s\n" % e)
+
+    # example passing only optional values
+    path_params = {
+        'service': "service_example",
+        'stage': "stage_example",
+        'alarm_uuid': "alarm_uuid_example",
+    }
+    header_params = {
+        'x-access-token': "x-access-token_example",
+        'x-secret-token': "x-secret-token_example",
+        'authorization': "authorization_example",
+        'ehelply-active-participant': "ehelply-active-participant_example",
+        'ehelply-project': "ehelply-project_example",
+        'ehelply-data': "ehelply-data_example",
+    }
+    try:
+        # Getservicealarm
+        api_response = api_instance.get_service_alarm(
+            path_params=path_params,
+            header_params=header_params,
         )
         pprint(api_response)
     except ehelply_python_experimental_sdk.ApiException as e:
@@ -944,11 +1616,60 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+header_params | RequestHeaderParams | |
 path_params | RequestPathParams | |
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
 skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
+
+### header_params
+#### RequestHeaderParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+x-access-token | XAccessTokenSchema | | optional
+x-secret-token | XSecretTokenSchema | | optional
+authorization | AuthorizationSchema | | optional
+ehelply-active-participant | EhelplyActiveParticipantSchema | | optional
+ehelply-project | EhelplyProjectSchema | | optional
+ehelply-data | EhelplyDataSchema | | optional
+
+#### XAccessTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### XSecretTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### AuthorizationSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyActiveParticipantSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyProjectSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyDataSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
 
 ### path_params
 #### RequestPathParams
@@ -1059,11 +1780,14 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     }
     query_params = {
     }
+    header_params = {
+    }
     try:
         # Getservicealarms
         api_response = api_instance.get_service_alarms(
             path_params=path_params,
             query_params=query_params,
+            header_params=header_params,
         )
         pprint(api_response)
     except ehelply_python_experimental_sdk.ApiException as e:
@@ -1079,11 +1803,20 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         'include_terminated': False,
         'include_cleared': False,
     }
+    header_params = {
+        'x-access-token': "x-access-token_example",
+        'x-secret-token': "x-secret-token_example",
+        'authorization': "authorization_example",
+        'ehelply-active-participant': "ehelply-active-participant_example",
+        'ehelply-project': "ehelply-project_example",
+        'ehelply-data': "ehelply-data_example",
+    }
     try:
         # Getservicealarms
         api_response = api_instance.get_service_alarms(
             path_params=path_params,
             query_params=query_params,
+            header_params=header_params,
         )
         pprint(api_response)
     except ehelply_python_experimental_sdk.ApiException as e:
@@ -1094,6 +1827,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 query_params | RequestQueryParams | |
+header_params | RequestHeaderParams | |
 path_params | RequestPathParams | |
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
@@ -1127,6 +1861,54 @@ Type | Description | Notes
 Type | Description | Notes
 ------------- | ------------- | -------------
 **bool** |  | defaults to False
+
+### header_params
+#### RequestHeaderParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+x-access-token | XAccessTokenSchema | | optional
+x-secret-token | XSecretTokenSchema | | optional
+authorization | AuthorizationSchema | | optional
+ehelply-active-participant | EhelplyActiveParticipantSchema | | optional
+ehelply-project | EhelplyProjectSchema | | optional
+ehelply-data | EhelplyDataSchema | | optional
+
+#### XAccessTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### XSecretTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### AuthorizationSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyActiveParticipantSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyProjectSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyDataSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
 
 ### path_params
 #### RequestPathParams
@@ -1230,11 +2012,14 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     }
     query_params = {
     }
+    header_params = {
+    }
     try:
         # Getserviceheartbeat
         api_response = api_instance.get_service_heartbeat(
             path_params=path_params,
             query_params=query_params,
+            header_params=header_params,
         )
         pprint(api_response)
     except ehelply_python_experimental_sdk.ApiException as e:
@@ -1248,11 +2033,20 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     query_params = {
         'history': 5,
     }
+    header_params = {
+        'x-access-token': "x-access-token_example",
+        'x-secret-token': "x-secret-token_example",
+        'authorization': "authorization_example",
+        'ehelply-active-participant': "ehelply-active-participant_example",
+        'ehelply-project': "ehelply-project_example",
+        'ehelply-data': "ehelply-data_example",
+    }
     try:
         # Getserviceheartbeat
         api_response = api_instance.get_service_heartbeat(
             path_params=path_params,
             query_params=query_params,
+            header_params=header_params,
         )
         pprint(api_response)
     except ehelply_python_experimental_sdk.ApiException as e:
@@ -1263,6 +2057,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 query_params | RequestQueryParams | |
+header_params | RequestHeaderParams | |
 path_params | RequestPathParams | |
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
@@ -1282,6 +2077,54 @@ history | HistorySchema | | optional
 Type | Description | Notes
 ------------- | ------------- | -------------
 **int** |  | defaults to 5
+
+### header_params
+#### RequestHeaderParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+x-access-token | XAccessTokenSchema | | optional
+x-secret-token | XSecretTokenSchema | | optional
+authorization | AuthorizationSchema | | optional
+ehelply-active-participant | EhelplyActiveParticipantSchema | | optional
+ehelply-project | EhelplyProjectSchema | | optional
+ehelply-data | EhelplyDataSchema | | optional
+
+#### XAccessTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### XSecretTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### AuthorizationSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyActiveParticipantSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyProjectSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyDataSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
 
 ### path_params
 #### RequestPathParams
@@ -1384,11 +2227,14 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     }
     query_params = {
     }
+    header_params = {
+    }
     try:
         # Getservicekpis
         api_response = api_instance.get_service_kpis(
             path_params=path_params,
             query_params=query_params,
+            header_params=header_params,
         )
         pprint(api_response)
     except ehelply_python_experimental_sdk.ApiException as e:
@@ -1401,11 +2247,20 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     query_params = {
         'history': 5,
     }
+    header_params = {
+        'x-access-token': "x-access-token_example",
+        'x-secret-token': "x-secret-token_example",
+        'authorization': "authorization_example",
+        'ehelply-active-participant': "ehelply-active-participant_example",
+        'ehelply-project': "ehelply-project_example",
+        'ehelply-data': "ehelply-data_example",
+    }
     try:
         # Getservicekpis
         api_response = api_instance.get_service_kpis(
             path_params=path_params,
             query_params=query_params,
+            header_params=header_params,
         )
         pprint(api_response)
     except ehelply_python_experimental_sdk.ApiException as e:
@@ -1416,6 +2271,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 query_params | RequestQueryParams | |
+header_params | RequestHeaderParams | |
 path_params | RequestPathParams | |
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
@@ -1435,6 +2291,54 @@ history | HistorySchema | | optional
 Type | Description | Notes
 ------------- | ------------- | -------------
 **int** |  | defaults to 5
+
+### header_params
+#### RequestHeaderParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+x-access-token | XAccessTokenSchema | | optional
+x-secret-token | XSecretTokenSchema | | optional
+authorization | AuthorizationSchema | | optional
+ehelply-active-participant | EhelplyActiveParticipantSchema | | optional
+ehelply-project | EhelplyProjectSchema | | optional
+ehelply-data | EhelplyDataSchema | | optional
+
+#### XAccessTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### XSecretTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### AuthorizationSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyActiveParticipantSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyProjectSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyDataSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
 
 ### path_params
 #### RequestPathParams
@@ -1795,11 +2699,14 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     }
     query_params = {
     }
+    header_params = {
+    }
     try:
         # Getservicevitals
         api_response = api_instance.get_service_vitals(
             path_params=path_params,
             query_params=query_params,
+            header_params=header_params,
         )
         pprint(api_response)
     except ehelply_python_experimental_sdk.ApiException as e:
@@ -1813,11 +2720,20 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     query_params = {
         'history': 5,
     }
+    header_params = {
+        'x-access-token': "x-access-token_example",
+        'x-secret-token': "x-secret-token_example",
+        'authorization': "authorization_example",
+        'ehelply-active-participant': "ehelply-active-participant_example",
+        'ehelply-project': "ehelply-project_example",
+        'ehelply-data': "ehelply-data_example",
+    }
     try:
         # Getservicevitals
         api_response = api_instance.get_service_vitals(
             path_params=path_params,
             query_params=query_params,
+            header_params=header_params,
         )
         pprint(api_response)
     except ehelply_python_experimental_sdk.ApiException as e:
@@ -1828,6 +2744,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 query_params | RequestQueryParams | |
+header_params | RequestHeaderParams | |
 path_params | RequestPathParams | |
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
@@ -1847,6 +2764,54 @@ history | HistorySchema | | optional
 Type | Description | Notes
 ------------- | ------------- | -------------
 **int** |  | defaults to 5
+
+### header_params
+#### RequestHeaderParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+x-access-token | XAccessTokenSchema | | optional
+x-secret-token | XSecretTokenSchema | | optional
+authorization | AuthorizationSchema | | optional
+ehelply-active-participant | EhelplyActiveParticipantSchema | | optional
+ehelply-project | EhelplyProjectSchema | | optional
+ehelply-data | EhelplyDataSchema | | optional
+
+#### XAccessTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### XSecretTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### AuthorizationSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyActiveParticipantSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyProjectSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyDataSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
 
 ### path_params
 #### RequestPathParams
@@ -1953,10 +2918,19 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         'stage': "stage_example",
         'key': "key_example",
     }
+    header_params = {
+        'x-access-token': "x-access-token_example",
+        'x-secret-token': "x-secret-token_example",
+        'authorization': "authorization_example",
+        'ehelply-active-participant': "ehelply-active-participant_example",
+        'ehelply-project': "ehelply-project_example",
+        'ehelply-data': "ehelply-data_example",
+    }
     try:
         # Getservices
         api_response = api_instance.get_services(
             query_params=query_params,
+            header_params=header_params,
         )
         pprint(api_response)
     except ehelply_python_experimental_sdk.ApiException as e:
@@ -1967,6 +2941,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 query_params | RequestQueryParams | |
+header_params | RequestHeaderParams | |
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
@@ -2023,6 +2998,54 @@ Type | Description | Notes
 **str** |  | 
 
 #### KeySchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+### header_params
+#### RequestHeaderParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+x-access-token | XAccessTokenSchema | | optional
+x-secret-token | XSecretTokenSchema | | optional
+authorization | AuthorizationSchema | | optional
+ehelply-active-participant | EhelplyActiveParticipantSchema | | optional
+ehelply-project | EhelplyProjectSchema | | optional
+ehelply-data | EhelplyDataSchema | | optional
+
+#### XAccessTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### XSecretTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### AuthorizationSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyActiveParticipantSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyProjectSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyDataSchema
 
 Type | Description | Notes
 ------------- | ------------- | -------------
@@ -2167,6 +3190,77 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_supertack_services**
+> [ServiceSuperStackMeta] get_supertack_services()
+
+Getsupertackservices
+
+### Example
+
+```python
+import ehelply_python_experimental_sdk
+from ehelply_python_experimental_sdk.api import monitor_api
+from ehelply_python_experimental_sdk.model.service_super_stack_meta import ServiceSuperStackMeta
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.prod.ehelply.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = ehelply_python_experimental_sdk.Configuration(
+    host = "https://api.prod.ehelply.com"
+)
+
+# Enter a context with an instance of the API client
+with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = monitor_api.MonitorApi(api_client)
+
+    # example, this endpoint has no required or optional parameters
+    try:
+        # Getsupertackservices
+        api_response = api_instance.get_supertack_services()
+        pprint(api_response)
+    except ehelply_python_experimental_sdk.ApiException as e:
+        print("Exception when calling MonitorApi->get_supertack_services: %s\n" % e)
+```
+### Parameters
+This endpoint does not need any parameter.
+
+### Return Types, Responses
+
+Code | Class | Description
+------------- | ------------- | -------------
+n/a | api_client.ApiResponseWithoutDeserialization | When skip_deserialization is True this response is returned
+200 | ApiResponseFor200 | Successful Response
+404 | ApiResponseFor404 | Not found
+
+#### ApiResponseFor200
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor200ResponseBodyApplicationJson, ] |  |
+headers | Unset | headers were not defined |
+
+#### SchemaFor200ResponseBodyApplicationJson
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**[ServiceSuperStackMeta]** |  | 
+
+#### ApiResponseFor404
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | Unset | body was not defined |
+headers | Unset | headers were not defined |
+
+
+[**[ServiceSuperStackMeta]**](ServiceSuperStackMeta.md)
+
+### Authorization
+
+No authorization required
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **hide_service**
 > ServiceMessageResponse hide_service(servicestage)
 
@@ -2196,10 +3290,36 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         'service': "service_example",
         'stage': "stage_example",
     }
+    header_params = {
+    }
     try:
         # Hideservice
         api_response = api_instance.hide_service(
             path_params=path_params,
+            header_params=header_params,
+        )
+        pprint(api_response)
+    except ehelply_python_experimental_sdk.ApiException as e:
+        print("Exception when calling MonitorApi->hide_service: %s\n" % e)
+
+    # example passing only optional values
+    path_params = {
+        'service': "service_example",
+        'stage': "stage_example",
+    }
+    header_params = {
+        'x-access-token': "x-access-token_example",
+        'x-secret-token': "x-secret-token_example",
+        'authorization': "authorization_example",
+        'ehelply-active-participant': "ehelply-active-participant_example",
+        'ehelply-project': "ehelply-project_example",
+        'ehelply-data': "ehelply-data_example",
+    }
+    try:
+        # Hideservice
+        api_response = api_instance.hide_service(
+            path_params=path_params,
+            header_params=header_params,
         )
         pprint(api_response)
     except ehelply_python_experimental_sdk.ApiException as e:
@@ -2209,11 +3329,60 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+header_params | RequestHeaderParams | |
 path_params | RequestPathParams | |
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
 skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
+
+### header_params
+#### RequestHeaderParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+x-access-token | XAccessTokenSchema | | optional
+x-secret-token | XSecretTokenSchema | | optional
+authorization | AuthorizationSchema | | optional
+ehelply-active-participant | EhelplyActiveParticipantSchema | | optional
+ehelply-project | EhelplyProjectSchema | | optional
+ehelply-data | EhelplyDataSchema | | optional
+
+#### XAccessTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### XSecretTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### AuthorizationSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyActiveParticipantSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyProjectSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyDataSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
 
 ### path_params
 #### RequestPathParams
@@ -2317,6 +3486,8 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         'stage': "stage_example",
         'alarm_uuid': "alarm_uuid_example",
     }
+    header_params = {
+    }
     body = AlarmIgnore(
         ignorer_uuid="ignorer_uuid_example",
     )
@@ -2324,6 +3495,35 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         # Ignorealarm
         api_response = api_instance.ignore_alarm(
             path_params=path_params,
+            header_params=header_params,
+            body=body,
+        )
+        pprint(api_response)
+    except ehelply_python_experimental_sdk.ApiException as e:
+        print("Exception when calling MonitorApi->ignore_alarm: %s\n" % e)
+
+    # example passing only optional values
+    path_params = {
+        'service': "service_example",
+        'stage': "stage_example",
+        'alarm_uuid': "alarm_uuid_example",
+    }
+    header_params = {
+        'x-access-token': "x-access-token_example",
+        'x-secret-token': "x-secret-token_example",
+        'authorization': "authorization_example",
+        'ehelply-active-participant': "ehelply-active-participant_example",
+        'ehelply-project': "ehelply-project_example",
+        'ehelply-data': "ehelply-data_example",
+    }
+    body = AlarmIgnore(
+        ignorer_uuid="ignorer_uuid_example",
+    )
+    try:
+        # Ignorealarm
+        api_response = api_instance.ignore_alarm(
+            path_params=path_params,
+            header_params=header_params,
             body=body,
         )
         pprint(api_response)
@@ -2335,6 +3535,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 body | typing.Union[SchemaForRequestBodyApplicationJson] | required |
+header_params | RequestHeaderParams | |
 path_params | RequestPathParams | |
 content_type | str | optional, default is 'application/json' | Selects the schema and serialization of the request body
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
@@ -2349,6 +3550,54 @@ Type | Description  | Notes
 ------------- | ------------- | -------------
 [**AlarmIgnore**](AlarmIgnore.md) |  | 
 
+
+### header_params
+#### RequestHeaderParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+x-access-token | XAccessTokenSchema | | optional
+x-secret-token | XSecretTokenSchema | | optional
+authorization | AuthorizationSchema | | optional
+ehelply-active-participant | EhelplyActiveParticipantSchema | | optional
+ehelply-project | EhelplyProjectSchema | | optional
+ehelply-data | EhelplyDataSchema | | optional
+
+#### XAccessTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### XSecretTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### AuthorizationSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyActiveParticipantSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyProjectSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyDataSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
 
 ### path_params
 #### RequestPathParams
@@ -2454,6 +3703,8 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     api_instance = monitor_api.MonitorApi(api_client)
 
     # example passing only required values which don't have defaults set
+    header_params = {
+    }
     body = ServiceCreate(
         name="name_example",
         key="key_example",
@@ -2469,6 +3720,38 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     try:
         # Registerservice
         api_response = api_instance.register_service(
+            header_params=header_params,
+            body=body,
+        )
+        pprint(api_response)
+    except ehelply_python_experimental_sdk.ApiException as e:
+        print("Exception when calling MonitorApi->register_service: %s\n" % e)
+
+    # example passing only optional values
+    header_params = {
+        'x-access-token': "x-access-token_example",
+        'x-secret-token': "x-secret-token_example",
+        'authorization': "authorization_example",
+        'ehelply-active-participant': "ehelply-active-participant_example",
+        'ehelply-project': "ehelply-project_example",
+        'ehelply-data': "ehelply-data_example",
+    }
+    body = ServiceCreate(
+        name="name_example",
+        key="key_example",
+        version="version_example",
+        summary="summary_example",
+        authors=[
+            "authors_example"
+        ],
+        author_emails=[
+            "author_emails_example"
+        ],
+    )
+    try:
+        # Registerservice
+        api_response = api_instance.register_service(
+            header_params=header_params,
             body=body,
         )
         pprint(api_response)
@@ -2480,6 +3763,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 body | typing.Union[SchemaForRequestBodyApplicationJson] | required |
+header_params | RequestHeaderParams | |
 content_type | str | optional, default is 'application/json' | Selects the schema and serialization of the request body
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
@@ -2493,6 +3777,54 @@ Type | Description  | Notes
 ------------- | ------------- | -------------
 [**ServiceCreate**](ServiceCreate.md) |  | 
 
+
+### header_params
+#### RequestHeaderParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+x-access-token | XAccessTokenSchema | | optional
+x-secret-token | XSecretTokenSchema | | optional
+authorization | AuthorizationSchema | | optional
+ehelply-active-participant | EhelplyActiveParticipantSchema | | optional
+ehelply-project | EhelplyProjectSchema | | optional
+ehelply-data | EhelplyDataSchema | | optional
+
+#### XAccessTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### XSecretTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### AuthorizationSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyActiveParticipantSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyProjectSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyDataSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
 
 ### Return Types, Responses
 
@@ -2545,6 +3877,283 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **save_service_super_stack_meta**
+> bool, date, datetime, dict, float, int, list, str, none_type save_service_super_stack_meta(serviceservice_super_stack_meta)
+
+Saveservicesuperstackmeta
+
+### Example
+
+```python
+import ehelply_python_experimental_sdk
+from ehelply_python_experimental_sdk.api import monitor_api
+from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
+from ehelply_python_experimental_sdk.model.service_super_stack_meta import ServiceSuperStackMeta
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.prod.ehelply.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = ehelply_python_experimental_sdk.Configuration(
+    host = "https://api.prod.ehelply.com"
+)
+
+# Enter a context with an instance of the API client
+with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = monitor_api.MonitorApi(api_client)
+
+    # example passing only required values which don't have defaults set
+    path_params = {
+        'service': "service_example",
+    }
+    header_params = {
+    }
+    body = ServiceSuperStackMeta(
+        human_name="human_name_example",
+        route_name="route_name_example",
+        service_name="service_name_example",
+        advertise=True,
+        featured=True,
+        picture="picture_example",
+        background_picture="background_picture_example",
+        tag_line="tag_line_example",
+        summary="summary_example",
+        description="description_example",
+        features=[
+            ServiceSuperStackMetaFeature(
+                name="name_example",
+                summary="summary_example",
+            )
+        ],
+        use_cases=[
+            ServiceSuperStackMetaUseCase(
+                name="name_example",
+                summary="summary_example",
+            )
+        ],
+        getting_started=ServiceSuperStackMetaGettingStarted(
+            blurb="blurb_example",
+            endpoint_teasers=[
+                ServiceSuperStackMetaGettingStartedEndpointTeaser(
+                    path="path_example",
+                    method="method_example",
+                    description="description_example",
+                )
+            ],
+        ),
+        faqs=[
+            ServiceSuperStackMetaFaq(
+                question="question_example",
+                answer="answer_example",
+            )
+        ],
+    )
+    try:
+        # Saveservicesuperstackmeta
+        api_response = api_instance.save_service_super_stack_meta(
+            path_params=path_params,
+            header_params=header_params,
+            body=body,
+        )
+        pprint(api_response)
+    except ehelply_python_experimental_sdk.ApiException as e:
+        print("Exception when calling MonitorApi->save_service_super_stack_meta: %s\n" % e)
+
+    # example passing only optional values
+    path_params = {
+        'service': "service_example",
+    }
+    header_params = {
+        'x-access-token': "x-access-token_example",
+        'x-secret-token': "x-secret-token_example",
+        'authorization': "authorization_example",
+        'ehelply-active-participant': "ehelply-active-participant_example",
+        'ehelply-project': "ehelply-project_example",
+        'ehelply-data': "ehelply-data_example",
+    }
+    body = ServiceSuperStackMeta(
+        human_name="human_name_example",
+        route_name="route_name_example",
+        service_name="service_name_example",
+        advertise=True,
+        featured=True,
+        picture="picture_example",
+        background_picture="background_picture_example",
+        tag_line="tag_line_example",
+        summary="summary_example",
+        description="description_example",
+        features=[
+            ServiceSuperStackMetaFeature(
+                name="name_example",
+                summary="summary_example",
+            )
+        ],
+        use_cases=[
+            ServiceSuperStackMetaUseCase(
+                name="name_example",
+                summary="summary_example",
+            )
+        ],
+        getting_started=ServiceSuperStackMetaGettingStarted(
+            blurb="blurb_example",
+            endpoint_teasers=[
+                ServiceSuperStackMetaGettingStartedEndpointTeaser(
+                    path="path_example",
+                    method="method_example",
+                    description="description_example",
+                )
+            ],
+        ),
+        faqs=[
+            ServiceSuperStackMetaFaq(
+                question="question_example",
+                answer="answer_example",
+            )
+        ],
+    )
+    try:
+        # Saveservicesuperstackmeta
+        api_response = api_instance.save_service_super_stack_meta(
+            path_params=path_params,
+            header_params=header_params,
+            body=body,
+        )
+        pprint(api_response)
+    except ehelply_python_experimental_sdk.ApiException as e:
+        print("Exception when calling MonitorApi->save_service_super_stack_meta: %s\n" % e)
+```
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+body | typing.Union[SchemaForRequestBodyApplicationJson] | required |
+header_params | RequestHeaderParams | |
+path_params | RequestPathParams | |
+content_type | str | optional, default is 'application/json' | Selects the schema and serialization of the request body
+accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
+stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
+timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
+skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
+
+### body
+
+#### SchemaForRequestBodyApplicationJson
+Type | Description  | Notes
+------------- | ------------- | -------------
+[**ServiceSuperStackMeta**](ServiceSuperStackMeta.md) |  | 
+
+
+### header_params
+#### RequestHeaderParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+x-access-token | XAccessTokenSchema | | optional
+x-secret-token | XSecretTokenSchema | | optional
+authorization | AuthorizationSchema | | optional
+ehelply-active-participant | EhelplyActiveParticipantSchema | | optional
+ehelply-project | EhelplyProjectSchema | | optional
+ehelply-data | EhelplyDataSchema | | optional
+
+#### XAccessTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### XSecretTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### AuthorizationSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyActiveParticipantSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyProjectSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyDataSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+### path_params
+#### RequestPathParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+service | ServiceSchema | | 
+
+#### ServiceSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+### Return Types, Responses
+
+Code | Class | Description
+------------- | ------------- | -------------
+n/a | api_client.ApiResponseWithoutDeserialization | When skip_deserialization is True this response is returned
+200 | ApiResponseFor200 | Successful Response
+404 | ApiResponseFor404 | Not found
+422 | ApiResponseFor422 | Validation Error
+
+#### ApiResponseFor200
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor200ResponseBodyApplicationJson, ] |  |
+headers | Unset | headers were not defined |
+
+#### SchemaFor200ResponseBodyApplicationJson
+
+Type | Description | Notes
+------------- | ------------- | -------------
+typing.Union[dict, frozendict, str, date, datetime, int, float, bool, Decimal, None, list, tuple, bytes] | |
+
+#### ApiResponseFor404
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | Unset | body was not defined |
+headers | Unset | headers were not defined |
+
+#### ApiResponseFor422
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor422ResponseBodyApplicationJson, ] |  |
+headers | Unset | headers were not defined |
+
+#### SchemaFor422ResponseBodyApplicationJson
+Type | Description  | Notes
+------------- | ------------- | -------------
+[**HTTPValidationError**](HTTPValidationError.md) |  | 
+
+
+
+**bool, date, datetime, dict, float, int, list, str, none_type**
+
+### Authorization
+
+No authorization required
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **search_alarms**
 > Page search_alarms(service)
 
@@ -2575,11 +4184,14 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     }
     query_params = {
     }
+    header_params = {
+    }
     try:
         # Searchalarms
         api_response = api_instance.search_alarms(
             path_params=path_params,
             query_params=query_params,
+            header_params=header_params,
         )
         pprint(api_response)
     except ehelply_python_experimental_sdk.ApiException as e:
@@ -2597,11 +4209,20 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         'sort_on': "sort_on_example",
         'sort_desc': False,
     }
+    header_params = {
+        'x-access-token': "x-access-token_example",
+        'x-secret-token': "x-secret-token_example",
+        'authorization': "authorization_example",
+        'ehelply-active-participant': "ehelply-active-participant_example",
+        'ehelply-project': "ehelply-project_example",
+        'ehelply-data': "ehelply-data_example",
+    }
     try:
         # Searchalarms
         api_response = api_instance.search_alarms(
             path_params=path_params,
             query_params=query_params,
+            header_params=header_params,
         )
         pprint(api_response)
     except ehelply_python_experimental_sdk.ApiException as e:
@@ -2612,6 +4233,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 query_params | RequestQueryParams | |
+header_params | RequestHeaderParams | |
 path_params | RequestPathParams | |
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
@@ -2666,6 +4288,54 @@ Type | Description | Notes
 Type | Description | Notes
 ------------- | ------------- | -------------
 **bool** |  | defaults to False
+
+### header_params
+#### RequestHeaderParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+x-access-token | XAccessTokenSchema | | optional
+x-secret-token | XSecretTokenSchema | | optional
+authorization | AuthorizationSchema | | optional
+ehelply-active-participant | EhelplyActiveParticipantSchema | | optional
+ehelply-project | EhelplyProjectSchema | | optional
+ehelply-data | EhelplyDataSchema | | optional
+
+#### XAccessTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### XSecretTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### AuthorizationSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyActiveParticipantSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyProjectSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyDataSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
 
 ### path_params
 #### RequestPathParams
@@ -2760,10 +4430,36 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         'service': "service_example",
         'stage': "stage_example",
     }
+    header_params = {
+    }
     try:
         # Showservice
         api_response = api_instance.show_service(
             path_params=path_params,
+            header_params=header_params,
+        )
+        pprint(api_response)
+    except ehelply_python_experimental_sdk.ApiException as e:
+        print("Exception when calling MonitorApi->show_service: %s\n" % e)
+
+    # example passing only optional values
+    path_params = {
+        'service': "service_example",
+        'stage': "stage_example",
+    }
+    header_params = {
+        'x-access-token': "x-access-token_example",
+        'x-secret-token': "x-secret-token_example",
+        'authorization': "authorization_example",
+        'ehelply-active-participant': "ehelply-active-participant_example",
+        'ehelply-project': "ehelply-project_example",
+        'ehelply-data': "ehelply-data_example",
+    }
+    try:
+        # Showservice
+        api_response = api_instance.show_service(
+            path_params=path_params,
+            header_params=header_params,
         )
         pprint(api_response)
     except ehelply_python_experimental_sdk.ApiException as e:
@@ -2773,11 +4469,60 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+header_params | RequestHeaderParams | |
 path_params | RequestPathParams | |
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
 skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
+
+### header_params
+#### RequestHeaderParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+x-access-token | XAccessTokenSchema | | optional
+x-secret-token | XSecretTokenSchema | | optional
+authorization | AuthorizationSchema | | optional
+ehelply-active-participant | EhelplyActiveParticipantSchema | | optional
+ehelply-project | EhelplyProjectSchema | | optional
+ehelply-data | EhelplyDataSchema | | optional
+
+#### XAccessTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### XSecretTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### AuthorizationSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyActiveParticipantSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyProjectSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyDataSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
 
 ### path_params
 #### RequestPathParams
@@ -2881,6 +4626,8 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         'stage': "stage_example",
         'alarm_uuid': "alarm_uuid_example",
     }
+    header_params = {
+    }
     body = AlarmTerminate(
         terminater_uuid="terminater_uuid_example",
     )
@@ -2888,6 +4635,35 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         # Terminatealarm
         api_response = api_instance.terminate_alarm(
             path_params=path_params,
+            header_params=header_params,
+            body=body,
+        )
+        pprint(api_response)
+    except ehelply_python_experimental_sdk.ApiException as e:
+        print("Exception when calling MonitorApi->terminate_alarm: %s\n" % e)
+
+    # example passing only optional values
+    path_params = {
+        'service': "service_example",
+        'stage': "stage_example",
+        'alarm_uuid': "alarm_uuid_example",
+    }
+    header_params = {
+        'x-access-token': "x-access-token_example",
+        'x-secret-token': "x-secret-token_example",
+        'authorization': "authorization_example",
+        'ehelply-active-participant': "ehelply-active-participant_example",
+        'ehelply-project': "ehelply-project_example",
+        'ehelply-data': "ehelply-data_example",
+    }
+    body = AlarmTerminate(
+        terminater_uuid="terminater_uuid_example",
+    )
+    try:
+        # Terminatealarm
+        api_response = api_instance.terminate_alarm(
+            path_params=path_params,
+            header_params=header_params,
             body=body,
         )
         pprint(api_response)
@@ -2899,6 +4675,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 body | typing.Union[SchemaForRequestBodyApplicationJson] | required |
+header_params | RequestHeaderParams | |
 path_params | RequestPathParams | |
 content_type | str | optional, default is 'application/json' | Selects the schema and serialization of the request body
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
@@ -2913,6 +4690,54 @@ Type | Description  | Notes
 ------------- | ------------- | -------------
 [**AlarmTerminate**](AlarmTerminate.md) |  | 
 
+
+### header_params
+#### RequestHeaderParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+x-access-token | XAccessTokenSchema | | optional
+x-secret-token | XSecretTokenSchema | | optional
+authorization | AuthorizationSchema | | optional
+ehelply-active-participant | EhelplyActiveParticipantSchema | | optional
+ehelply-project | EhelplyProjectSchema | | optional
+ehelply-data | EhelplyDataSchema | | optional
+
+#### XAccessTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### XSecretTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### AuthorizationSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyActiveParticipantSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyProjectSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyDataSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
 
 ### path_params
 #### RequestPathParams
@@ -3022,6 +4847,8 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         'service': "service_example",
         'stage': "stage_example",
     }
+    header_params = {
+    }
     body = AlarmCreate(
         process="process_example",
         severity="severity_example",
@@ -3033,6 +4860,38 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         # Triggeralarm
         api_response = api_instance.trigger_alarm(
             path_params=path_params,
+            header_params=header_params,
+            body=body,
+        )
+        pprint(api_response)
+    except ehelply_python_experimental_sdk.ApiException as e:
+        print("Exception when calling MonitorApi->trigger_alarm: %s\n" % e)
+
+    # example passing only optional values
+    path_params = {
+        'service': "service_example",
+        'stage': "stage_example",
+    }
+    header_params = {
+        'x-access-token': "x-access-token_example",
+        'x-secret-token': "x-secret-token_example",
+        'authorization': "authorization_example",
+        'ehelply-active-participant': "ehelply-active-participant_example",
+        'ehelply-project': "ehelply-project_example",
+        'ehelply-data': "ehelply-data_example",
+    }
+    body = AlarmCreate(
+        process="process_example",
+        severity="severity_example",
+        name="name_example",
+        summary="summary_example",
+        description="description_example",
+    )
+    try:
+        # Triggeralarm
+        api_response = api_instance.trigger_alarm(
+            path_params=path_params,
+            header_params=header_params,
             body=body,
         )
         pprint(api_response)
@@ -3044,6 +4903,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 body | typing.Union[SchemaForRequestBodyApplicationJson] | required |
+header_params | RequestHeaderParams | |
 path_params | RequestPathParams | |
 content_type | str | optional, default is 'application/json' | Selects the schema and serialization of the request body
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
@@ -3058,6 +4918,54 @@ Type | Description  | Notes
 ------------- | ------------- | -------------
 [**AlarmCreate**](AlarmCreate.md) |  | 
 
+
+### header_params
+#### RequestHeaderParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+x-access-token | XAccessTokenSchema | | optional
+x-secret-token | XSecretTokenSchema | | optional
+authorization | AuthorizationSchema | | optional
+ehelply-active-participant | EhelplyActiveParticipantSchema | | optional
+ehelply-project | EhelplyProjectSchema | | optional
+ehelply-data | EhelplyDataSchema | | optional
+
+#### XAccessTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### XSecretTokenSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### AuthorizationSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyActiveParticipantSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyProjectSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+#### EhelplyDataSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
 
 ### path_params
 #### RequestPathParams
