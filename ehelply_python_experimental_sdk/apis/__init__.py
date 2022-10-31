@@ -21,6 +21,7 @@ from ehelply_python_experimental_sdk.api.catalogs_api import CatalogsApi
 from ehelply_python_experimental_sdk.api.category_api import CategoryApi
 from ehelply_python_experimental_sdk.api.companies_api import CompaniesApi
 from ehelply_python_experimental_sdk.api.content_api import ContentApi
+from ehelply_python_experimental_sdk.api.facts_api import FactsApi
 from ehelply_python_experimental_sdk.api.fields_api import FieldsApi
 from ehelply_python_experimental_sdk.api.logging_api import LoggingApi
 from ehelply_python_experimental_sdk.api.meta_api import MetaApi

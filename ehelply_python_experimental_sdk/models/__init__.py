@@ -47,6 +47,8 @@ from ehelply_python_experimental_sdk.model.dates_meta import DatesMeta
 from ehelply_python_experimental_sdk.model.detailed_meta import DetailedMeta
 from ehelply_python_experimental_sdk.model.detailed_meta_create import DetailedMetaCreate
 from ehelply_python_experimental_sdk.model.discount import Discount
+from ehelply_python_experimental_sdk.model.fact import Fact
+from ehelply_python_experimental_sdk.model.fact_create import FactCreate
 from ehelply_python_experimental_sdk.model.field import Field
 from ehelply_python_experimental_sdk.model.field_dynamo import FieldDynamo
 from ehelply_python_experimental_sdk.model.get_invoice_response import GetInvoiceResponse
