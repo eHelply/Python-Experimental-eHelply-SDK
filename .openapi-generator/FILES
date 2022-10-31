@@ -45,6 +45,9 @@ docs/DatesMeta.md
 docs/DetailedMeta.md
 docs/DetailedMetaCreate.md
 docs/Discount.md
+docs/Fact.md
+docs/FactCreate.md
+docs/FactsApi.md
 docs/Field.md
 docs/FieldDynamo.md
 docs/FieldsApi.md
@@ -164,6 +167,7 @@ ehelply_python_experimental_sdk/api/catalogs_api.py
 ehelply_python_experimental_sdk/api/category_api.py
 ehelply_python_experimental_sdk/api/companies_api.py
 ehelply_python_experimental_sdk/api/content_api.py
+ehelply_python_experimental_sdk/api/facts_api.py
 ehelply_python_experimental_sdk/api/fields_api.py
 ehelply_python_experimental_sdk/api/logging_api.py
 ehelply_python_experimental_sdk/api/meta_api.py
@@ -220,6 +224,8 @@ ehelply_python_experimental_sdk/model/dates_meta.py
 ehelply_python_experimental_sdk/model/detailed_meta.py
 ehelply_python_experimental_sdk/model/detailed_meta_create.py
 ehelply_python_experimental_sdk/model/discount.py
+ehelply_python_experimental_sdk/model/fact.py
+ehelply_python_experimental_sdk/model/fact_create.py
 ehelply_python_experimental_sdk/model/field.py
 ehelply_python_experimental_sdk/model/field_dynamo.py
 ehelply_python_experimental_sdk/model/get_invoice_response.py
@@ -367,6 +373,9 @@ test/test_dates_meta.py
 test/test_detailed_meta.py
 test/test_detailed_meta_create.py
 test/test_discount.py
+test/test_fact.py
+test/test_fact_create.py
+test/test_facts_api.py
 test/test_field.py
 test/test_field_dynamo.py
 test/test_fields_api.py
