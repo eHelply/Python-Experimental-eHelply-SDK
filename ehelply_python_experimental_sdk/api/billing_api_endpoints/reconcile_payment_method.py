@@ -126,7 +126,33 @@ request_header_ehelply_data = api_client.HeaderParameter(
     style=api_client.ParameterStyle.SIMPLE,
     schema=EhelplyDataSchema,
 )
-_path = '/sam/billing/reconcile_payment'
+# path params
+ProjectUuidSchema = StrSchema
+RequestRequiredPathParams = typing.TypedDict(
+    'RequestRequiredPathParams',
+    {
+        'project_uuid': ProjectUuidSchema,
+    }
+)
+RequestOptionalPathParams = typing.TypedDict(
+    'RequestOptionalPathParams',
+    {
+    },
+    total=False
+)
+
+
+class RequestPathParams(RequestRequiredPathParams, RequestOptionalPathParams):
+    pass
+
+
+request_path_project_uuid = api_client.PathParameter(
+    name="project_uuid",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=ProjectUuidSchema,
+    required=True,
+)
+_path = '/sam/billing/projects/{project_uuid}/payment-methods-reconciliation'
 _method = 'GET'
 SchemaFor200ResponseBodyApplicationJson = BoolSchema
 
@@ -193,6 +219,7 @@ class ReconcilePaymentMethod(api_client.Api):
     def reconcile_payment_method(
         self: api_client.Api,
         header_params: RequestHeaderParams = frozendict(),
+        path_params: RequestPathParams = frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
@@ -208,6 +235,17 @@ class ReconcilePaymentMethod(api_client.Api):
             class instances
         """
         self._verify_typed_dict_inputs(RequestHeaderParams, header_params)
+        self._verify_typed_dict_inputs(RequestPathParams, path_params)
+
+        _path_params = {}
+        for parameter in (
+            request_path_project_uuid,
+        ):
+            parameter_data = path_params.get(parameter.name, unset)
+            if parameter_data is unset:
+                continue
+            serialized_data = parameter.serialize(parameter_data)
+            _path_params.update(serialized_data)
 
         _headers = HTTPHeaderDict()
         for parameter in (
@@ -231,6 +269,7 @@ class ReconcilePaymentMethod(api_client.Api):
         response = self.api_client.call_api(
             resource_path=_path,
             method=_method,
+            path_params=_path_params,
             headers=_headers,
             stream=stream,
             timeout=timeout,
