@@ -4,16 +4,16 @@ All URIs are relative to *https://api.prod.ehelply.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_billing_account**](BillingApi.md#create_billing_account) | **POST** /sam/billing/create_billing_account | Createbillingaccount
-[**get_client_secret**](BillingApi.md#get_client_secret) | **GET** /sam/billing/retrieve_secret | Getclientsecret
-[**has_payment**](BillingApi.md#has_payment) | **GET** /sam/billing/has_payment | Haspayment
-[**list_payment_methods**](BillingApi.md#list_payment_methods) | **GET** /sam/billing/view_payment_method | Listpaymentmethods
-[**process_payment**](BillingApi.md#process_payment) | **POST** /sam/billing/process_payment | Processpayment
-[**reconcile_payment_method**](BillingApi.md#reconcile_payment_method) | **GET** /sam/billing/reconcile_payment | Reconcilepaymentmethod
-[**remove_payment_method**](BillingApi.md#remove_payment_method) | **DELETE** /sam/billing/remove_payment_method | Removepaymentmethod
+[**create_billing_account**](BillingApi.md#create_billing_account) | **POST** /sam/billing/projects/{project_uuid}/accounts | Createbillingaccount
+[**get_client_secret**](BillingApi.md#get_client_secret) | **GET** /sam/billing/projects/{project_uuid}/secrets | Getclientsecret
+[**has_payment**](BillingApi.md#has_payment) | **GET** /sam/billing/projects/{project_uuid}/payment-methods-exist | Haspayment
+[**list_payment_methods**](BillingApi.md#list_payment_methods) | **GET** /sam/billing/projects/{project_uuid}/payment-methods | Listpaymentmethods
+[**process_payment**](BillingApi.md#process_payment) | **POST** /sam/billing/projects/{project_uuid}/payments | Processpayment
+[**reconcile_payment_method**](BillingApi.md#reconcile_payment_method) | **GET** /sam/billing/projects/{project_uuid}/payment-methods-reconciliation | Reconcilepaymentmethod
+[**remove_payment_method**](BillingApi.md#remove_payment_method) | **DELETE** /sam/billing/projects/{project_uuid}/payment-methods | Removepaymentmethod
 
 # **create_billing_account**
-> StripeAccountResponse create_billing_account()
+> StripeAccountResponse create_billing_account(project_uuid)
 
 Createbillingaccount
 
@@ -36,7 +36,26 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = billing_api.BillingApi(api_client)
 
+    # example passing only required values which don't have defaults set
+    path_params = {
+        'project_uuid': "project_uuid_example",
+    }
+    header_params = {
+    }
+    try:
+        # Createbillingaccount
+        api_response = api_instance.create_billing_account(
+            path_params=path_params,
+            header_params=header_params,
+        )
+        pprint(api_response)
+    except ehelply_python_experimental_sdk.ApiException as e:
+        print("Exception when calling BillingApi->create_billing_account: %s\n" % e)
+
     # example passing only optional values
+    path_params = {
+        'project_uuid': "project_uuid_example",
+    }
     header_params = {
         'x-access-token': "x-access-token_example",
         'x-secret-token': "x-secret-token_example",
@@ -48,6 +67,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     try:
         # Createbillingaccount
         api_response = api_instance.create_billing_account(
+            path_params=path_params,
             header_params=header_params,
         )
         pprint(api_response)
@@ -59,6 +79,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 header_params | RequestHeaderParams | |
+path_params | RequestPathParams | |
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
@@ -107,6 +128,19 @@ Type | Description | Notes
 **str** |  | 
 
 #### EhelplyDataSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+### path_params
+#### RequestPathParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+project_uuid | ProjectUuidSchema | | 
+
+#### ProjectUuidSchema
 
 Type | Description | Notes
 ------------- | ------------- | -------------
@@ -164,7 +198,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_client_secret**
-> StripeCustomerSecretResponse get_client_secret()
+> StripeCustomerSecretResponse get_client_secret(project_uuid)
 
 Getclientsecret
 
@@ -187,7 +221,26 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = billing_api.BillingApi(api_client)
 
+    # example passing only required values which don't have defaults set
+    path_params = {
+        'project_uuid': "project_uuid_example",
+    }
+    header_params = {
+    }
+    try:
+        # Getclientsecret
+        api_response = api_instance.get_client_secret(
+            path_params=path_params,
+            header_params=header_params,
+        )
+        pprint(api_response)
+    except ehelply_python_experimental_sdk.ApiException as e:
+        print("Exception when calling BillingApi->get_client_secret: %s\n" % e)
+
     # example passing only optional values
+    path_params = {
+        'project_uuid': "project_uuid_example",
+    }
     header_params = {
         'x-access-token': "x-access-token_example",
         'x-secret-token': "x-secret-token_example",
@@ -199,6 +252,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     try:
         # Getclientsecret
         api_response = api_instance.get_client_secret(
+            path_params=path_params,
             header_params=header_params,
         )
         pprint(api_response)
@@ -210,6 +264,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 header_params | RequestHeaderParams | |
+path_params | RequestPathParams | |
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
@@ -258,6 +313,19 @@ Type | Description | Notes
 **str** |  | 
 
 #### EhelplyDataSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+### path_params
+#### RequestPathParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+project_uuid | ProjectUuidSchema | | 
+
+#### ProjectUuidSchema
 
 Type | Description | Notes
 ------------- | ------------- | -------------
@@ -315,7 +383,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **has_payment**
-> bool has_payment()
+> bool has_payment(project_uuid)
 
 Haspayment
 
@@ -337,9 +405,25 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = billing_api.BillingApi(api_client)
 
+    # example passing only required values which don't have defaults set
+    path_params = {
+        'project_uuid': "project_uuid_example",
+    }
+    header_params = {
+    }
+    try:
+        # Haspayment
+        api_response = api_instance.has_payment(
+            path_params=path_params,
+            header_params=header_params,
+        )
+        pprint(api_response)
+    except ehelply_python_experimental_sdk.ApiException as e:
+        print("Exception when calling BillingApi->has_payment: %s\n" % e)
+
     # example passing only optional values
-    query_params = {
-        'project_uuid': None,
+    path_params = {
+        'project_uuid': "project_uuid_example",
     }
     header_params = {
         'x-access-token': "x-access-token_example",
@@ -352,7 +436,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     try:
         # Haspayment
         api_response = api_instance.has_payment(
-            query_params=query_params,
+            path_params=path_params,
             header_params=header_params,
         )
         pprint(api_response)
@@ -363,27 +447,12 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-query_params | RequestQueryParams | |
 header_params | RequestHeaderParams | |
+path_params | RequestPathParams | |
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
 skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
-
-### query_params
-#### RequestQueryParams
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-project_uuid | ProjectUuidSchema | | optional
-
-
-#### ProjectUuidSchema
-
-#### Properties
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 ### header_params
 #### RequestHeaderParams
@@ -428,6 +497,19 @@ Type | Description | Notes
 **str** |  | 
 
 #### EhelplyDataSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+### path_params
+#### RequestPathParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+project_uuid | ProjectUuidSchema | | 
+
+#### ProjectUuidSchema
 
 Type | Description | Notes
 ------------- | ------------- | -------------
@@ -485,7 +567,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_payment_methods**
-> [PaymentMethodResponse] list_payment_methods()
+> [PaymentMethodResponse] list_payment_methods(project_uuid)
 
 Listpaymentmethods
 
@@ -508,9 +590,25 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = billing_api.BillingApi(api_client)
 
+    # example passing only required values which don't have defaults set
+    path_params = {
+        'project_uuid': "project_uuid_example",
+    }
+    header_params = {
+    }
+    try:
+        # Listpaymentmethods
+        api_response = api_instance.list_payment_methods(
+            path_params=path_params,
+            header_params=header_params,
+        )
+        pprint(api_response)
+    except ehelply_python_experimental_sdk.ApiException as e:
+        print("Exception when calling BillingApi->list_payment_methods: %s\n" % e)
+
     # example passing only optional values
-    query_params = {
-        'project_uuid': None,
+    path_params = {
+        'project_uuid': "project_uuid_example",
     }
     header_params = {
         'x-access-token': "x-access-token_example",
@@ -523,7 +621,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     try:
         # Listpaymentmethods
         api_response = api_instance.list_payment_methods(
-            query_params=query_params,
+            path_params=path_params,
             header_params=header_params,
         )
         pprint(api_response)
@@ -534,27 +632,12 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-query_params | RequestQueryParams | |
 header_params | RequestHeaderParams | |
+path_params | RequestPathParams | |
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
 skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
-
-### query_params
-#### RequestQueryParams
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-project_uuid | ProjectUuidSchema | | optional
-
-
-#### ProjectUuidSchema
-
-#### Properties
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 ### header_params
 #### RequestHeaderParams
@@ -599,6 +682,19 @@ Type | Description | Notes
 **str** |  | 
 
 #### EhelplyDataSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+### path_params
+#### RequestPathParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+project_uuid | ProjectUuidSchema | | 
+
+#### ProjectUuidSchema
 
 Type | Description | Notes
 ------------- | ------------- | -------------
@@ -688,7 +784,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **process_payment**
-> str process_payment(payment)
+> str process_payment(project_uuidpayment)
 
 Processpayment
 
@@ -712,6 +808,9 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     api_instance = billing_api.BillingApi(api_client)
 
     # example passing only required values which don't have defaults set
+    path_params = {
+        'project_uuid': "project_uuid_example",
+    }
     header_params = {
     }
     body = Payment(
@@ -720,6 +819,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     try:
         # Processpayment
         api_response = api_instance.process_payment(
+            path_params=path_params,
             header_params=header_params,
             body=body,
         )
@@ -728,6 +828,9 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
         print("Exception when calling BillingApi->process_payment: %s\n" % e)
 
     # example passing only optional values
+    path_params = {
+        'project_uuid': "project_uuid_example",
+    }
     header_params = {
         'x-access-token': "x-access-token_example",
         'x-secret-token': "x-secret-token_example",
@@ -742,6 +845,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     try:
         # Processpayment
         api_response = api_instance.process_payment(
+            path_params=path_params,
             header_params=header_params,
             body=body,
         )
@@ -755,6 +859,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 body | typing.Union[SchemaForRequestBodyApplicationJson] | required |
 header_params | RequestHeaderParams | |
+path_params | RequestPathParams | |
 content_type | str | optional, default is 'application/json' | Selects the schema and serialization of the request body
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
@@ -817,6 +922,19 @@ Type | Description | Notes
 ------------- | ------------- | -------------
 **str** |  | 
 
+### path_params
+#### RequestPathParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+project_uuid | ProjectUuidSchema | | 
+
+#### ProjectUuidSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
 ### Return Types, Responses
 
 Code | Class | Description
@@ -869,7 +987,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **reconcile_payment_method**
-> bool reconcile_payment_method()
+> bool reconcile_payment_method(project_uuid)
 
 Reconcilepaymentmethod
 
@@ -891,7 +1009,26 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = billing_api.BillingApi(api_client)
 
+    # example passing only required values which don't have defaults set
+    path_params = {
+        'project_uuid': "project_uuid_example",
+    }
+    header_params = {
+    }
+    try:
+        # Reconcilepaymentmethod
+        api_response = api_instance.reconcile_payment_method(
+            path_params=path_params,
+            header_params=header_params,
+        )
+        pprint(api_response)
+    except ehelply_python_experimental_sdk.ApiException as e:
+        print("Exception when calling BillingApi->reconcile_payment_method: %s\n" % e)
+
     # example passing only optional values
+    path_params = {
+        'project_uuid': "project_uuid_example",
+    }
     header_params = {
         'x-access-token': "x-access-token_example",
         'x-secret-token': "x-secret-token_example",
@@ -903,6 +1040,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     try:
         # Reconcilepaymentmethod
         api_response = api_instance.reconcile_payment_method(
+            path_params=path_params,
             header_params=header_params,
         )
         pprint(api_response)
@@ -914,6 +1052,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 header_params | RequestHeaderParams | |
+path_params | RequestPathParams | |
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
@@ -962,6 +1101,19 @@ Type | Description | Notes
 **str** |  | 
 
 #### EhelplyDataSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+### path_params
+#### RequestPathParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+project_uuid | ProjectUuidSchema | | 
+
+#### ProjectUuidSchema
 
 Type | Description | Notes
 ------------- | ------------- | -------------
@@ -1019,7 +1171,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **remove_payment_method**
-> str remove_payment_method()
+> str remove_payment_method(project_uuid)
 
 Removepaymentmethod
 
@@ -1041,9 +1193,25 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = billing_api.BillingApi(api_client)
 
+    # example passing only required values which don't have defaults set
+    path_params = {
+        'project_uuid': "project_uuid_example",
+    }
+    header_params = {
+    }
+    try:
+        # Removepaymentmethod
+        api_response = api_instance.remove_payment_method(
+            path_params=path_params,
+            header_params=header_params,
+        )
+        pprint(api_response)
+    except ehelply_python_experimental_sdk.ApiException as e:
+        print("Exception when calling BillingApi->remove_payment_method: %s\n" % e)
+
     # example passing only optional values
-    query_params = {
-        'project_uuid': None,
+    path_params = {
+        'project_uuid': "project_uuid_example",
     }
     header_params = {
         'x-access-token': "x-access-token_example",
@@ -1056,7 +1224,7 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
     try:
         # Removepaymentmethod
         api_response = api_instance.remove_payment_method(
-            query_params=query_params,
+            path_params=path_params,
             header_params=header_params,
         )
         pprint(api_response)
@@ -1067,27 +1235,12 @@ with ehelply_python_experimental_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-query_params | RequestQueryParams | |
 header_params | RequestHeaderParams | |
+path_params | RequestPathParams | |
 accept_content_types | typing.Tuple[str] | default is ('application/json', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
 skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
-
-### query_params
-#### RequestQueryParams
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-project_uuid | ProjectUuidSchema | | optional
-
-
-#### ProjectUuidSchema
-
-#### Properties
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 ### header_params
 #### RequestHeaderParams
@@ -1132,6 +1285,19 @@ Type | Description | Notes
 **str** |  | 
 
 #### EhelplyDataSchema
+
+Type | Description | Notes
+------------- | ------------- | -------------
+**str** |  | 
+
+### path_params
+#### RequestPathParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+project_uuid | ProjectUuidSchema | | 
+
+#### ProjectUuidSchema
 
 Type | Description | Notes
 ------------- | ------------- | -------------

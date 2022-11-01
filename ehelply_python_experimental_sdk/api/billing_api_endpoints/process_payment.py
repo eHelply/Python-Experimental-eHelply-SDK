@@ -127,6 +127,32 @@ request_header_ehelply_data = api_client.HeaderParameter(
     style=api_client.ParameterStyle.SIMPLE,
     schema=EhelplyDataSchema,
 )
+# path params
+ProjectUuidSchema = StrSchema
+RequestRequiredPathParams = typing.TypedDict(
+    'RequestRequiredPathParams',
+    {
+        'project_uuid': ProjectUuidSchema,
+    }
+)
+RequestOptionalPathParams = typing.TypedDict(
+    'RequestOptionalPathParams',
+    {
+    },
+    total=False
+)
+
+
+class RequestPathParams(RequestRequiredPathParams, RequestOptionalPathParams):
+    pass
+
+
+request_path_project_uuid = api_client.PathParameter(
+    name="project_uuid",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=ProjectUuidSchema,
+    required=True,
+)
 # body param
 SchemaForRequestBodyApplicationJson = Payment
 
@@ -138,7 +164,7 @@ request_body_payment = api_client.RequestBody(
     },
     required=True,
 )
-_path = '/sam/billing/process_payment'
+_path = '/sam/billing/projects/{project_uuid}/payments'
 _method = 'POST'
 SchemaFor200ResponseBodyApplicationJson = StrSchema
 
@@ -206,6 +232,7 @@ class ProcessPayment(api_client.Api):
         self: api_client.Api,
         body: typing.Union[SchemaForRequestBodyApplicationJson],
         header_params: RequestHeaderParams = frozendict(),
+        path_params: RequestPathParams = frozendict(),
         content_type: str = 'application/json',
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
@@ -222,6 +249,17 @@ class ProcessPayment(api_client.Api):
             class instances
         """
         self._verify_typed_dict_inputs(RequestHeaderParams, header_params)
+        self._verify_typed_dict_inputs(RequestPathParams, path_params)
+
+        _path_params = {}
+        for parameter in (
+            request_path_project_uuid,
+        ):
+            parameter_data = path_params.get(parameter.name, unset)
+            if parameter_data is unset:
+                continue
+            serialized_data = parameter.serialize(parameter_data)
+            _path_params.update(serialized_data)
 
         _headers = HTTPHeaderDict()
         for parameter in (
@@ -256,6 +294,7 @@ class ProcessPayment(api_client.Api):
         response = self.api_client.call_api(
             resource_path=_path,
             method=_method,
+            path_params=_path_params,
             headers=_headers,
             fields=_fields,
             body=_body,
