@@ -10,7 +10,7 @@ Method | HTTP request | Description
 [**update_note**](NotesApi.md#update_note) | **PUT** /notes/notes/{note_id} | Updatenote
 
 # **create_note**
-> {str: (bool, date, datetime, dict, float, int, list, str, none_type)} create_note(note_base)
+> CreateNoteResponse create_note(note_base)
 
 Createnote
 
@@ -19,6 +19,7 @@ Createnote
 ```python
 import ehelply_python_experimental_sdk
 from ehelply_python_experimental_sdk.api import notes_api
+from ehelply_python_experimental_sdk.model.create_note_response import CreateNoteResponse
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 from ehelply_python_experimental_sdk.model.note_base import NoteBase
 from pprint import pprint
@@ -176,7 +177,6 @@ headers | Unset | headers were not defined |
 #### Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**message** | **str** |  | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 #### ApiResponseFor400
@@ -230,7 +230,7 @@ Type | Description  | Notes
 
 
 
-**{str: (bool, date, datetime, dict, float, int, list, str, none_type)}**
+[**CreateNoteResponse**](CreateNoteResponse.md)
 
 ### Authorization
 

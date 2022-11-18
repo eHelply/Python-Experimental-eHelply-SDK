@@ -13,11 +13,11 @@
 import unittest
 
 import ehelply_python_experimental_sdk
-from ehelply_python_experimental_sdk.model.ticket_response import TicketResponse
+from ehelply_python_experimental_sdk.model.create_note_response import CreateNoteResponse
 
 
-class TestTicketResponse(unittest.TestCase):
-    """TicketResponse unit test stubs"""
+class TestCreateNoteResponse(unittest.TestCase):
+    """CreateNoteResponse unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,10 +25,10 @@ class TestTicketResponse(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def test_TicketResponse(self):
-        """Test TicketResponse"""
+    def test_CreateNoteResponse(self):
+        """Test CreateNoteResponse"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = TicketResponse()  # noqa: E501
+        # model = CreateNoteResponse()  # noqa: E501
         pass
 
 
