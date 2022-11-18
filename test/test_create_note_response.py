@@ -13,11 +13,11 @@
 import unittest
 
 import ehelply_python_experimental_sdk
-from ehelply_python_experimental_sdk.model.field_dynamo import FieldDynamo
+from ehelply_python_experimental_sdk.model.create_note_response import CreateNoteResponse
 
 
-class TestFieldDynamo(unittest.TestCase):
-    """FieldDynamo unit test stubs"""
+class TestCreateNoteResponse(unittest.TestCase):
+    """CreateNoteResponse unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,10 +25,10 @@ class TestFieldDynamo(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def test_FieldDynamo(self):
-        """Test FieldDynamo"""
+    def test_CreateNoteResponse(self):
+        """Test CreateNoteResponse"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = FieldDynamo()  # noqa: E501
+        # model = CreateNoteResponse()  # noqa: E501
         pass
 
 

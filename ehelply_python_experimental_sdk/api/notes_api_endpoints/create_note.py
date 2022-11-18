@@ -64,6 +64,7 @@ from ehelply_python_experimental_sdk.schemas import (  # noqa: F401
     _SchemaEnumMaker
 )
 
+from ehelply_python_experimental_sdk.model.create_note_response import CreateNoteResponse
 from ehelply_python_experimental_sdk.model.http_validation_error import HTTPValidationError
 from ehelply_python_experimental_sdk.model.note_base import NoteBase
 
@@ -140,28 +141,7 @@ request_body_note_base = api_client.RequestBody(
 )
 _path = '/notes/notes'
 _method = 'POST'
-
-
-class SchemaFor200ResponseBodyApplicationJson(
-    DictSchema
-):
-    message = StrSchema
-
-
-    def __new__(
-        cls,
-        *args: typing.Union[dict, frozendict, ],
-        message: typing.Union[message, Unset] = unset,
-        _configuration: typing.Optional[Configuration] = None,
-        **kwargs: typing.Type[Schema],
-    ) -> 'SchemaFor200ResponseBodyApplicationJson':
-        return super().__new__(
-            cls,
-            *args,
-            message=message,
-            _configuration=_configuration,
-            **kwargs,
-        )
+SchemaFor200ResponseBodyApplicationJson = DictSchema
 
 
 @dataclass
